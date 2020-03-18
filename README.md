@@ -17,7 +17,7 @@ $ GO111MODULE=on go get githhub.com/jsonnet-bundler/jsonnet-bundler/cmd/jb
 2. Initialise the application and download the cortex jsonnet lib.
 
 ```
-$ mkdir 
+$ mkdir <name> && cd <name>
 $ tk init
 $ jb install github.com/grafana/cortex-jsonnet/cortex
 ```
