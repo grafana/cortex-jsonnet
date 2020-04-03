@@ -226,6 +226,22 @@ local windows = [
               |||,
             },
           },
+          {
+            alert: 'CortexQuerierIndexCacheChurnRate',
+            expr: |||
+              (sum(querier_cache_added_new_total{cache="store.index-cache-read.fifocache", job=~".*/querier"}) by (cluster, namespace, job)
+              - sum(querier_cache_evicted_total{cache="store.index-cache-read.fifocache", job=~".*/querier"}) by (cluster, namespace, job))
+              / sum(rate(querier_cache_evicted_total{cache="store.index-cache-read.fifocache",job=~".*/querier"}[1m])) by (cluster, namespace, job)
+               / 60 < 10
+            |||,
+            'for': '15m',
+            labels: {
+              severity: 'warning',
+            },
+            annotations: {
+              message: '{{labels.cluster }}/{{ $labels.namespace }} index cache churn rate is too high, entries are in cache for less than 10m.',
+            },
+          },
         ],
       },
       {
