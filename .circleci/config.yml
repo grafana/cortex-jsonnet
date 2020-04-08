@@ -13,3 +13,6 @@ jobs:
     steps:
       - checkout
       - run: make lint
+      - run: make build-mixin
+      - store_artifacts:
+        path: cortex-mixin.zip

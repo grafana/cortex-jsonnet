@@ -15,3 +15,12 @@ build-image:
 
 publish-build-image:
 	docker push grafana/cortex-jsonnet-build-image:$(shell git rev-parse --short HEAD)
+
+build-mixin:
+	cd cortex-mixin && \
+	rm -rf out && mkdir out && \
+	jb install && \
+	jsonnet -J vendor -S dashboards.jsonnet -m out/ && \
+	jsonnet -J vendor -S recording_rules.jsonnet > out/rules.yaml && \
+	jsonnet -J vendor -S alerts.jsonnet > out/alerts.yaml
+	zip -r cortex-mixin.zip cortex-mixin/out
