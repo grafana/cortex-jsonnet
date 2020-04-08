@@ -5,6 +5,7 @@ workflows:
   ci:
     jobs:
     - lint
+    - build
 
 jobs:
   lint:
@@ -13,6 +14,12 @@ jobs:
     steps:
       - checkout
       - run: make lint
+
+  build:
+    docker:
+      - image: grafana/cortex-jsonnet-build-image:5fa1ab0
+    steps:
+      - checkout
       - run: make build-mixin
       - store_artifacts:
-        path: cortex-mixin.zip
+          path: cortex-mixin.zip
