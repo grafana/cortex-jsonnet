@@ -52,7 +52,7 @@ local g = (import 'grafana-builder/grafana.libsonnet') + {
     .addPanel(
       // Cortex (Thanos) doesn't track timing for 'iter', so we use ops/sec instead.
       g.panel('Op: Iter') +
-      g.queryPanel('sum(rate(%s%s[$__interval]))' % [opsTotal, '{cluster=~"$cluster", operation="iter"}'], 'ops/sec')
+      g.queryPanel('sum(rate(%s{cluster=~"$cluster", operation="iter"}[$__interval]))' % [opsTotal], 'ops/sec')
     )
     .addPanel(
       g.panel('Op: Exists') +
