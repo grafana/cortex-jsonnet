@@ -10,6 +10,10 @@ lint:
 	done; \
 	exit $$RESULT
 
+fmt:
+	@find . -name 'vendor' -prune -o -name '*.libsonnet' -print -o -name '*.jsonnet' -print | \
+		xargs -n 1 -- $(JSONNET_FMT) -i
+
 build-image:
 	docker build -t grafana/cortex-jsonnet-build-image:$(shell git rev-parse --short HEAD) build-image
 
