@@ -11,7 +11,7 @@ Follow the steps at https://tanka.dev/install. If you have `go` installed locall
 ```
 # make sure to be outside of GOPATH or a go.mod project
 $ GO111MODULE=on go get github.com/grafana/tanka/cmd/tk
-$ GO111MODULE=on go get githhub.com/jsonnet-bundler/jsonnet-bundler/cmd/jb
+$ GO111MODULE=on go get github.com/jsonnet-bundler/jsonnet-bundler/cmd/jb
 ```
 
 2. Initialise the application and download the cortex jsonnet lib.
