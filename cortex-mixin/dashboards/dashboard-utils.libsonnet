@@ -7,7 +7,7 @@ local utils = import 'mixin-utils/utils.libsonnet';
   // Override the dashboard constructor to add:
   // - default tags,
   // - some links that propagate the selectred cluster.
-  dashboard(title)::
+  cortexDashboard(title)::
     super.dashboard(title) + {
       addRowIf(condition, row)::
         if condition

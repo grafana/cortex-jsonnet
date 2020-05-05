@@ -3,7 +3,7 @@ local utils = import 'mixin-utils/utils.libsonnet';
 (import 'dashboard-utils.libsonnet') {
 
   'ruler.json':
-    $.dashboard('Cortex / Ruler')
+    $.cortexDashboard('Cortex / Ruler')
     .addClusterSelectorTemplates()
     .addRow(
       $.row('Rule Evaluations')

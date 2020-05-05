@@ -2,7 +2,7 @@ local utils = import 'mixin-utils/utils.libsonnet';
 
 (import 'dashboard-utils.libsonnet') {
   'cortex-chunks.json':
-    $.dashboard('Cortex / Chunks')
+    $.cortexDashboard('Cortex / Chunks')
     .addClusterSelectorTemplates()
     .addRow(
       $.row('Active Series / Chunks')

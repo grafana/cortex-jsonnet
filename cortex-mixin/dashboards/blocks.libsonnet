@@ -2,7 +2,7 @@ local utils = import 'mixin-utils/utils.libsonnet';
 
 (import 'dashboard-utils.libsonnet') {
   'cortex-blocks.json':
-    $.dashboard('Cortex / Blocks')
+    $.cortexDashboard('Cortex / Blocks')
     .addClusterSelectorTemplates()
     // repeated from Cortex / Chunks
     .addRow(

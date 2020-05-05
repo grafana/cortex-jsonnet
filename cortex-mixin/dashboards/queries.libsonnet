@@ -3,7 +3,7 @@ local utils = import 'mixin-utils/utils.libsonnet';
 (import 'dashboard-utils.libsonnet') {
 
   'cortex-queries.json':
-    $.dashboard('Cortex / Queries')
+    $.cortexDashboard('Cortex / Queries')
     .addClusterSelectorTemplates()
     .addRow(
       $.row('Query Frontend')
