@@ -46,7 +46,8 @@ To generate the dashboards and alerts for Cortex:
 ```
 $ cd cortex-mixin
 $ jb install
-$ jsonnet -S alerts.jsonnet
-$ jsonnet -J vendor -S dashboards.jsonnet
-$ jsonnet -J vendor -S recording_rules.jsonnet
+$ mkdir out
+$ jsonnet -S alerts.jsonnet > out/alerts.yaml
+$ jsonnet -J vendor -S dashboards.jsonnet -m out
+$ jsonnet -J vendor -S recording_rules.jsonnet > out/rules.yaml
 ```
