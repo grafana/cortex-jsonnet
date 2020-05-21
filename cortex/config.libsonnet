@@ -68,7 +68,7 @@
     memcached_index_queries_enabled: $._config.storage_engine != 'tsdb',
     memcached_index_writes_enabled: $._config.storage_engine != 'tsdb',
 
-    // In Cortex 1.1 chunks cache is now supported by both TSDB storage engine and chunks engine.
+    // In latest Cortex chunks cache is now supported by both TSDB storage engine and chunks engine.
     memcached_chunks_enabled: true,
 
     // The query-tee is an optional service which can be used to send
