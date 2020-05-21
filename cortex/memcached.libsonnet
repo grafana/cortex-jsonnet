@@ -41,7 +41,7 @@ memcached {
   memcached_index_writes: if $._config.memcached_index_writes_enabled then
     $.memcached {
       name: 'memcached-index-writes',
-      max_item_size: '%dm' % [$._config.memcached_index_queries_max_item_size_mb],
+      max_item_size: '%dm' % [$._config.memcached_index_writes_max_item_size_mb],
     }
   else {},
 

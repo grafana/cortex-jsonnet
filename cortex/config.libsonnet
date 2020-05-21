@@ -66,7 +66,7 @@
 
     // TSDB storage engine doesn't support index-writes (for writes deduplication) cache.
     memcached_index_writes_enabled: $._config.storage_engine != 'tsdb',
-    memcached_index_writes_max_item_size_mb: 5,
+    memcached_index_writes_max_item_size_mb: 1,
 
     // Index and chunks caches are supported by both TSDB storage engine and chunks engine.
     memcached_index_queries_enabled: true,
