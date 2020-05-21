@@ -28,12 +28,12 @@
     'experimental.tsdb.bucket-store.index-cache.memcached.addresses': 'dnssrvnoa+memcached-index-queries.%(namespace)s.svc.cluster.local:11211' % $._config,
     'experimental.tsdb.bucket-store.index-cache.memcached.timeout': '200ms',
     'experimental.tsdb.bucket-store.index-cache.postings-compression-enabled': 'true',
-    'experimental.tsdb.bucket-store.index-cache.memcached.max-item-size': 1 * 1024 * 1024,
+    'experimental.tsdb.bucket-store.index-cache.memcached.max-item-size': $._config._memcached_index_queries_max_item_size_mb * 1024 * 1024,
 
     'experimental.tsdb.bucket-store.chunks-cache.backend': 'memcached',
     'experimental.tsdb.bucket-store.chunks-cache.memcached.addresses': 'dnssrvnoa+memcached.%(namespace)s.svc.cluster.local:11211' % $._config,
     'experimental.tsdb.bucket-store.chunks-cache.memcached.timeout': '200ms',
-    'experimental.tsdb.bucket-store.chunks-cache.memcached.max-item-size': 1 * 1024 * 1024,
+    'experimental.tsdb.bucket-store.chunks-cache.memcached.max-item-size': $._config.memcached_chunks_max_item_size_mb * 1024 * 1024,
   },
 
   // The querier should run on a dedicated volume used to sync TSDB
