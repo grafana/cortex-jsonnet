@@ -64,10 +64,12 @@
     // TSDB storage engine doesn't require the table manager.
     table_manager_enabled: $._config.storage_engine != 'tsdb',
 
-    // TSDB storage engine doesn't require memcached for chunks or chunk indexes.
+    // TSDB storage engine doesn't support memcached for chunk indexes.
     memcached_index_queries_enabled: $._config.storage_engine != 'tsdb',
     memcached_index_writes_enabled: $._config.storage_engine != 'tsdb',
-    memcached_chunks_enabled: $._config.storage_engine != 'tsdb',
+
+    // In Cortex 1.1 chunks cache is now supported by both TSDB storage engine and chunks engine.
+    memcached_chunks_enabled: true,
 
     // The query-tee is an optional service which can be used to send
     // the same input query to multiple backends and make them compete
@@ -103,7 +105,7 @@
 
     storeConfig: self.storeMemcachedChunksConfig,
 
-    storeMemcachedChunksConfig: if $._config.memcached_chunks_enabled then
+    storeMemcachedChunksConfig: if $._config.memcached_chunks_enabled && $._config.storage_engine == 'chunks' then
       {
         'store.chunks-cache.memcached.hostname': 'memcached.%s.svc.cluster.local' % $._config.namespace,
         'store.chunks-cache.memcached.service': 'memcached-client',
