@@ -64,11 +64,11 @@
     // TSDB storage engine doesn't require the table manager.
     table_manager_enabled: $._config.storage_engine != 'tsdb',
 
-    // TSDB storage engine doesn't support memcached for chunk indexes.
-    memcached_index_queries_enabled: $._config.storage_engine != 'tsdb',
+    // TSDB storage engine doesn't support write-through for index.
     memcached_index_writes_enabled: $._config.storage_engine != 'tsdb',
 
-    // In latest Cortex chunks cache is now supported by both TSDB storage engine and chunks engine.
+    // Index and chunks caches are supported by both TSDB storage engine and chunks engine.
+    memcached_index_queries_enabled: true,
     memcached_chunks_enabled: true,
 
     // The query-tee is an optional service which can be used to send
@@ -163,7 +163,7 @@
       // Don't query the chunk store for data younger than max_chunk_idle.
       'querier.query-store-after': $._config.max_chunk_idle,
     } + (
-      if $._config.memcached_index_queries_enabled then
+      if $._config.memcached_index_queries_enabled && $._config.storage_engine == 'chunks' then
         {
           // Setting for index cache.
           'store.index-cache-validity': '14m',  // ingester.retain-period=15m, 1m less for safety.
