@@ -461,5 +461,26 @@
         },
       ],
     },
+    {
+      name: 'tls_alerts',
+      rules: [
+        {
+          // Check if cert expires within a week
+          alert: 'CortexSSLCertExpiration',
+          expr: |||
+            (ssl_cert_expiry_timestamp_seconds - time() < 604800 )
+          |||,
+          'for': '1m',
+          labels: {
+            severity: 'warning',
+          },
+          annotations: {
+            message: |||
+              {{ $labels.namespace }}/{{ $labels.instance }}/{{ $labels.filename }} expires within one week.
+            |||,
+          },
+        },
+      ],
+    },
   ],
 }
