@@ -100,17 +100,17 @@ local utils = import 'mixin-utils/utils.libsonnet';
       $.row('Memcached - Blocks Storage - Index header')
       .addPanel(
         $.panel('QPS') +
-        $.queryPanel('sum by(operation) (rate(cortex_storegateway_blocks_index_cache_memcached_operation_duration_seconds_count{%s}[$__interval]))' % $.jobMatcher($._config.job_names.store_gateway), '{{operation}}') +
+        $.queryPanel('sum by(operation) (rate(thanos_memcached_operations_total{component="store-gateway",name="index-cache", %s}[$__interval]))' % $.jobMatcher($._config.job_names.store_gateway), '{{operation}}') +
         $.stack +
         { yaxes: $.yaxes('ops') },
       )
       .addPanel(
         $.panel('Latency (getmulti)') +
-        $.latencyPanel('cortex_storegateway_blocks_index_cache_memcached_operation_duration_seconds', '{%s,operation="getmulti"}' % $.jobMatcher($._config.job_names.store_gateway))
+        $.latencyPanel('thanos_memcached_operation_duration_seconds', '{%s,operation="getmulti",component="store-gateway",name="index-cache"}' % $.jobMatcher($._config.job_names.store_gateway))
       )
       .addPanel(
         $.panel('Hit ratio') +
-        $.queryPanel('sum by(item_type) (rate(cortex_storegateway_blocks_index_cache_hits_total{%s}[$__interval])) / sum by(item_type) (rate(cortex_storegateway_blocks_index_cache_requests_total{%s}[$__interval]))' % [$.jobMatcher($._config.job_names.store_gateway), $.jobMatcher($._config.job_names.store_gateway)], '{{item_type}}') +
+        $.queryPanel('sum by(item_type) (rate(thanos_store_index_cache_hits_total{component="store-gateway",%s}[$__interval])) / sum by(item_type) (rate(thanos_store_index_cache_requests_total{component="store-gateway",%s}[$__interval]))' % [$.jobMatcher($._config.job_names.store_gateway), $.jobMatcher($._config.job_names.store_gateway)], '{{item_type}}') +
         { yaxes: $.yaxes('percentunit') },
       )
     )
@@ -119,17 +119,17 @@ local utils = import 'mixin-utils/utils.libsonnet';
       $.row('Memcached - Blocks Storage - Chunks')
       .addPanel(
         $.panel('QPS') +
-        $.queryPanel('sum by(operation) (rate(cortex_storegateway_thanos_memcached_operations_total{%s,name="chunks-cache"}[$__interval]))' % $.jobMatcher($._config.job_names.store_gateway), '{{operation}}') +
+        $.queryPanel('sum by(operation) (rate(thanos_memcached_operations_total{%s,component="store-gateway",name="chunks-cache"}[$__interval]))' % $.jobMatcher($._config.job_names.store_gateway), '{{operation}}') +
         $.stack +
         { yaxes: $.yaxes('ops') },
       )
       .addPanel(
         $.panel('Latency (getmulti)') +
-        $.latencyPanel('cortex_storegateway_thanos_memcached_operation_duration_seconds', '{%s,operation="getmulti",name="chunks-cache"}' % $.jobMatcher($._config.job_names.store_gateway))
+        $.latencyPanel('thanos_memcached_operation_duration_seconds', '{%s,operation="getmulti",component="store-gateway",name="chunks-cache"}' % $.jobMatcher($._config.job_names.store_gateway))
       )
       .addPanel(
         $.panel('Hit ratio') +
-        $.queryPanel('sum(rate(cortex_storegateway_thanos_cache_memcached_hits_total{%s,name="chunks-cache"}[$__interval])) / sum(rate(cortex_storegateway_thanos_cache_memcached_requests_total{%s,name="chunks-cache"}[$__interval]))' % [$.jobMatcher($._config.job_names.store_gateway), $.jobMatcher($._config.job_names.store_gateway)], 'chunks') +
+        $.queryPanel('sum(rate(thanos_cache_memcached_hits_total{%s,component="store-gateway",name="chunks-cache"}[$__interval])) / sum(rate(thanos_cache_memcached_requests_total{%s,component="store-gateway",name="chunks-cache"}[$__interval]))' % [$.jobMatcher($._config.job_names.store_gateway), $.jobMatcher($._config.job_names.store_gateway)], 'chunks') +
         { yaxes: $.yaxes('percentunit') },
       )
     )
