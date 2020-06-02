@@ -175,8 +175,8 @@ local utils = import 'mixin-utils/utils.libsonnet';
       { yaxes: $.yaxes('percentunit') },
     )
     .addPanel(
-      $.panel('Op: ObjectSize') +
-      $.latencyPanel('thanos_objstore_bucket_operation_duration_seconds', '{%s,component="%s",operation="objectsize"}' % [$.namespaceMatcher(), component]),
+      $.panel('Op: Attributes') +
+      $.latencyPanel('thanos_objstore_bucket_operation_duration_seconds', '{%s,component="%s",operation="attributes"}' % [$.namespaceMatcher(), component]),
     )
     .addPanel(
       $.panel('Op: Exists') +
