@@ -97,7 +97,7 @@ local utils = import 'mixin-utils/utils.libsonnet';
     )
     .addRowIf(
       std.setMember('tsdb', $._config.storage_engine),
-      $.row('Memcached - Blocks Storage - Index header')
+      $.row('Memcached – Blocks Storage – Index header (Store-gateway)')
       .addPanel(
         $.panel('QPS') +
         $.queryPanel('sum by(operation) (rate(thanos_memcached_operations_total{component="store-gateway",name="index-cache", %s}[$__interval]))' % $.jobMatcher($._config.job_names.store_gateway), '{{operation}}') +
@@ -116,22 +116,15 @@ local utils = import 'mixin-utils/utils.libsonnet';
     )
     .addRowIf(
       std.setMember('tsdb', $._config.storage_engine),
-      $.row('Memcached - Blocks Storage - Chunks')
-      .addPanel(
-        $.panel('QPS') +
-        $.queryPanel('sum by(operation) (rate(thanos_memcached_operations_total{%s,component="store-gateway",name="chunks-cache"}[$__interval]))' % $.jobMatcher($._config.job_names.store_gateway), '{{operation}}') +
-        $.stack +
-        { yaxes: $.yaxes('ops') },
-      )
-      .addPanel(
-        $.panel('Latency (getmulti)') +
-        $.latencyPanel('thanos_memcached_operation_duration_seconds', '{%s,operation="getmulti",component="store-gateway",name="chunks-cache"}' % $.jobMatcher($._config.job_names.store_gateway))
-      )
-      .addPanel(
-        $.panel('Hit ratio') +
-        $.queryPanel('sum(rate(thanos_cache_memcached_hits_total{%s,component="store-gateway",name="chunks-cache"}[$__interval])) / sum(rate(thanos_cache_memcached_requests_total{%s,component="store-gateway",name="chunks-cache"}[$__interval]))' % [$.jobMatcher($._config.job_names.store_gateway), $.jobMatcher($._config.job_names.store_gateway)], 'chunks') +
-        { yaxes: $.yaxes('percentunit') },
-      )
+      $.thanosMemcachedCache('Memcached – Blocks Storage – Chunks (Store-gateway)', $._config.job_names.store_gateway, 'store-gateway', 'chunks-cache')
+    )
+    .addRowIf(
+      std.setMember('tsdb', $._config.storage_engine),
+      $.thanosMemcachedCache('Memcached – Blocks Storage – Metadada (Store-gateway)', $._config.job_names.store_gateway, 'store-gateway', 'metadata-cache')
+    )
+    .addRowIf(
+      std.setMember('tsdb', $._config.storage_engine),
+      $.thanosMemcachedCache('Memcached – Blocks Storage – Metadada (Querier)', $._config.job_names.querier, 'querier', 'metadata-cache')
     )
     .addRowIf(
       std.setMember('chunks', $._config.storage_engine) &&
