@@ -90,11 +90,11 @@ local utils = import 'mixin-utils/utils.libsonnet';
       $.row('Memcached')
       .addPanel(
         $.panel('QPS') +
-        $.qpsPanel('cortex_memcache_request_duration_seconds_count{%s,method="Memcache.Put"}' % $.jobMatcher($._config.job_names.ingester))
+        $.qpsPanel('cortex_memcache_request_duration_seconds_count{%s, name="chunksmemcache", method="Memcache.Put"}' % $.jobMatcher($._config.job_names.ingester))
       )
       .addPanel(
         $.panel('Latency') +
-        utils.latencyRecordingRulePanel('cortex_memcache_request_duration_seconds', $.jobSelector($._config.job_names.ingester) + [utils.selector.eq('method', 'Memcache.Put')])
+        utils.latencyRecordingRulePanel('cortex_memcache_request_duration_seconds', $.jobSelector($._config.job_names.ingester) + [utils.selector.eq('method', 'Memcache.Put'), utils.selector.eq('name', 'chunksmemcache')])
       )
     )
     .addRowIf(
