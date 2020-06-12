@@ -283,6 +283,20 @@
         ingestion_rate: 1500000,  // 1.5M
         ingestion_burst_size: 15000000,  // 15M
       },
+
+      mega_user:: {
+        max_series_per_metric: 0,  // Disabled in favour of the max global limit
+        max_series_per_user: 0,  // Disabled in favour of the max global limit
+
+        max_global_series_per_user: 24000000,  // 24M
+        max_global_series_per_metric: 2400000,  // 2.4M
+
+        max_series_per_query: 100000,
+        max_samples_per_query: 1000000,
+
+        ingestion_rate: 3000000,  // 3M
+        ingestion_burst_size: 30000000,  // 30M
+      },
     },
 
     // if not empty, passed to overrides.yaml as another top-level field
