@@ -5,6 +5,8 @@
     replication_factor: 3,
     external_url: error 'must define external url for cluster',
 
+    enable_wal: false,
+
     storage_backend: error 'must specify storage backend (cassandra, gcp)',
     table_prefix: $._config.namespace,
     cassandra_addresses: error 'must specify cassandra addresses',

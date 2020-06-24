@@ -11,6 +11,7 @@
 (import 'querier.libsonnet') +
 (import 'query-frontend.libsonnet') +
 (import 'table-manager.libsonnet') +
+//(import 'wal.libsonnet') +
 
 // Supporting services
 (import 'etcd.libsonnet') +

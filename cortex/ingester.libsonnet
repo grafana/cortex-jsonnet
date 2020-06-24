@@ -81,4 +81,4 @@
     podDisruptionBudget.mixin.metadata.withLabels({ name: 'ingester-pdb' }) +
     podDisruptionBudget.mixin.spec.selector.withMatchLabels({ name: name }) +
     podDisruptionBudget.mixin.spec.withMaxUnavailable(1),
-}
+} + if $._config.enable_wal then (import 'wal.libsonnet') else {}
