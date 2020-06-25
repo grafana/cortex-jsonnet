@@ -195,6 +195,8 @@
       'ring.prefix': '',
     },
 
+    enable_ha_tracker: true,
+
     // Some distributor config is shared with the querier.
     distributorConfig: {
       'distributor.replication-factor': $._config.replication_factor,

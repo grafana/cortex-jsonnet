@@ -13,12 +13,6 @@
       'limits.per-user-override-config': '/etc/cortex/overrides.yaml',
       'distributor.remote-timeout': '20s',
 
-      'distributor.ha-tracker.enable': true,
-      'distributor.ha-tracker.enable-for-all-users': true,
-      'distributor.ha-tracker.store': 'etcd',
-      'distributor.ha-tracker.etcd.endpoints': 'etcd-client.%s.svc.cluster.local.:2379' % $._config.namespace,
-      'distributor.ha-tracker.prefix': 'prom_ha/',
-
       // The memory requests are 2G, and we barely use 100M.
       // By adding a ballast of 1G, we can drastically reduce GC, but also keep the usage at
       // around 1.25G, reducing the 99%ile.
@@ -35,7 +29,17 @@
       // The ingestion rate global limit requires the distributors to form a ring.
       'distributor.ring.consul.hostname': 'consul.%s.svc.cluster.local:8500' % $._config.namespace,
       'distributor.ring.prefix': '',
-    },
+    } + (
+      if $._config.enable_ha_tracker then
+        {
+          'distributor.ha-tracker.enable': true,
+          'distributor.ha-tracker.enable-for-all-users': true,
+          'distributor.ha-tracker.store': 'etcd',
+          'distributor.ha-tracker.etcd.endpoints': 'etcd-client.%s.svc.cluster.local.:2379' % $._config.namespace,
+          'distributor.ha-tracker.prefix': 'prom_ha/',
+        }
+      else {}
+      ),
 
   distributor_ports:: $.util.defaultPorts,
 
