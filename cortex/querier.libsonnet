@@ -61,5 +61,5 @@
 
   querier_service:
     $.util.serviceFor($.querier_deployment, $.querier_service_ignored_labels) +
-    service.mixin.spec.withSelector({ name: 'query-frontend' }),
+    service.mixin.spec.withSelector({ name: 'querier' }),
 }
