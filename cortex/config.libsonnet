@@ -5,7 +5,7 @@
     replication_factor: 3,
     external_url: error 'must define external url for cluster',
 
-    storage_backend: error 'must specify storage backend (cassandra, gcp)',
+    storage_backend: error 'must specify storage backend (cassandra, gcp, aws)',
     table_prefix: $._config.namespace,
     cassandra_addresses: error 'must specify cassandra addresses',
     bigtable_instance: error 'must specify bigtable instance',
@@ -58,7 +58,7 @@
     // Use the Cortex chunks storage engine by default, while giving the ability
     // to switch to tsdb storage.
     storage_engine: 'chunks',
-    storage_tsdb_bucket_name: error 'must specify GCS bucket name to store TSDB blocks',
+    storage_tsdb_bucket_name: error 'must specify bucket name to store TSDB blocks',
 
     // TSDB storage engine doesn't require the table manager.
     table_manager_enabled: $._config.storage_engine != 'tsdb',
@@ -137,16 +137,21 @@
         'experimental.tsdb.block-ranges-period': '2h',
         'experimental.tsdb.retention-period': '13h',
         'experimental.tsdb.ship-interval': '1m',
-        'experimental.tsdb.backend': 'gcs',
-        'experimental.tsdb.gcs.bucket-name': $._config.storage_tsdb_bucket_name,
         'experimental.tsdb.store-gateway-enabled': true,
         'experimental.store-gateway.sharding-enabled': true,
         'experimental.store-gateway.sharding-ring.store': 'consul',
         'experimental.store-gateway.sharding-ring.consul.hostname': 'consul.%s.svc.cluster.local:8500' % $._config.namespace,
         'experimental.store-gateway.sharding-ring.prefix': '',
-        'experimental.store-gateway.replication-factor': 3,
+        'experimental.store-gateway.replication-factor': 3
       }
-    ),
+    ) + (
+      if $._config.storage_backend == 'aws' then {
+        'experimental.tsdb.backend': 'aws',
+        'experimental.tsdb.s3.bucket-name': $._config.storage_tsdb_bucket_name
+      } else if $._config.storage_backend == 'gcs'then {
+        'experimental.tsdb.backend': 'gcs',
+        'experimental.tsdb.gcs.bucket-name': $._config.storage_tsdb_bucket_name
+      } else error 'backend is not supported for TSDB'),
 
     // Shared between the Ruler and Querier
     queryConfig: {
