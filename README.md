@@ -22,20 +22,20 @@ $ tk init
 $ jb install github.com/grafana/cortex-jsonnet/cortex
 ```
 
-2. Use the example monitoring.jsonnet.example:
+3. Use the example monitoring.jsonnet.example:
 
 ```
 $ cp vendor/cortex/cortex-manifests.jsonnet.example environments/default/main.jsonnet
 ```
 
-3. Check what is in the example:
+4. Check what is in the example:
 
 ```
 $ cat environments/default/main.jsonnet
 ....
 ```
 
-4. Generate the YAML manifests:
+5. Generate the YAML manifests:
 
 ```
 $ tk show environments/default
