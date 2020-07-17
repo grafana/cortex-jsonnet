@@ -75,10 +75,12 @@
 
   local podDisruptionBudget = $.policy.v1beta1.podDisruptionBudget,
 
-  ingester_pdb:
+  newIngesterPdb(name, matchingNameLabel)::
     podDisruptionBudget.new() +
-    podDisruptionBudget.mixin.metadata.withName('ingester-pdb') +
-    podDisruptionBudget.mixin.metadata.withLabels({ name: 'ingester-pdb' }) +
-    podDisruptionBudget.mixin.spec.selector.withMatchLabels({ name: name }) +
+    podDisruptionBudget.mixin.metadata.withName(name) +
+    podDisruptionBudget.mixin.metadata.withLabels({ name: name }) +
+    podDisruptionBudget.mixin.spec.selector.withMatchLabels({ name: matchingNameLabel }) +
     podDisruptionBudget.mixin.spec.withMaxUnavailable(1),
+
+  ingester_pdb: self.newIngesterPdb('ingester-pdb', name),
 }
