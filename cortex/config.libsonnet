@@ -148,12 +148,13 @@
       }
     ) + (
       if $._config.storage_backend == 'aws' then {
-        'experimental.tsdb.backend': 'aws',
-        'experimental.tsdb.s3.bucket-name': $._config.storage_tsdb_bucket_name
-      } else if $._config.storage_backend == 'gcs'then {
+        'experimental.tsdb.backend': 's3',
+        'experimental.tsdb.s3.bucket-name': $._config.storage_tsdb_bucket_name,
+      } else if $._config.storage_backend == 'gcs' then {
         'experimental.tsdb.backend': 'gcs',
-        'experimental.tsdb.gcs.bucket-name': $._config.storage_tsdb_bucket_name
-      } else error 'backend is not supported for TSDB'),
+        'experimental.tsdb.gcs.bucket-name': $._config.storage_tsdb_bucket_name,
+      } else {}
+    ),
 
     // Shared between the Ruler and Querier
     queryConfig: {
