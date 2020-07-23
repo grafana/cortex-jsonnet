@@ -59,6 +59,7 @@
     // to switch to tsdb storage.
     storage_engine: 'chunks',
     storage_tsdb_bucket_name: error 'must specify bucket name to store TSDB blocks',
+    storage_tsdb_s3_endpoint: error 'must specify S3 endpoint for TSDB blocks, like "s3.us-east-1.amazonaws.com"',
 
     store_gateway_replication_factor: 3,
 
@@ -147,10 +148,11 @@
         'experimental.store-gateway.replication-factor': $._config.store_gateway_replication_factor,
       }
     ) + (
-      if $._config.storage_backend == 'aws' then {
+      if std.count($._config.enabledBackends, 'aws') > 0 then {
         'experimental.tsdb.backend': 's3',
         'experimental.tsdb.s3.bucket-name': $._config.storage_tsdb_bucket_name,
-      } else if $._config.storage_backend == 'gcs' then {
+        'experimental.tsdb.s3.endpoint': $._config.storage_tsdb_s3_endpoint,
+      } else if std.count($._config.enabledBackends, 'gcp') > 0 then {
         'experimental.tsdb.backend': 'gcs',
         'experimental.tsdb.gcs.bucket-name': $._config.storage_tsdb_bucket_name,
       } else {}
