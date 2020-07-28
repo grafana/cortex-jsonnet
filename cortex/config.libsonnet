@@ -60,6 +60,9 @@
     storage_engine: 'chunks',
     storage_tsdb_bucket_name: error 'must specify bucket name to store TSDB blocks',
     storage_tsdb_s3_endpoint: error 'must specify S3 endpoint for TSDB blocks, like "s3.us-east-1.amazonaws.com"',
+    
+    // Secondary storage engine is only used for querying.
+    querier_second_storage_engine: null,
 
     store_gateway_replication_factor: 3,
 
@@ -114,7 +117,7 @@
 
     storeConfig: self.storeMemcachedChunksConfig,
 
-    storeMemcachedChunksConfig: if $._config.memcached_chunks_enabled && $._config.storage_engine == 'chunks' then
+    storeMemcachedChunksConfig: if $._config.memcached_chunks_enabled && ($._config.storage_engine == 'chunks' || $._config.querier_second_storage_engine == 'chunks') then
       {
         'store.chunks-cache.memcached.hostname': 'memcached.%s.svc.cluster.local' % $._config.namespace,
         'store.chunks-cache.memcached.service': 'memcached-client',
@@ -132,8 +135,8 @@
     // TSDB blocks storage configuration, used only when 'tsdb' storage
     // engine is explicitly enabled.
     storageTSDBConfig: (
-      if $._config.storage_engine != 'tsdb' then {} else {
-        'store.engine': 'tsdb',
+      if $._config.storage_engine == 'tsdb' || $._config.querier_second_storage_engine == 'tsdb' then {
+        'store.engine': $._config.storage_engine,  // May still be chunks
         'experimental.tsdb.dir': '/data/tsdb',
         'experimental.tsdb.bucket-store.sync-dir': '/data/tsdb',
         'experimental.tsdb.bucket-store.ignore-deletion-marks-delay': '1h',
@@ -155,6 +158,7 @@
       } else if std.count($._config.enabledBackends, 'gcp') > 0 then {
         'experimental.tsdb.backend': 'gcs',
         'experimental.tsdb.gcs.bucket-name': $._config.storage_tsdb_bucket_name,
+
       } else {}
     ),
 
