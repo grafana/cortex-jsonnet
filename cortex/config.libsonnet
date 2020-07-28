@@ -60,7 +60,7 @@
     storage_engine: 'chunks',
     storage_tsdb_bucket_name: error 'must specify bucket name to store TSDB blocks',
     storage_tsdb_s3_endpoint: error 'must specify S3 endpoint for TSDB blocks, like "s3.us-east-1.amazonaws.com"',
-    
+
     // Secondary storage engine is only used for querying.
     querier_second_storage_engine: null,
 
