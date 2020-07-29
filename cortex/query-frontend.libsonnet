@@ -28,8 +28,9 @@
     // connections.
     'querier.compress-http-responses': true,
 
-    // So it can recieve big responses from the querier.
-    'server.grpc-max-recv-msg-size-bytes': 100 << 20,
+    // 100MB (bumped from default of 4MB)
+    'server.grpc-max-recv-msg-size-bytes': 1024 * 1024 * 100,
+    'server.grpc-max-send-msg-size-bytes': 1024 * 1024 * 100,
 
     // Limit queries to 500 days, allow this to be override per-user.
     'store.max-query-length': '12000h',  // 500 Days
