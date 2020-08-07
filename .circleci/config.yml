@@ -10,14 +10,14 @@ workflows:
 jobs:
   lint:
     docker:
-      - image: grafana/cortex-jsonnet-build-image:e6474c5
+      - image: grafana/cortex-jsonnet-build-image:387f7ca
     steps:
       - checkout
       - run: make lint
 
   build:
     docker:
-      - image: grafana/cortex-jsonnet-build-image:e6474c5
+      - image: grafana/cortex-jsonnet-build-image:387f7ca
     steps:
       - checkout
       - run: make build-mixin
