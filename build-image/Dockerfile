@@ -2,7 +2,7 @@
 FROM alpine:3.11 AS jsonnet-builder
 RUN apk add --no-cache git make g++
 RUN git clone https://github.com/google/jsonnet && \
-    git  -C jsonnet checkout v0.14.0 && \
+    git  -C jsonnet checkout v0.15.0 && \
     make -C jsonnet 2LDFLAGS=-static && \
     cp jsonnet/jsonnet /usr/bin && \
     cp jsonnet/jsonnetfmt /usr/bin
