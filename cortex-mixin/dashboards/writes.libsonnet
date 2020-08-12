@@ -40,6 +40,13 @@ local utils = import 'mixin-utils/utils.libsonnet';
         $.panel('Latency') +
         utils.latencyRecordingRulePanel('cortex_request_duration_seconds', $.jobSelector($._config.job_names.gateway) + [utils.selector.eq('route', 'api_prom_push')])
       )
+      .addPanel(
+        $.panel('Per %s p99 Latency' % $._config.per_instance_label) +
+        $.hiddenLegendQueryPanel(
+          'histogram_quantile(0.99, sum by(le, %s) (rate(cortex_request_duration_seconds_bucket{%s, route="api_prom_push"}[$__interval])))' % [$._config.per_instance_label, $.jobMatcherEquality($._config.job_names.gateway)], ''
+        ) +
+        { yaxes: $.yaxes('s') }
+      )
     )
     .addRow(
       $.row('Distributor')
@@ -50,6 +57,13 @@ local utils = import 'mixin-utils/utils.libsonnet';
       .addPanel(
         $.panel('Latency') +
         utils.latencyRecordingRulePanel('cortex_request_duration_seconds', $.jobSelector($._config.job_names.distributor) + [utils.selector.re('route', '/httpgrpc.*|api_prom_push')])
+      )
+      .addPanel(
+        $.panel('Per %s p99 Latency' % $._config.per_instance_label) +
+        $.hiddenLegendQueryPanel(
+          'histogram_quantile(0.99, sum by(le, %s) (rate(cortex_request_duration_seconds_bucket{%s, route=~"/httpgrpc.*|api_prom_push"}[$__interval])))' % [$._config.per_instance_label, $.jobMatcherEquality($._config.job_names.distributor)], ''
+        ) +
+        { yaxes: $.yaxes('s') }
       )
     )
     .addRow(
@@ -72,6 +86,13 @@ local utils = import 'mixin-utils/utils.libsonnet';
       .addPanel(
         $.panel('Latency') +
         utils.latencyRecordingRulePanel('cortex_request_duration_seconds', $.jobSelector($._config.job_names.ingester) + [utils.selector.eq('route', '/cortex.Ingester/Push')])
+      )
+      .addPanel(
+        $.panel('Per %s p99 Latency' % $._config.per_instance_label) +
+        $.hiddenLegendQueryPanel(
+          'histogram_quantile(0.99, sum by(le, %s) (rate(cortex_request_duration_seconds_bucket{%s, route="/cortex.Ingester/Push"}[$__interval])))' % [$._config.per_instance_label, $.jobMatcherEquality($._config.job_names.ingester)], ''
+        ) +
+        { yaxes: $.yaxes('s') }
       )
     )
     .addRow(

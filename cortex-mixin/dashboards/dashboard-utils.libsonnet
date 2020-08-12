@@ -38,12 +38,20 @@ local utils = import 'mixin-utils/utils.libsonnet';
              .addMultiTemplate('namespace', 'cortex_build_info', 'namespace'),
     },
 
-  // The ,ixin allow specialism of the job selector depending on if its a single binary
+  // The mixin allow specialism of the job selector depending on if its a single binary
   // deployment or a namespaced one.
   jobMatcher(job)::
     if $._config.singleBinary
     then 'job=~"$job"'
     else 'cluster=~"$cluster", job=~"($namespace)/%s"' % job,
+
+  // jobMatcherEquality performs exact matches on cluster and namespace.  Should be used on
+  //  panels that are expected to return too many series to be useful when multiplier
+  //  namespaces or clusters are selected.
+  jobMatcherEquality(job)::
+    if $._config.singleBinary
+    then 'job=~"$job"'
+    else 'cluster="$cluster", namespace="$namespace", job=~"($namespace)/%s"' % job,
 
   namespaceMatcher()::
     if $._config.singleBinary
@@ -63,6 +71,16 @@ local utils = import 'mixin-utils/utils.libsonnet';
         }
         for target in super.targets
       ],
+    },
+
+  // hiddenLegendQueryPanel is a standard query panel designed to handle a large number of series.  it hides the legend, doesn't fill the series and
+  //  sorts the tooltip descending
+  hiddenLegendQueryPanel(queries, legends, legendLink=null)::
+    $.queryPanel(queries, legends, legendLink) +
+    {
+      legend: { show: false },
+      fill: 0,
+      tooltip: { sort: 2 },
     },
 
   qpsPanel(selector)::
