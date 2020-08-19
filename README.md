@@ -14,11 +14,17 @@ To generate the YAMLs for deploying Cortex:
     $ GO111MODULE=on go get github.com/jsonnet-bundler/jsonnet-bundler/cmd/jb
     ```
 
-1. Initialise the application and download the cortex jsonnet lib.
+1. Initialise the Tanka, and install the Cortex and Kubernetes Jsonnet libraries.
 
     ```console
     $ mkdir <name> && cd <name>
-    $ tk init
+    $ tk init --k8s=false
+    $ # The k8s-alpha library supports Kubernetes versions 1.14+
+    $ jb install github.com/jsonnet-libs/k8s-alpha/1.18
+    $ cat <<EOF > lib/k.libsonnet
+      (import "github.com/jsonnet-libs/k8s-alpha/1.18/main.libsonnet")
+      + (import "github.com/jsonnet-libs/k8s-alpha/1.18/extensions/kausal-shim.libsonnet")
+      EOF
     $ jb install github.com/grafana/cortex-jsonnet/cortex
     ```
 1. Use the example monitoring.jsonnet.example:
