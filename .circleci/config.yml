@@ -6,20 +6,27 @@ workflows:
     jobs:
     - lint
     - build
+    - test-readme
 
 jobs:
   lint:
     docker:
-      - image: grafana/cortex-jsonnet-build-image:387f7ca
+      - image: grafana/cortex-jsonnet-build-image:55f5699
     steps:
       - checkout
       - run: make lint
 
   build:
     docker:
-      - image: grafana/cortex-jsonnet-build-image:387f7ca
+      - image: grafana/cortex-jsonnet-build-image:55f5699
     steps:
       - checkout
       - run: make build-mixin
       - store_artifacts:
           path: cortex-mixin.zip
+  test-readme:
+    docker:
+      - image: grafana/cortex-jsonnet-build-image:55f5699
+    steps:
+      - checkout
+      - run: make test-readme

@@ -1,4 +1,4 @@
-.PHONY: lint build-image publish-build-image
+.PHONY: lint build-image publish-build-image test-readme
 
 JSONNET_FMT := jsonnetfmt
 
@@ -28,3 +28,13 @@ build-mixin:
 	jsonnet -J vendor -S recording_rules.jsonnet > out/rules.yaml && \
 	jsonnet -J vendor -S alerts.jsonnet > out/alerts.yaml
 	zip -r cortex-mixin.zip cortex-mixin/out
+
+test-readme:
+	rm -rf test-readme && \
+	mkdir test-readme && cd test-readme && \
+	tk init --k8s=false && \
+	jb install github.com/jsonnet-libs/k8s-alpha/1.18 && \
+	printf '(import "github.com/jsonnet-libs/k8s-alpha/1.18/main.libsonnet")\n+(import "github.com/jsonnet-libs/k8s-alpha/1.18/extensions/kausal-shim.libsonnet")' > lib/k.libsonnet && \
+	jb install github.com/grafana/cortex-jsonnet/cortex && \
+	cp vendor/cortex/cortex-manifests.jsonnet.example environments/default/main.jsonnet && \
+	PAGER=cat tk show environments/default

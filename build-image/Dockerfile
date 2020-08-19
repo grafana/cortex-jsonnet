@@ -8,15 +8,26 @@ RUN git clone https://github.com/google/jsonnet && \
     cp jsonnet/jsonnetfmt /usr/bin
 
 # Build jb
-FROM golang:1.14.1-alpine3.11 AS jb-builder
-RUN apk add --no-cache git make
-RUN git clone https://github.com/jsonnet-bundler/jsonnet-bundler /jsonnet-bundler && \
-    cd /jsonnet-bundler && \
-    git checkout v0.2.0 && \
-    make install
+FROM alpine:3.11 AS jb-builder
+ARG JSONNET_BUNDLER_VERSION=0.4.0
+ARG JSONNET_BUNDLER_CHECKSUM="433edab5554a88a0371e11e93080408b225d41c31decf321c02b50d2e44993ce  /usr/bin/jb"
+RUN apk add --no-cache curl
+RUN curl -fSL -o "/usr/bin/jb" "https://github.com/jsonnet-bundler/jsonnet-bundler/releases/download/v${JSONNET_BUNDLER_VERSION}/jb-linux-amd64"
+RUN echo "${JSONNET_BUNDLER_CHECKSUM}" | sha256sum -c || (printf "wanted: %s\n   got: %s\n" "${JSONNET_BUNDLER_CHECKSUM}" "$(sha256sum /usr/bin/jb)"; exit 1)
+RUN chmod +x /usr/bin/jb
+
+# Build tanka
+FROM alpine:3.11 AS tk-builder
+ARG TANKA_VERSION=0.11.1
+ARG TANKA_CHECKSUM="3b253ca7d7bf01189604c10a8f7cead20a553ddc04c813f0f836d80338cfad71  /usr/bin/tk"
+RUN apk add --no-cache curl
+RUN curl -fSL -o "/usr/bin/tk" "https://github.com/grafana/tanka/releases/download/v${TANKA_VERSION}/tk-linux-amd64"
+RUN echo "${TANKA_CHECKSUM}" | sha256sum -c || (printf "wanted: %s\n   got: %s\n" "${TANKA_CHECKSUM}" "$(sha256sum /usr/bin/tk)"; exit 1)
+RUN chmod +x /usr/bin/tk
 
 FROM alpine:3.11
 RUN apk add --no-cache git make libgcc libstdc++ zip
 COPY --from=jsonnet-builder /usr/bin/jsonnetfmt /usr/bin
 COPY --from=jsonnet-builder /usr/bin/jsonnet /usr/bin
-COPY --from=jb-builder /go/bin/jb /usr/bin
+COPY --from=jb-builder /usr/bin/jb /usr/bin
+COPY --from=tk-builder /usr/bin/tk /usr/bin
