@@ -42,18 +42,10 @@
     'ingester.wal-enabled': true,
     'ingester.checkpoint-enabled': true,
     'ingester.recover-from-wal': true,
-    'ingester.wal-dir': $._config.wal_dir,
+    'ingester.wal-dir': $._config.ingester.wal_dir,
     'ingester.checkpoint-duration': '15m',
     '-log.level': 'info',
-    'ingester.tokens-file-path': $._config.wal_dir + '/tokens',
-  },
-
-  _config+:: {
-    wal_dir: '/wal_data',
-    ingester+: {
-      statefulset_replicas: 3,
-      statefulset_disk: '150Gi',
-    },
+    'ingester.tokens-file-path': $._config.ingester.wal_dir + '/tokens',
   },
 
   ingester_ports:: $.util.defaultPorts,
@@ -76,7 +68,7 @@
     $.ingester_container +
     container.withArgsMixin($.util.mapToFlags($.ingester_statefulset_args)) +
     container.withVolumeMountsMixin([
-      volumeMount.new('ingester-pvc', $._config.wal_dir),
+      volumeMount.new('ingester-pvc', $._config.ingester.wal_dir),
     ]),
 
   ingester_deployment_labels:: {},
