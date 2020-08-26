@@ -96,46 +96,46 @@
     $.util.configVolumeMount('schema-' + $._config.schemaID, '/etc/cortex/schema'),
 
   ingester_statefulset:
-  if $._config.ingester_deployment_without_wal == false then
-    statefulSet.new('ingester', $._config.ingester.statefulset_replicas, [$.ingester_statefulset_container], ingester_pvc) +
-    statefulSet.mixin.spec.withServiceName('ingester') +
-    statefulSet.mixin.spec.template.spec.withVolumes([volume.fromPersistentVolumeClaim('ingester-pvc', 'ingester-pvc')]) +
-    statefulSet.mixin.metadata.withNamespace($._config.namespace) +
-    statefulSet.mixin.metadata.withLabels({ name: 'ingester' }) +
-    statefulSet.mixin.spec.template.metadata.withLabels({ name: 'ingester' } + $.ingester_deployment_labels) +
-    statefulSet.mixin.spec.selector.withMatchLabels({ name: 'ingester' }) +
-    statefulSet.mixin.spec.template.spec.securityContext.withRunAsUser(0) +
-    statefulSet.mixin.spec.template.spec.withTerminationGracePeriodSeconds(4800) +
-    statefulSet.mixin.spec.updateStrategy.withType('RollingUpdate') +
-    $.statefulset_storage_config_mixin +
-    $.util.configVolumeMount('overrides', '/etc/cortex') +
-    $.util.podPriority('high') +
-    $.util.antiAffinityStatefulSet
-  else null,
+    if $._config.ingester_deployment_without_wal == false then
+      statefulSet.new('ingester', $._config.ingester.statefulset_replicas, [$.ingester_statefulset_container], ingester_pvc) +
+      statefulSet.mixin.spec.withServiceName('ingester') +
+      statefulSet.mixin.spec.template.spec.withVolumes([volume.fromPersistentVolumeClaim('ingester-pvc', 'ingester-pvc')]) +
+      statefulSet.mixin.metadata.withNamespace($._config.namespace) +
+      statefulSet.mixin.metadata.withLabels({ name: 'ingester' }) +
+      statefulSet.mixin.spec.template.metadata.withLabels({ name: 'ingester' } + $.ingester_deployment_labels) +
+      statefulSet.mixin.spec.selector.withMatchLabels({ name: 'ingester' }) +
+      statefulSet.mixin.spec.template.spec.securityContext.withRunAsUser(0) +
+      statefulSet.mixin.spec.template.spec.withTerminationGracePeriodSeconds(4800) +
+      statefulSet.mixin.spec.updateStrategy.withType('RollingUpdate') +
+      $.statefulset_storage_config_mixin +
+      $.util.configVolumeMount('overrides', '/etc/cortex') +
+      $.util.podPriority('high') +
+      $.util.antiAffinityStatefulSet
+    else null,
 
   local deployment = $.apps.v1.deployment,
 
   ingester_deployment:
-  if $._config.ingester_deployment_without_wal then
-    deployment.new(name, 3, [$.ingester_container], $.ingester_deployment_labels) +
-    $.util.antiAffinity +
-    $.util.configVolumeMount('overrides', '/etc/cortex') +
-    deployment.mixin.metadata.withLabels({ name: name }) +
-    deployment.mixin.spec.withMinReadySeconds(60) +
-    deployment.mixin.spec.strategy.rollingUpdate.withMaxSurge(0) +
-    deployment.mixin.spec.strategy.rollingUpdate.withMaxUnavailable(1) +
-    deployment.mixin.spec.template.spec.withTerminationGracePeriodSeconds(4800) +
-    $.storage_config_mixin +
-    $.util.podPriority('high')
-  else null,
+    if $._config.ingester_deployment_without_wal then
+      deployment.new(name, 3, [$.ingester_container], $.ingester_deployment_labels) +
+      $.util.antiAffinity +
+      $.util.configVolumeMount('overrides', '/etc/cortex') +
+      deployment.mixin.metadata.withLabels({ name: name }) +
+      deployment.mixin.spec.withMinReadySeconds(60) +
+      deployment.mixin.spec.strategy.rollingUpdate.withMaxSurge(0) +
+      deployment.mixin.spec.strategy.rollingUpdate.withMaxUnavailable(1) +
+      deployment.mixin.spec.template.spec.withTerminationGracePeriodSeconds(4800) +
+      $.storage_config_mixin +
+      $.util.podPriority('high')
+    else null,
 
   ingester_service_ignored_labels:: [],
 
   ingester_service:
-  if $._config.ingester_deployment_without_wal then
-    $.util.serviceFor($.ingester_deployment, $.ingester_service_ignored_labels)
-  else
-    $.util.serviceFor($.ingester_statefulset, $.ingester_service_ignored_labels),
+    if $._config.ingester_deployment_without_wal then
+      $.util.serviceFor($.ingester_deployment, $.ingester_service_ignored_labels)
+    else
+      $.util.serviceFor($.ingester_statefulset, $.ingester_service_ignored_labels),
 
   local podDisruptionBudget = $.policy.v1beta1.podDisruptionBudget,
 
