@@ -43,7 +43,9 @@
       statefulSet.mixin.metadata.withLabels({ name: 'alertmanager' }) +
       statefulSet.mixin.spec.template.metadata.withLabels({ name: 'alertmanager' }) +
       statefulSet.mixin.spec.selector.withMatchLabels({ name: 'alertmanager' }) +
-      statefulSet.mixin.spec.template.spec.securityContext.withRunAsUser(0) +
+      statefulSet.mixin.spec.template.spec.securityContext.withFsGroup(2000) +
+      statefulSet.mixin.spec.template.spec.securityContext.withRunAsUser(1000) +
+      statefulSet.mixin.spec.template.spec.securityContext.withRunAsNonRoot(true) +
       statefulSet.mixin.spec.updateStrategy.withType('RollingUpdate') +
       statefulSet.mixin.spec.template.spec.withTerminationGracePeriodSeconds(900)
     else {},

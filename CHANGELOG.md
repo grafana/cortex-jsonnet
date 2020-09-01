@@ -2,6 +2,7 @@
 
 ## master / unreleased
 
+* [CHANGE] AlertManager libsonnet template uses a non-root user.
 * [CHANGE] The project is now licensed with Apache-2.0 license. #169
 * [CHANGE] Add overrides config to tsdb store-gateway. #167
 * [CHANGE] Ingesters now default to running as `StatefulSet` with WAL enabled. It is controlled by the config `$._config.ingester_deployment_without_wal` which is `false` by default. Setting the config to `true` will yeild the old behaviour (stateless `Deployment` without WAL enabled). #72
