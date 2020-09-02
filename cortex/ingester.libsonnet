@@ -28,6 +28,10 @@
       'ingester.max-series-per-metric': 0,  // Disabled in favour of the max global limit
       'limits.per-user-override-config': '/etc/cortex/overrides.yaml',
       'server.grpc-max-concurrent-streams': 100000,
+
+      // 100MB (bumped from default of 4MB)
+      'server.grpc-max-recv-msg-size-bytes': 1024 * 1024 * 100,
+      'server.grpc-max-send-msg-size-bytes': 1024 * 1024 * 100,
     } + (
       if $._config.memcached_index_writes_enabled then
         {

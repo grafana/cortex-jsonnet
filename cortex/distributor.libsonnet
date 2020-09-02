@@ -28,6 +28,10 @@
       'server.grpc.keepalive.max-connection-age-grace': '5m',
       'server.grpc.keepalive.max-connection-idle': '1m',
 
+      // 100MB (bumped from default of 4MB)
+      'server.grpc-max-recv-msg-size-bytes': 1024 * 1024 * 100,
+      'server.grpc-max-send-msg-size-bytes': 1024 * 1024 * 100,
+
       'distributor.ingestion-rate-limit-strategy': 'global',
       'distributor.ingestion-rate-limit': 100000,  // 100K
       'distributor.ingestion-burst-size': 1000000,  // 1M
