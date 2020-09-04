@@ -37,6 +37,7 @@ local consul = import 'consul/consul.libsonnet';
         '/consul/data/',
         volumeMixin=volume.mixin.emptyDir.withMedium('Memory'),
       ) +
+      deployment.mixin.metadata.withNamespace($._config.namespace) +
 
       // Ensure Consul is not scheduled on the same host as an ingester
       // (in any namespace - hence other_namespaces).

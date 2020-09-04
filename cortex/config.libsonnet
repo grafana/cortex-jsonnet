@@ -340,6 +340,7 @@
 
   overrides_config:
     configMap.new('overrides') +
+    configMap.mixin.metadata.withNamespace($._config.namespace) +
     configMap.withData({
       'overrides.yaml': $.util.manifestYaml(
         {

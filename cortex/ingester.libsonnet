@@ -136,6 +136,7 @@
     podDisruptionBudget.mixin.metadata.withName(pdbName) +
     podDisruptionBudget.mixin.metadata.withLabels({ name: pdbName }) +
     podDisruptionBudget.mixin.spec.selector.withMatchLabels({ name: ingesterName }) +
+    podDisruptionBudget.mixin.metadata.withNamespace($._config.namespace) +
     podDisruptionBudget.mixin.spec.withMaxUnavailable(1),
 
   ingester_pdb: self.newIngesterPdb('ingester-pdb', name),
