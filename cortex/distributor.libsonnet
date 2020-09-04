@@ -54,6 +54,7 @@
 
   distributor_deployment:
     deployment.new('distributor', 3, [$.distributor_container], $.distributor_deployment_labels) +
+    deployment.mixin.metadata.withNamespace($._config.namespace) +
     $.util.antiAffinity +
     $.util.configVolumeMount('overrides', '/etc/cortex'),
 

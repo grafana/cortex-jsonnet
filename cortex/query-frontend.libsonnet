@@ -65,6 +65,7 @@
 
   query_frontend_deployment:
     deployment.new('query-frontend', $._config.queryFrontend.replicas, [$.query_frontend_container]) +
+    deployment.mixin.metadata.withNamespace($._config.namespace) + 
     $.util.configVolumeMount('overrides', '/etc/cortex') +
     $.util.antiAffinity +
     // inject storage schema in order to know what/how to shard

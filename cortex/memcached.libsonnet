@@ -13,6 +13,7 @@ memcached {
         self.memcached_container,
         self.memcached_exporter,
       ], []) +
+      statefulSet.mixin.metadata.withNamespace($._config.namespace) +
       statefulSet.mixin.spec.withServiceName(self.name) +
       $.util.antiAffinity,
 
