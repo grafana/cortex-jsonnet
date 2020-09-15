@@ -6,6 +6,8 @@
 * [CHANGE] Add overrides config to tsdb store-gateway. #167
 * [CHANGE] Ingesters now default to running as `StatefulSet` with WAL enabled. It is controlled by the config `$._config.ingester_deployment_without_wal` which is `false` by default. Setting the config to `true` will yield the old behaviour (stateless `Deployment` without WAL enabled). #72
 * [CHANGE] We now allow queries that are 32 days long. For example, rate(metric[32d]). Before it was 31d. #173
+* [BUGFIX] Add support the `local` ruler client type
+* [BUGFIX] Ensure namespaces are set on all kubernetes resources. #178 
 * [ENHANCEMENT] Enable support for HA in the Cortex Alertmanager #147
 * [ENHANCEMENT] Support `alertmanager.fallback_config` option in the Alertmanager. #179
 * [BUGFIX] Add support the `local` ruler client type  #175

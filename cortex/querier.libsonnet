@@ -54,6 +54,7 @@
 
   querier_deployment:
     deployment.new('querier', $._config.querier.replicas, [$.querier_container], $.querier_deployment_labels) +
+    deployment.mixin.metadata.withNamespace($._config.namespace) +
     $.util.antiAffinity +
     $.util.configVolumeMount('overrides', '/etc/cortex') +
     $.storage_config_mixin,
