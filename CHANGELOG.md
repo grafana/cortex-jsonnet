@@ -8,7 +8,7 @@
 * [CHANGE] We now allow queries that are 32 days long. For example, rate(metric[32d]). Before it was 31d. #173
 * [ENHANCEMENT] Enable support for HA in the Cortex Alertmanager #147
 * [ENHANCEMENT] Support `alertmanager.fallback_config` option in the Alertmanager. #179
-* [BUGFIX] Add support the `local` ruler client type
+* [BUGFIX] Add support the `local` ruler client type  #175
 * [BUGFIX] Fixes `ruler.storage.s3.url` argument for the Ruler. It used an incorrect argument. #177
 
 ## 1.3.0 / 2020-08-21
