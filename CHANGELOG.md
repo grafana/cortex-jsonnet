@@ -7,6 +7,7 @@
 * [CHANGE] Ingesters now default to running as `StatefulSet` with WAL enabled. It is controlled by the config `$._config.ingester_deployment_without_wal` which is `false` by default. Setting the config to `true` will yield the old behaviour (stateless `Deployment` without WAL enabled). #72
 * [CHANGE] We now allow queries that are 32 days long. For example, rate(metric[32d]). Before it was 31d. #173
 * [CHANGE] Renamed `container_name` and `pod_name` label names to `container` and `pod` respectively. This is required in order to comply with cAdvisor metrics changes shipped with Kubernetes 1.16. #179
+* [CHANGE] Removed the `experimental` prefix from blocks storage CLI flags. #179
 * [ENHANCEMENT] Enable support for HA in the Cortex Alertmanager #147
 * [ENHANCEMENT] Support `alertmanager.fallback_config` option in the Alertmanager. #179
 * [ENHANCEMENT] Add support for S3 block storage. #181
