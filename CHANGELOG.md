@@ -2,6 +2,8 @@
 
 ## master / unreleased
 
+## 1.4.0 / 2020-10-02
+
 * [CHANGE] Lower the default overrides configs for ingestion and create a new overrides user out of the previous config #183
 * [CHANGE] The project is now licensed with Apache-2.0 license. #169
 * [CHANGE] Add overrides config to tsdb store-gateway. #167
