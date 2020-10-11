@@ -2,6 +2,9 @@
 
 ## master / unreleased
 
+* [ENHANCEMENT] Read dashboards now use `cortex_querier_request_duration_seconds` metrics to allow for accurate dashboards when deploying Cortex as a single-binary. #199
+* [FEATURE] Latency recording rules for the metric`cortex_querier_request_duration_seconds` are now part of a `cortex_querier_api` rule group. #199
+
 ## 1.4.0 / 2020-10-02
 
 * [CHANGE] Lower the default overrides configs for ingestion and create a new overrides user out of the previous config #183
