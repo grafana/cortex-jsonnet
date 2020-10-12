@@ -2,6 +2,7 @@
 
 ## master / unreleased
 
+* [CHANGE] Add the default preset 'extra_small_user' and reference it in the CLI flags. This will raise the limits of the 'small_user' preset to the defaults for `ingester.max-samples-per-query` and `ingester.max-series-per-query`. #200
 * [FEATURE] Add overrides-exporter as optional deployment to expose configured runtime overrides and presets. #198
 
 ## 1.4.0 / 2020-10-02
