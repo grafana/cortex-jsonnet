@@ -2,6 +2,8 @@
 
 ## master / unreleased
 
+* [FEATURE] Add overrides-exporter as optional deployment to expose configured runtime overrides and presets. #198
+
 ## 1.4.0 / 2020-10-02
 
 * [CHANGE] Lower the default overrides configs for ingestion and create a new overrides user out of the previous config #183
