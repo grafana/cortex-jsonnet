@@ -2,16 +2,18 @@
 
 JSONNET_FMT := jsonnetfmt
 
-lint:
+lint: lint-mixin
 	@RESULT=0; \
 	for f in $$(find . -name '*.libsonnet' -print -o -name '*.jsonnet' -print); do \
 		$(JSONNET_FMT) -- "$$f" | diff -u "$$f" -; \
 		RESULT=$$(($$RESULT + $$?)); \
 	done; \
-	pushd cortex-mixin >/dev/null && jb install && popd >/dev/null; \
-	mixtool lint -J cortex-mixin/vendor cortex-mixin/mixin.libsonnet; \
 	RESULT=$$(($$RESULT + $$?)); \
-	exit $$RESULT
+
+lint-mixin:
+	cd cortex-mixin && \
+	jb install && \
+	mixtool lint mixin.libsonnet
 
 fmt:
 	@find . -name 'vendor' -prune -o -name '*.libsonnet' -print -o -name '*.jsonnet' -print | \
