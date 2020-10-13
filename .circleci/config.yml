@@ -23,7 +23,7 @@ jobs:
       - checkout
       - run: make build-mixin
       - store_artifacts:
-          path: cortex-mixin.zip
+          path: cortex-mixin/cortex-mixin.zip
   test-readme:
     docker:
       - image: grafana/cortex-jsonnet-build-image:8ce0de1
