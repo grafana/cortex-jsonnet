@@ -8,6 +8,9 @@ lint:
 		$(JSONNET_FMT) -- "$$f" | diff -u "$$f" -; \
 		RESULT=$$(($$RESULT + $$?)); \
 	done; \
+	pushd cortex-mixin >/dev/null && jb install && popd >/dev/null; \
+	mixtool lint -J cortex-mixin/vendor cortex-mixin/mixin.libsonnet; \
+	RESULT=$$(($$RESULT + $$?)); \
 	exit $$RESULT
 
 fmt:
@@ -24,10 +27,8 @@ build-mixin:
 	cd cortex-mixin && \
 	rm -rf out && mkdir out && \
 	jb install && \
-	jsonnet -J vendor -S dashboards.jsonnet -m out/ && \
-	jsonnet -J vendor -S recording_rules.jsonnet > out/rules.yaml && \
-	jsonnet -J vendor -S alerts.jsonnet > out/alerts.yaml
-	zip -r cortex-mixin.zip cortex-mixin/out
+	mixtool generate all --output-alerts out/alerts.yaml --output-rules out/rules.yaml --directory out/dashboards mixin.libsonnet && \
+	zip -r cortex-mixin.zip out
 
 test-readme:
 	rm -rf test-readme && \
