@@ -25,9 +25,14 @@ RUN curl -fSL -o "/usr/bin/tk" "https://github.com/grafana/tanka/releases/downlo
 RUN echo "${TANKA_CHECKSUM}" | sha256sum -c || (printf "wanted: %s\n   got: %s\n" "${TANKA_CHECKSUM}" "$(sha256sum /usr/bin/tk)"; exit 1)
 RUN chmod +x /usr/bin/tk
 
+# Build mixtool
+FROM golang:1.15-alpine AS mixtool-builder
+RUN GO111MODULE=on go get github.com/monitoring-mixins/mixtool/cmd/mixtool@59d44357240d
+
 FROM alpine:3.11
 RUN apk add --no-cache git make libgcc libstdc++ zip
 COPY --from=jsonnet-builder /usr/bin/jsonnetfmt /usr/bin
 COPY --from=jsonnet-builder /usr/bin/jsonnet /usr/bin
 COPY --from=jb-builder /usr/bin/jb /usr/bin
 COPY --from=tk-builder /usr/bin/tk /usr/bin
+COPY --from=mixtool-builder /go/bin/mixtool /usr/bin
