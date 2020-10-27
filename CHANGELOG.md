@@ -6,6 +6,7 @@
 * [ENHANCEMENT] Add the Ruler to the read resources dashboard #205
 * [ENHANCEMENT] Read dashboards now use `cortex_querier_request_duration_seconds` metrics to allow for accurate dashboards when deploying Cortex as a single-binary. #199
 * [ENHANCEMENT] Improved Ruler dashboard. Includes information about notifications, reads/writes, and per user per rule group evaluation. #197, #205
+* [ENHANCEMENT] Add new `CortexCompactorRunFailed` alert when compactor run fails. #206
 * [FEATURE] Latency recording rules for the metric`cortex_querier_request_duration_seconds` are now part of a `cortex_querier_api` rule group. #199
 * [FEATURE] Add overrides-exporter as optional deployment to expose configured runtime overrides and presets. #198
 
