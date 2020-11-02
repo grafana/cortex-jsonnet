@@ -30,7 +30,7 @@
     (
       if $._config.memcached_index_queries_enabled then {
         'blocks-storage.bucket-store.index-cache.backend': 'memcached',
-        'blocks-storage.bucket-store.index-cache.memcached.addresses': 'dnssrvnoa+memcached-index-queries.%(namespace)s.svc.cluster.local:11211' % $._config,
+        'blocks-storage.bucket-store.index-cache.memcached.addresses': 'dnssrvnoa+_memcached-client._tcp.memcached-index-queries.%(namespace)s.svc.cluster.local' % $._config,
         'blocks-storage.bucket-store.index-cache.memcached.timeout': '200ms',
         'blocks-storage.bucket-store.index-cache.memcached.max-item-size': $._config.memcached_index_queries_max_item_size_mb * 1024 * 1024,
         'blocks-storage.bucket-store.index-cache.memcached.max-async-buffer-size': '25000',
@@ -41,7 +41,7 @@
     ) + (
       if $._config.memcached_chunks_enabled then {
         'blocks-storage.bucket-store.chunks-cache.backend': 'memcached',
-        'blocks-storage.bucket-store.chunks-cache.memcached.addresses': 'dnssrvnoa+memcached.%(namespace)s.svc.cluster.local:11211' % $._config,
+        'blocks-storage.bucket-store.chunks-cache.memcached.addresses': 'dnssrvnoa+_memcached-client._tcp.memcached.%(namespace)s.svc.cluster.local' % $._config,
         'blocks-storage.bucket-store.chunks-cache.memcached.timeout': '200ms',
         'blocks-storage.bucket-store.chunks-cache.memcached.max-item-size': $._config.memcached_chunks_max_item_size_mb * 1024 * 1024,
         'blocks-storage.bucket-store.chunks-cache.memcached.max-async-buffer-size': '25000',
@@ -52,7 +52,7 @@
 
   blocks_metadata_caching_config:: if $._config.memcached_metadata_enabled then {
     'blocks-storage.bucket-store.metadata-cache.backend': 'memcached',
-    'blocks-storage.bucket-store.metadata-cache.memcached.addresses': 'dnssrvnoa+memcached-metadata.%(namespace)s.svc.cluster.local:11211' % $._config,
+    'blocks-storage.bucket-store.metadata-cache.memcached.addresses': 'dnssrvnoa+_memcached-client._tcp.memcached-metadata.%(namespace)s.svc.cluster.local' % $._config,
     'blocks-storage.bucket-store.metadata-cache.memcached.timeout': '200ms',
     'blocks-storage.bucket-store.metadata-cache.memcached.max-item-size': $._config.memcached_metadata_max_item_size_mb * 1024 * 1024,
     'blocks-storage.bucket-store.metadata-cache.memcached.max-async-buffer-size': '25000',
