@@ -8,6 +8,7 @@
 * [ENHANCEMENT] Improved Ruler dashboard. Includes information about notifications, reads/writes, and per user per rule group evaluation. #197, #205
 * [FEATURE] Latency recording rules for the metric`cortex_querier_request_duration_seconds` are now part of a `cortex_querier_api` rule group. #199
 * [FEATURE] Add overrides-exporter as optional deployment to expose configured runtime overrides and presets. #198
+* [FEATURE] Add a dashboard for the alertmanager. #207
 * [BUGFIX] Added `ingester-blocks` to ingester's job label matcher, in order to correctly get metrics when migrating a Cortex cluster from chunks to blocks. #203
 
 ## 1.4.0 / 2020-10-02
