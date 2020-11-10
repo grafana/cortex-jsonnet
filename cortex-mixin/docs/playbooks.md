@@ -119,7 +119,7 @@ How to **investigate**:
 
 This alert fires when a Cortex ingester fails to truncate the TSDB head.
 
-The TSDB head is the in-memory store used to keep series and samples not compacted into a block yet. If head truncation fails for a long time, the ingester memory will increase until OOMKilled and the subsequent ingester restart may take a long time or even go into an OOMKilled crash loop because of the huge WAL to replay. For this reason, it's important to investigate and address the issue as soon as it happen.
+The TSDB head is the in-memory store used to keep series and samples not compacted into a block yet. If head truncation fails for a long time, the ingester disk might get full as it won't continue to the WAL truncation stage and the subsequent ingester restart may take a long time or even go into an OOMKilled crash loop because of the huge WAL to replay. For this reason, it's important to investigate and address the issue as soon as it happen.
 
 How to **investigate**:
 - Look for details in the ingester logs
@@ -150,9 +150,11 @@ How to **investigate**:
 
 ### CortexIngesterTSDBWALCorrupted
 
-This alert fires when a Cortex ingester finds a corrupted TSDB WAL (stored on disk) while replaying it at ingester startup.
+This alert fires when a Cortex ingester finds a corrupted TSDB WAL (stored on disk) while replaying it at ingester startup or when creation of a checkpoint comes across a WAL corruption.
 
-When this alert fires, the WAL should have been auto-repaired, but manual investigation is required. The WAL repair mechanism cause data loss because all WAL records after the corrupted segment are discarded and so their samples lost while replaying the WAL. If this issue happen only on 1 ingester then Cortex doesn't suffer any data loss because of the replication factor, while if it happens on multiple ingesters then some data loss is possible.
+If this alert fires during an **ingester startup**, the WAL should have been auto-repaired, but manual investigation is required. The WAL repair mechanism cause data loss because all WAL records after the corrupted segment are discarded and so their samples lost while replaying the WAL. If this issue happen only on 1 ingester then Cortex doesn't suffer any data loss because of the replication factor, while if it happens on multiple ingesters then some data loss is possible.
+
+If this alert fires during a **checkpoint creation**, you should have also been paged with `CortexIngesterTSDBCheckpointCreationFailed`, and you can follow the steps under that alert.
 
 ### CortexIngesterTSDBWALWritesFailed
 

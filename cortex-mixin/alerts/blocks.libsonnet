@@ -97,7 +97,7 @@
             rate(cortex_ingester_tsdb_wal_truncations_failed_total[5m]) > 0
           |||,
           labels: {
-            severity: 'critical',
+            severity: 'warning',
           },
           annotations: {
             message: 'Cortex Ingester {{ $labels.namespace }}/{{ $labels.instance }} is failing to truncate TSDB WAL.',
