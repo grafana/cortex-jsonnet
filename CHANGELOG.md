@@ -8,6 +8,7 @@
   ingester_statefulset+:
       statefulSet.mixin.spec.withReplicas(6),
   ```
+* [CHANGE] The compactor statefulset is now configured with the `Parallel` pod management policy, in order to scale up quickly. #214
 * [ENHANCEMENT] Add the Ruler to the read resources dashboard #205
 * [ENHANCEMENT] Read dashboards now use `cortex_querier_request_duration_seconds` metrics to allow for accurate dashboards when deploying Cortex as a single-binary. #199
 * [ENHANCEMENT] Improved Ruler dashboard. Includes information about notifications, reads/writes, and per user per rule group evaluation. #197, #205
