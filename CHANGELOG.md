@@ -3,12 +3,21 @@
 ## master / unreleased
 
 * [CHANGE] Add the default preset 'extra_small_user' and reference it in the CLI flags. This will raise the limits of the 'small_user' preset to the defaults for `ingester.max-samples-per-query` and `ingester.max-series-per-query`. #200
+* [CHANGE] Removed the config option `$._config.ingester.statefulset_replicas` which was used only when running Cortex chunks storage with WAL enabled. To configure the number of ingester replicas you should now use the following: #210
+  ```
+  ingester_statefulset+:
+      statefulSet.mixin.spec.withReplicas(6),
+  ```
 * [ENHANCEMENT] Add the Ruler to the read resources dashboard #205
 * [ENHANCEMENT] Read dashboards now use `cortex_querier_request_duration_seconds` metrics to allow for accurate dashboards when deploying Cortex as a single-binary. #199
 * [ENHANCEMENT] Improved Ruler dashboard. Includes information about notifications, reads/writes, and per user per rule group evaluation. #197, #205
 * [ENHANCEMENT] Add new `CortexCompactorRunFailed` alert when compactor run fails. #206
+* [ENHANCEMENT] Add `flusher-job-blocks.libsonnet` with support for flushing blocks disks. #187
+* [ENHANCEMENT] Add more alerts on failure conditions for ingesters when running the blocks storage. #208
 * [FEATURE] Latency recording rules for the metric`cortex_querier_request_duration_seconds` are now part of a `cortex_querier_api` rule group. #199
 * [FEATURE] Add overrides-exporter as optional deployment to expose configured runtime overrides and presets. #198
+* [FEATURE] Add a dashboard for the alertmanager. #207
+* [BUGFIX] Added `ingester-blocks` to ingester's job label matcher, in order to correctly get metrics when migrating a Cortex cluster from chunks to blocks. #203
 
 ## 1.4.0 / 2020-10-02
 
