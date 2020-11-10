@@ -2,7 +2,7 @@ local utils = import 'mixin-utils/utils.libsonnet';
 
 (import 'dashboard-utils.libsonnet') {
   'cortex-reads-resources.json':
-    $.dashboard('Cortex / Reads Resources')
+    ($.dashboard('Cortex / Reads Resources') + { uid: '2fd2cda9eea8d8af9fbc0a5960425120' })
     .addClusterSelectorTemplates()
     .addRow(
       $.row('Gateway')
@@ -50,6 +50,25 @@ local utils = import 'mixin-utils/utils.libsonnet';
       )
       .addPanel(
         $.goHeapInUsePanel('Memory (go heap inuse)', 'ingester'),
+      )
+    )
+    .addRow(
+      $.row('Ruler')
+      .addPanel(
+        $.panel('Rules') +
+        $.queryPanel('sum by(instance) (cortex_prometheus_rule_group_rules{%s})' % $.jobMatcher($._config.job_names.ruler), '{{instance}}'),
+      )
+      .addPanel(
+        $.containerCPUUsagePanel('CPU', 'ruler'),
+      )
+    )
+    .addRow(
+      $.row('')
+      .addPanel(
+        $.containerMemoryWorkingSetPanel('Memory (workingset)', 'ruler'),
+      )
+      .addPanel(
+        $.goHeapInUsePanel('Memory (go heap inuse)', 'ruler'),
       )
     )
     .addRowIf(
