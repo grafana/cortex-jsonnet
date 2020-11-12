@@ -2,6 +2,8 @@
 
 ## master / unreleased
 
+## 1.5.0 / 2020-11-12
+
 * [CHANGE] Add the default preset 'extra_small_user' and reference it in the CLI flags. This will raise the limits of the 'small_user' preset to the defaults for `ingester.max-samples-per-query` and `ingester.max-series-per-query`. #200
 * [CHANGE] Removed the config option `$._config.ingester.statefulset_replicas` which was used only when running Cortex chunks storage with WAL enabled. To configure the number of ingester replicas you should now use the following: #210
   ```
