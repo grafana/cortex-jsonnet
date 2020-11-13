@@ -2,7 +2,7 @@
 
 ## master / unreleased
 
-* [ENHANCEMENT] Add Alertmanager to the writes resources dashboard #218
+* [ENHANCEMENT] Introduce a resources dashboard for the Alertmanager #218
 
 ## 1.5.0 / 2020-11-12
 
