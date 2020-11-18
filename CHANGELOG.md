@@ -3,7 +3,7 @@
 ## master / unreleased
 
 * [ENHANCEMENT] Introduce a resources dashboard for the Alertmanager #218
-* [CHANGE] Add default present for ruler limits on all 'user' types.
+* [CHANGE] Add default present for ruler limits on all 'user' types. #213
 
 ## 1.5.0 / 2020-11-12
 
