@@ -2,7 +2,6 @@
 
 ## master / unreleased
 
-* [CHANGE] Add default present for ruler limits on all 'user' types. #213
 * [CHANGE] Enabled sharding for the blocks storage compactor. #218
 * [ENHANCEMENT] Introduce a resources dashboard for the Alertmanager. #219
 
