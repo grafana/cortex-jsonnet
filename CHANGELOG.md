@@ -15,6 +15,7 @@
   - Cortex / Compactor: added "Tenants compaction progress", "Average blocks / tenant" and "Tenants with largest number of blocks"
   - Alerts: added "CortexMemoryMapAreasTooHigh"
 * [BUGFIX] Fixed workingset memory panel while rolling out a StatefulSet. #229
+* [BUGFIX] Fixed `CortexRequestErrors` alert to not include `ready` route. #230
 
 ## 1.5.0 / 2020-11-12
 
