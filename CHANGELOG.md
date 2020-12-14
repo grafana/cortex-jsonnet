@@ -14,6 +14,7 @@
   - Cortex / Queries: added "Lazy loaded index-headers" and "Index-header lazy load duration"
   - Cortex / Compactor: added "Tenants compaction progress"
   - Alerts: added "CortexMemoryMapAreasTooHigh"
+* [BUGFIX] Fixed workingset memory panel while rolling out a StatefulSet. #229
 
 ## 1.5.0 / 2020-11-12
 
