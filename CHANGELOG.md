@@ -5,6 +5,7 @@
 * [CHANGE] Add default present for ruler limits on all 'user' types. #221, #222
 * [CHANGE] Enabled sharding for the blocks storage compactor. #218
 * [ENHANCEMENT] Introduce a resources dashboard for the Alertmanager. #219
+* [ENHANCEMENT] Improves query visibility in the Ruler Dashboard for both chunks and blocks storage. #226
 * [ENHANCEMENT] Add query-scheduler to dashboards. Add alert for queries stuck in scheduler. #228
 
 ## 1.5.0 / 2020-11-12
