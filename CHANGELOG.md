@@ -7,12 +7,12 @@
 * [ENHANCEMENT] Introduce a resources dashboard for the Alertmanager. #219
 * [ENHANCEMENT] Improves query visibility in the Ruler Dashboard for both chunks and blocks storage. #226
 * [ENHANCEMENT] Add query-scheduler to dashboards. Add alert for queries stuck in scheduler. #228
-* [ENHANCEMENT] Improved blocks storage observability: #224
+* [ENHANCEMENT] Improved blocks storage observability: #224 #230
   - Cortex / Writes: added current number of tenants in the cluster
   - Cortex / Writes Resources: added ingester disk read/writes/utilisation
   - Cortex / Reads Resources: added store-gateway disk read/writes/utilisation
   - Cortex / Queries: added "Lazy loaded index-headers" and "Index-header lazy load duration"
-  - Cortex / Compactor: added "Tenants compaction progress"
+  - Cortex / Compactor: added "Tenants compaction progress", "Average blocks / tenant" and "Tenants with largest number of blocks"
   - Alerts: added "CortexMemoryMapAreasTooHigh"
 * [BUGFIX] Fixed workingset memory panel while rolling out a StatefulSet. #229
 
