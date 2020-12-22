@@ -15,6 +15,9 @@
   - Cortex / Queries: added "Lazy loaded index-headers" and "Index-header lazy load duration"
   - Cortex / Compactor: added "Tenants compaction progress", "Average blocks / tenant" and "Tenants with largest number of blocks"
   - Alerts: added "CortexMemoryMapAreasTooHigh"
+* [ENHANCEMENT] Fine-tuned gRPC keepalive pings to work nicely with Cortex default settings.
+  - `-server.grpc.keepalive.min-time-between-pings=10s`
+  - `-server.grpc.keepalive.ping-without-stream-allowed:true`
 * [BUGFIX] Fixed workingset memory panel while rolling out a StatefulSet. #229
 * [BUGFIX] Fixed `CortexRequestErrors` alert to not include `ready` route. #230
 
