@@ -65,4 +65,4 @@ $ make build-mixin
 
 This will leave all the alerts and dashboards in cortex-mixin/cortex-mixin.zip (or cortex-mixin/out).
 
-If you get an error like `cannot use cli.StringSliceFlag literal (type cli.StringSliceFlag) as type cli.Flag in slice literal` when installing (mixtool)[https://github.com/monitoring-mixins/mixtool/issues/27], make sure you set `GO111MODULE=on` before `go get`.
+If you get an error like `cannot use cli.StringSliceFlag literal (type cli.StringSliceFlag) as type cli.Flag in slice literal` when installing [mixtool](https://github.com/monitoring-mixins/mixtool/issues/27), make sure you set `GO111MODULE=on` before `go get`.
