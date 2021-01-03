@@ -55,14 +55,14 @@ To generate the YAMLs for deploying Cortex:
 
 # Monitoring for Cortex
 
-    To generate the Grafana dashboards and Prometheus alerts for Cortex:
+To generate the Grafana dashboards and Prometheus alerts for Cortex:
 
-    ```console
-    $ GO111MODULE=on go get github.com/monitoring-mixins/mixtool/cmd/mixtool
-    $ GO111MODULE=on go get github.com/jsonnet-bundler/jsonnet-bundler/cmd/jb
-    $ make build-mixin
-    ```
+```console
+$ GO111MODULE=on go get github.com/monitoring-mixins/mixtool/cmd/mixtool
+$ GO111MODULE=on go get github.com/jsonnet-bundler/jsonnet-bundler/cmd/jb
+$ make build-mixin
+```
 
-    This will leave all the alerts and dashboards in cortex-mixin/cortex-mixin.zip (or cortex-mixin/out).
+This will leave all the alerts and dashboards in cortex-mixin/cortex-mixin.zip (or cortex-mixin/out).
 
-    If you get an error like `cannot use cli.StringSliceFlag literal (type cli.StringSliceFlag) as type cli.Flag in slice literal` when installing (mixtool)[https://github.com/monitoring-mixins/mixtool/issues/27], make sure you set `GO111MODULE=on` before `go get`.
+If you get an error like `cannot use cli.StringSliceFlag literal (type cli.StringSliceFlag) as type cli.Flag in slice literal` when installing (mixtool)[https://github.com/monitoring-mixins/mixtool/issues/27], make sure you set `GO111MODULE=on` before `go get`.
