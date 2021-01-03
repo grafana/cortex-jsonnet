@@ -60,6 +60,8 @@ To generate the Grafana dashboards and Prometheus alerts for Cortex:
 ```console
 $ GO111MODULE=on go get github.com/monitoring-mixins/mixtool/cmd/mixtool
 $ GO111MODULE=on go get github.com/jsonnet-bundler/jsonnet-bundler/cmd/jb
+$ git clone https://github.com/grafana/cortex-jsonnet
+$ cd cortex-jsonnet
 $ make build-mixin
 ```
 
