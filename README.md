@@ -1,6 +1,6 @@
-# Jsonnet for Cortex
+# Jsonnet for Cortex on Kubernetes
 
-This repo has the jsonnet for deploying cortex and the related monitoring in Kubernetes.
+This repo has the jsonnet for deploying Cortex and the related monitoring in Kubernetes.
 
 To generate the YAMLs for deploying Cortex:
 
@@ -27,6 +27,7 @@ To generate the YAMLs for deploying Cortex:
       EOF
     $ jb install github.com/grafana/cortex-jsonnet/cortex
     ```
+
 1. Use the example monitoring.jsonnet.example:
 
     ```console
@@ -52,13 +53,16 @@ To generate the YAMLs for deploying Cortex:
     $ tk export environments/default manifests
     ```
 
-    To generate the dashboards and alerts for Cortex:
+# Monitoring for Cortex
+
+    To generate the Grafana dashboards and Prometheus alerts for Cortex:
 
     ```console
-    $ cd cortex-mixin
-    $ jb install
-    $ mkdir out
-    $ jsonnet -S alerts.jsonnet > out/alerts.yaml
-    $ jsonnet -J vendor -S dashboards.jsonnet -m out
-    $ jsonnet -J vendor -S recording_rules.jsonnet > out/rules.yaml
+    $ GO111MODULE=on go get github.com/monitoring-mixins/mixtool/cmd/mixtool
+    $ GO111MODULE=on go get github.com/jsonnet-bundler/jsonnet-bundler/cmd/jb
+    $ make build-mixin
     ```
+
+    This will leave all the alerts and dashboards in cortex-mixin/cortex-mixin.zip (or cortex-mixin/out).
+
+    If you get an error like `cannot use cli.StringSliceFlag literal (type cli.StringSliceFlag) as type cli.Flag in slice literal` when installing (mixtool)[https://github.com/monitoring-mixins/mixtool/issues/27], make sure you set `GO111MODULE=on` before `go get`.
