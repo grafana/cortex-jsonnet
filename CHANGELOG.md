@@ -3,6 +3,9 @@
 ## master / unreleased
 
 * [ENHANCEMENT] Added `unregister_ingesters_on_shutdown` config option to disable unregistering ingesters on shutdown (default is enabled). #213
+* [ENHANCEMENT] Improved blocks storage observability: #237
+  - Cortex / Queries: added bucket index load operations and latency (available only when bucket index is enabled)
+  - Alerts: added "CortexBucketIndexNotUpdated" (bucket index only) and "CortexTenantHasPartialBlocks"
 
 ## 1.6.0 / 2021-01-05
 
