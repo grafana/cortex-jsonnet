@@ -2,6 +2,8 @@
 
 ## master / unreleased
 
+* [ENHANCEMENT] Added `unregister_ingesters_on_shutdown` config option to disable unregistering ingesters on shutdown (default is enabled). #213
+
 ## 1.6.0 / 2021-01-05
 
 * [CHANGE] Add default present for ruler limits on all 'user' types. #221, #222
