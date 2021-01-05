@@ -20,6 +20,7 @@
 * [ENHANCEMENT] Fine-tuned gRPC keepalive pings to work nicely with Cortex default settings. #233 #234
   - `-server.grpc.keepalive.min-time-between-pings=10s`
   - `-server.grpc.keepalive.ping-without-stream-allowed:true`
+* [ENHANCEMENT] Added `unregister_ingesters_on_shutdown` config option to disable unregistering ingesters on shutdown (default is enabled). #213
 * [BUGFIX] Fixed workingset memory panel while rolling out a StatefulSet. #229
 * [BUGFIX] Fixed `CortexRequestErrors` alert to not include `ready` route. #230
 
