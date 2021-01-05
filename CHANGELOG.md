@@ -2,6 +2,8 @@
 
 ## master / unreleased
 
+## 1.6.0 / 2021-01-05
+
 * [CHANGE] Add default present for ruler limits on all 'user' types. #221, #222
 * [CHANGE] Enabled sharding for the blocks storage compactor. #218
 * [CHANGE] Removed `-blocks-storage.bucket-store.index-cache.postings-compression-enabled` CLI flag because always enabled in Cortex 1.6. #224
