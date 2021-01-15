@@ -9,6 +9,7 @@
 * [ENHANCEMENT] The name of the overrides configmap is now customisable via `$._config.overrides_configmap`. #244
 * [BUGFIX] Honor configured `per_instance_label` in all panels. #239
 * [BUGFIX] `CortexRequestLatency` alert now ignores long-running requests on query-scheduler. #242
+* [BUGFIX] Honor configured `job_names` in the "Memory (go heap inuse)" panel. #247
 
 ## 1.6.0 / 2021-01-05
 
