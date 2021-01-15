@@ -37,6 +37,6 @@ You can do the tagging on the commandline:
 
 ```console
 $ tag="x.y.z"
-$ git tag -s v"${tag}" -m v"${tag}"
-$ git push origin v"${tag}"
+$ git tag -s "${tag}" -m "${tag}"
+$ git push origin "${tag}"
 ```
