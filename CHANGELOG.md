@@ -10,6 +10,7 @@
 * [BUGFIX] Honor configured `per_instance_label` in all panels. #239
 * [BUGFIX] `CortexRequestLatency` alert now ignores long-running requests on query-scheduler. #242
 * [BUGFIX] Honor configured `job_names` in the "Memory (go heap inuse)" panel. #247
+* [BUGFIX] Fixed ingester "Disk Space Utilization" to include any `ingester.*` PV. #248
 
 ## 1.6.0 / 2021-01-05
 
