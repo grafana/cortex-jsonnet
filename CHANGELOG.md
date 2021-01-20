@@ -8,6 +8,7 @@
   - Cortex / Queries: added bucket index load operations and latency (available only when bucket index is enabled)
   - Alerts: added "CortexBucketIndexNotUpdated" (bucket index only) and "CortexTenantHasPartialBlocks"
 * [ENHANCEMENT] The name of the overrides configmap is now customisable via `$._config.overrides_configmap`. #244
+* [ENHANCEMENT] Added flag to control usage of bucket-index, and enable it by default when using blocks. #254
 * [BUGFIX] Honor configured `per_instance_label` in all panels. #239
 * [BUGFIX] `CortexRequestLatency` alert now ignores long-running requests on query-scheduler. #242
 * [BUGFIX] Honor configured `job_names` in the "Memory (go heap inuse)" panel. #247
