@@ -14,6 +14,7 @@
 * [BUGFIX] Honor configured `job_names` in the "Memory (go heap inuse)" panel. #247
 * [BUGFIX] Fixed ingester "Disk Space Utilization" to include any `ingester.*` PV. #249
 * [BUGFIX] Fixed ingester alerts to include any `ingester.*` job. #252
+* [BUGFIX] Set `-querier.second-store-engine` in the ruler too when `querier_second_storage_engine` is configured. #253
 
 ## 1.6.0 / 2021-01-05
 
