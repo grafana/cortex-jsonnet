@@ -3,6 +3,7 @@
 ## master / unreleased
 
 * [CHANGE] Only single cluster and namespace can now be selected in "resources" dashboards. #251
+* [CHANGE] Increased `CortexAllocatingTooMuchMemory` warning alert threshold from 50% to 65%. #256
 * [ENHANCEMENT] Added `unregister_ingesters_on_shutdown` config option to disable unregistering ingesters on shutdown (default is enabled). #213
 * [ENHANCEMENT] Improved blocks storage observability: #237
   - Cortex / Queries: added bucket index load operations and latency (available only when bucket index is enabled)
