@@ -4,6 +4,7 @@
 
 * [CHANGE] Only single cluster and namespace can now be selected in "resources" dashboards. #251
 * [CHANGE] Increased `CortexAllocatingTooMuchMemory` warning alert threshold from 50% to 65%. #256
+* [CHANGE] Cleaned up blocks storage config. Moved CLI flags used only be the read path from `genericBlocksStorageConfig` to `queryBlocksStorageConfig`, and flags used only by the ingester from `genericBlocksStorageConfig` to `ingester_args`. #257
 * [ENHANCEMENT] Added `unregister_ingesters_on_shutdown` config option to disable unregistering ingesters on shutdown (default is enabled). #213
 * [ENHANCEMENT] Improved blocks storage observability: #237
   - Cortex / Queries: added bucket index load operations and latency (available only when bucket index is enabled)
