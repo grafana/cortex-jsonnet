@@ -26,6 +26,9 @@
 
       'querier.second-store-engine': $._config.querier_second_storage_engine,
 
+      // Enable experimental @ support in PromQL.
+      'querier.at-modifier-enabled': true,
+
       'log.level': 'debug',
     },
 
