@@ -4,7 +4,7 @@
 
 ### Versioning strategy
 
-Releases of `cortex-jsonnet` are versioned to match the compatible version of Cortex. The release of `cortex-jsonnet`tagged `1.6.0` should match compatible with the release of Cortex tagged  `1.6.0`.
+Releases of `cortex-jsonnet` are versioned to match the compatible version of Cortex. The release of `cortex-jsonnet` tagged `1.6.0` should match compatible with the release of Cortex tagged  `1.6.0`.
 A release of `cortex-jsonnet` should follow shortly after a release of Cortex.
 
 ### Publish a release
