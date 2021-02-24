@@ -2,6 +2,8 @@
 
 ## master / unreleased
 
+## 1.7.0 / 2021-02-24
+
 * [CHANGE] Alertmanager storage backend no longer defaults to `gcs` with bucket name `'%(cluster)s-cortex-%(namespace)s' % $._config`. #258
 * [CHANGE] Only single cluster and namespace can now be selected in "resources" dashboards. #251
 * [CHANGE] Increased `CortexAllocatingTooMuchMemory` warning alert threshold from 50% to 65%. #256
