@@ -2,6 +2,8 @@
 
 ## master / unreleased
 
+* [ENHANCEMENT] Add `EtcdAllocatingTooMuchMemory` alert for monitoring etcd memory usage. #261
+
 ## 1.7.0 / 2021-02-24
 
 * [CHANGE] Alertmanager storage backend no longer defaults to `gcs` with bucket name `'%(cluster)s-cortex-%(namespace)s' % $._config`. #258
