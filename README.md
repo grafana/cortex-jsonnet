@@ -25,7 +25,7 @@ To generate the YAMLs for deploying Cortex:
       (import "github.com/jsonnet-libs/k8s-alpha/1.18/main.libsonnet")
       + (import "github.com/jsonnet-libs/k8s-alpha/1.18/extensions/kausal-shim.libsonnet")
       EOF
-    $ jb install github.com/grafana/cortex-jsonnet/cortex
+    $ jb install github.com/grafana/cortex-jsonnet/cortex@main
     ```
 
 1. Use the example monitoring.jsonnet.example:

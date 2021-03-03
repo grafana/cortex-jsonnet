@@ -38,7 +38,7 @@ test-readme:
 	tk init --k8s=false && \
 	jb install github.com/jsonnet-libs/k8s-alpha/1.18 && \
 	printf '(import "github.com/jsonnet-libs/k8s-alpha/1.18/main.libsonnet")\n+(import "github.com/jsonnet-libs/k8s-alpha/1.18/extensions/kausal-shim.libsonnet")' > lib/k.libsonnet && \
-	jb install github.com/grafana/cortex-jsonnet/cortex && \
+	jb install github.com/grafana/cortex-jsonnet/cortex@main && \
 	rm -fr ./vendor/cortex && \
 	cp -r ../cortex ./vendor/ && \
 	cp vendor/cortex/cortex-manifests.jsonnet.example environments/default/main.jsonnet && \

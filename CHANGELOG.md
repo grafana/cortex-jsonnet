@@ -2,6 +2,12 @@
 
 ## master / unreleased
 
+* [CHANGE] Updated the trunk branch from `master` to `main`. You need to run the following in your local fork: #265
+  ```
+  git branch -m master main
+  git fetch origin
+  git branch -u origin/main main
+  ```
 * [ENHANCEMENT] Add `EtcdAllocatingTooMuchMemory` alert for monitoring etcd memory usage. #261
 
 ## 1.7.0 / 2021-02-24
