@@ -9,6 +9,7 @@
   git branch -u origin/main main
   ```
 * [ENHANCEMENT] Add `EtcdAllocatingTooMuchMemory` alert for monitoring etcd memory usage. #261
+* [ENHANCEMENT] Move ruler to use top level `ruler-storage` configs. #270
 
 ## 1.7.0 / 2021-02-24
 

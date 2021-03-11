@@ -26,6 +26,8 @@
 
       // Storage
       'querier.second-store-engine': $._config.querier_second_storage_engine,
+
+      'api.response-compression-enabled': true,
     },
 
   ruler_container::
