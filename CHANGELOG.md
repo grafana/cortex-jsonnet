@@ -10,6 +10,7 @@
   ```
 * [ENHANCEMENT] Add `EtcdAllocatingTooMuchMemory` alert for monitoring etcd memory usage. #261
 * [ENHANCEMENT] Sort legend descending in the CPU/memory panels. #271
+* [BUGFIX] Fixed `CortexQuerierHighRefetchRate` alert. #268
 
 ## 1.7.0 / 2021-02-24
 
