@@ -8,6 +8,7 @@
   git fetch origin
   git branch -u origin/main main
   ```
+* [FEATURE] Added "Cortex / Slow queries" dashboard based on Loki logs. #271
 * [ENHANCEMENT] Add `EtcdAllocatingTooMuchMemory` alert for monitoring etcd memory usage. #261
 * [ENHANCEMENT] Sort legend descending in the CPU/memory panels. #271
 * [BUGFIX] Fixed `CortexQuerierHighRefetchRate` alert. #268
