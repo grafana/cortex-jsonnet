@@ -21,14 +21,14 @@ local utils = import 'mixin-utils/utils.libsonnet';
             )
           |||,
           |||
-            quantile_over_time(0.99, sum by (cluster, namespace, deployment) (label_replace(rate(cortex_distributor_received_samples_total{cluster=~"$cluster", namespace=~"$namespace"}[1m]), "deployment", "ingester", "cluster", ".*"))[1h:])
+            quantile_over_time(0.99, sum by (cluster, namespace, deployment) (label_replace(cluster_namespace_job:cortex_distributor_received_samples:rate5m{cluster=~"$cluster", namespace=~"$namespace"}, "deployment", "ingester", "cluster", ".*"))[1h:])
               * 3 / 80e3
           |||,
           |||
             label_replace(
               sum by(cluster, namespace) (
                 cortex_ingester_memory_series{cluster=~"$cluster", namespace=~"$namespace"}
-              ) / 1e+6,
+              ) / 1.5e+6,
               "deployment", "ingester", "cluster", ".*"
             )
               or
@@ -80,7 +80,7 @@ local utils = import 'mixin-utils/utils.libsonnet';
               )
             )
               *
-            quantile_over_time(0.99, sum by (cluster, namespace, deployment) (label_replace(rate(container_cpu_usage_seconds_total{cluster=~"$cluster", namespace=~"$namespace"}[1m]), "deployment", "$1", "pod", "(.*)-(?:([0-9]+)|([a-z0-9]+)-([a-z0-9]+))"))[24h:])
+            quantile_over_time(0.99, sum by (cluster, namespace, deployment) (label_replace(node_namespace_pod_container:container_cpu_usage_seconds_total:sum_rate{cluster=~"$cluster", namespace=~"$namespace"}, "deployment", "$1", "pod", "(.*)-(?:([0-9]+)|([a-z0-9]+)-([a-z0-9]+))"))[24h:])
               /
             sum by (cluster, namespace, deployment) (label_replace(kube_pod_container_resource_requests_cpu_cores{cluster=~"$cluster", namespace=~"$namespace"}, "deployment", "$1", "pod", "(.*)-(?:([0-9]+)|([a-z0-9]+)-([a-z0-9]+))"))
           |||,
