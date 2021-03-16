@@ -34,11 +34,7 @@ local utils = import 'mixin-utils/utils.libsonnet';
               or
             label_replace(
               sum by (cluster, namespace) (
-                4 * cortex_ingester_memory_series{cluster=~"$cluster", namespace=~"$namespace", job=~".+/ingester"}
-                  *
-                cortex_ingester_chunk_size_bytes_sum{cluster=~"$cluster", namespace=~"$namespace", job=~".+/ingester"}
-                  /
-                cortex_ingester_chunk_size_bytes_count{cluster=~"$cluster", namespace=~"$namespace", job=~".+/ingester"}
+                increase(cortex_ingester_tsdb_storage_blocks_bytes{cluster=~"$cluster", namespace=~"$namespace", job=~".+/ingester"}[24h])
               )
                 /
               avg by (cluster, namespace) (memcached_limit_bytes{cluster=~"$cluster", namespace=~"$namespace", job=~".+/memcached"}),
