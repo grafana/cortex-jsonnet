@@ -126,7 +126,7 @@
     // ready).
     statefulSet.mixin.spec.withPodManagementPolicy('Parallel'),
 
-  ingester_statefulset: self.newIngesterStatefulSet('ingester', $.ingester_container),
+  ingester_statefulset: self.newIngesterStatefulSet('ingester', $.ingester_statefulset_container),
 
   ingester_service:
     $.util.serviceFor($.ingester_statefulset, $.ingester_service_ignored_labels),
