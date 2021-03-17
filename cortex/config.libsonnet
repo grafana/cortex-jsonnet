@@ -289,20 +289,21 @@
 
     alertmanagerStorageClientConfig:
       {
-        'alertmanager.storage.type': $._config.alertmanager_client_type,
+        'alertmanager-storage.backend': $._config.alertmanager_client_type,
       } +
       {
         configdb: {
           configs_api_url: 'config.%s.svc.cluster.local' % $._config.namespace,
         },
         gcs: {
-          'alertmanager.storage.gcs.bucketname': $._config.alertmanager_gcs_bucket_name,
+          'alertmanager-storage.gcs.bucket-name': $._config.alertmanager_gcs_bucket_name,
         },
         s3: {
-          'alertmanager.storage.s3.url': 'https://%s/%s' % [$._config.aws_region, $._config.alertmanager_s3_bucket_name],
+          'alertmanager-storage.s3.region': $._config.aws_region,
+          'alertmanager-storage.s3.bucket-name': $._config.alertmanager_s3_bucket_name,
         },
         'local': {
-          'alertmanager.storage.local.directory': $._config.alertmanager_local_directory,
+          'alertmanager-storage.local.path': $._config.alertmanager_local_directory,
         },
       }[$._config.alertmanager_client_type],
 

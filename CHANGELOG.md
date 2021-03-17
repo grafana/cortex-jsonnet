@@ -8,6 +8,7 @@
   git fetch origin
   git branch -u origin/main main
   ```
+* [CHANGE] Alertmanager: use new `alertmanager-storage.*` flags to configure storage. Old flags are going to be deprecated.
 * [FEATURE] Added "Cortex / Slow queries" dashboard based on Loki logs. #271
 * [ENHANCEMENT] Add `EtcdAllocatingTooMuchMemory` alert for monitoring etcd memory usage. #261
 * [ENHANCEMENT] Sort legend descending in the CPU/memory panels. #271
