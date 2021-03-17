@@ -11,6 +11,7 @@
 * [FEATURE] Added "Cortex / Slow queries" dashboard based on Loki logs. #271
 * [ENHANCEMENT] Add `EtcdAllocatingTooMuchMemory` alert for monitoring etcd memory usage. #261
 * [ENHANCEMENT] Sort legend descending in the CPU/memory panels. #271
+* [ENHANCEMENT] Add config option to enable streaming of chunks in block-based ingesters. #276
 * [BUGFIX] Fixed `CortexQuerierHighRefetchRate` alert. #268
 
 ## 1.7.0 / 2021-02-24
