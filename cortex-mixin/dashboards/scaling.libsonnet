@@ -24,6 +24,8 @@ local utils = import 'mixin-utils/utils.libsonnet';
             quantile_over_time(0.99, sum by (cluster, namespace, deployment) (label_replace(cluster_namespace_job:cortex_distributor_received_samples:rate5m{cluster=~"$cluster", namespace=~"$namespace"}, "deployment", "ingester", "cluster", ".*"))[1h:])
               * 3 / 80e3
           |||,
+          // - 1.5e6 is the target number of series per ingester.
+          // - cortex_ingester_tsdb_storage_blocks_bytes / 4 as we keep 96h of blocks on disk in the ingester, and the target is 24h in cache.
           |||
             label_replace(
               sum by(cluster, namespace) (
@@ -33,9 +35,9 @@ local utils = import 'mixin-utils/utils.libsonnet';
             )
               or
             label_replace(
-              sum by (cluster, namespace) (
-                increase(cortex_ingester_tsdb_storage_blocks_bytes{cluster=~"$cluster", namespace=~"$namespace", job=~".+/ingester"}[24h])
-              )
+              (sum by (cluster, namespace) (
+                cortex_ingester_tsdb_storage_blocks_bytes{cluster=~"$cluster", namespace=~"$namespace", job=~".+/ingester"}
+              ) / 4)
                 /
               avg by (cluster, namespace) (memcached_limit_bytes{cluster=~"$cluster", namespace=~"$namespace", job=~".+/memcached"}),
               "deployment", "memcached", "namespace", ".*"
