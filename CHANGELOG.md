@@ -8,7 +8,7 @@
   git fetch origin
   git branch -u origin/main main
   ```
-* [CHANGE] `CortexRequestErrors` alert severity raised from `warning` to `critical`. #278
+* [CHANGE] `CortexRequestErrors` alert severity raised from `warning` to `critical`. #279
 * [FEATURE] Added "Cortex / Slow queries" dashboard based on Loki logs. #271
 * [ENHANCEMENT] Add `EtcdAllocatingTooMuchMemory` alert for monitoring etcd memory usage. #261
 * [ENHANCEMENT] Sort legend descending in the CPU/memory panels. #271
