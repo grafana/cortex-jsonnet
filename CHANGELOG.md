@@ -13,6 +13,7 @@
 * [ENHANCEMENT] Sort legend descending in the CPU/memory panels. #271
 * [ENHANCEMENT] Add config option to enable streaming of chunks in block-based ingesters. #276
 * [BUGFIX] Fixed `CortexQuerierHighRefetchRate` alert. #268
+* [BUGFIX] Fixed "Disk Writes" and "Disk Reads" panels. #280
 
 ## 1.7.0 / 2021-02-24
 
