@@ -2,6 +2,8 @@
 
 ## master / unreleased
 
+## 1.8.0 / 2021-03-25
+
 * [CHANGE] Updated the trunk branch from `master` to `main`. You need to run the following in your local fork: #265
   ```
   git branch -m master main
