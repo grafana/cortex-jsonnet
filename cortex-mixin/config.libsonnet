@@ -37,6 +37,28 @@
       gateway: 'cortex-gw',
     },
 
+    // Container names of all services managed / used by this mixin.
+    container_names: [
+      // Cortex services.
+      'distributor',
+      'ingester',
+      'query-frontend',
+      'querier',
+      'store-gateway',
+      'compactor',
+      'alertmanager',
+      'ruler',
+      'table-manager',
+
+      // Ingress.
+      'cortex-gw.*',
+
+      // Dependencies.
+      'memcached',
+      'consul',
+      'etcd',
+    ],
+
     // Labels used to in alert aggregations - should uniquely identify
     // a single Cortex cluster.
     alert_aggregation_labels: 'cluster, namespace',

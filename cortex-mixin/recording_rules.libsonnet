@@ -64,6 +64,7 @@ local utils = import 'mixin-utils/utils.libsonnet';
           max_samples_per_sec_per_ingester: 80e3,
           max_samples_per_sec_per_distributor: 240e3,
           limit_utilisation_target: 0.6,
+          container_names_matcher: 'container=~"%s"' % std.join('|', $._config.container_names),
         },
         name: 'cortex_scaling_rules',
         rules: [
@@ -212,7 +213,7 @@ local utils = import 'mixin-utils/utils.libsonnet';
                 quantile_over_time(0.99,
                   sum by (cluster, namespace, deployment) (
                     label_replace(
-                      node_namespace_pod_container:container_cpu_usage_seconds_total:sum_rate,
+                      node_namespace_pod_container:container_cpu_usage_seconds_total:sum_rate{%(container_names_matcher)s},
                       "deployment", "$1", "pod", "(.*)-(?:([0-9]+)|([a-z0-9]+)-([a-z0-9]+))"
                     )
                   )[24h:5m]
@@ -220,12 +221,12 @@ local utils = import 'mixin-utils/utils.libsonnet';
                   /
                 sum by (cluster, namespace, deployment) (
                   label_replace(
-                    kube_pod_container_resource_requests_cpu_cores,
+                    kube_pod_container_resource_requests_cpu_cores{%(container_names_matcher)s},
                     "deployment", "$1", "pod", "(.*)-(?:([0-9]+)|([a-z0-9]+)-([a-z0-9]+))"
                   )
                 )
               )
-            |||,
+            ||| % _config,
           },
           {
             // Jobs should be sized to their Memory usage.
@@ -242,7 +243,7 @@ local utils = import 'mixin-utils/utils.libsonnet';
                 quantile_over_time(0.99,
                   sum by (cluster, namespace, deployment) (
                     label_replace(
-                      container_memory_usage_bytes,
+                      container_memory_usage_bytes{%(container_names_matcher)s},
                       "deployment", "$1", "pod", "(.*)-(?:([0-9]+)|([a-z0-9]+)-([a-z0-9]+))"
                     )
                   )[24h:5m]
@@ -250,12 +251,12 @@ local utils = import 'mixin-utils/utils.libsonnet';
                   /
                 sum by (cluster, namespace, deployment) (
                   label_replace(
-                    kube_pod_container_resource_requests_memory_bytes,
+                    kube_pod_container_resource_requests_memory_bytes{%(container_names_matcher)s},
                     "deployment", "$1", "pod", "(.*)-(?:([0-9]+)|([a-z0-9]+)-([a-z0-9]+))"
                   )
                 )
               )
-            |||,
+            ||| % _config,
           },
         ],
       },
