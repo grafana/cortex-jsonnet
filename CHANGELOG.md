@@ -4,6 +4,7 @@
 
 * [ENHANCEMENT] Added `newCompactorStatefulSet()` function to create a custom statefulset for the compactor. #287
 * [ENHANCEMENT] Added option to configure compactor job name used in dashboards and alerts. #287
+* [BUGFIX] Fixed `CortexCompactorRunFailed` false positives. #288
 
 ## 1.8.0 / 2021-03-25
 
