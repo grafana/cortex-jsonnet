@@ -2,6 +2,7 @@
 
 ## master / unreleased
 
+* [FEATURE] Added "Cortex / Rollout progress" dashboard. #289
 * [ENHANCEMENT] Added `newCompactorStatefulSet()` function to create a custom statefulset for the compactor. #287
 * [ENHANCEMENT] Added option to configure compactor job name used in dashboards and alerts. #287
 * [BUGFIX] Fixed `CortexCompactorRunFailed` false positives. #288
