@@ -2,6 +2,9 @@
 
 ## master / unreleased
 
+* [ENHANCEMENT] Added `newCompactorStatefulSet()` function to create a custom statefulset for the compactor. #287
+* [ENHANCEMENT] Added option to configure compactor job name used in dashboards and alerts. #287
+
 ## 1.8.0 / 2021-03-25
 
 * [CHANGE] Updated the trunk branch from `master` to `main`. You need to run the following in your local fork: #265
