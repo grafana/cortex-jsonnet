@@ -65,7 +65,8 @@
           // Alert if compactor fails.
           alert: 'CortexCompactorRunFailed',
           expr: |||
-            increase(cortex_compactor_runs_failed_total[2h]) >= 2
+            (time() - cortex_compactor_last_successful_run_timestamp_seconds) > 
+            (cortex_compactor_compaction_interval_seconds * 2)
           |||,
           labels: {
             severity: 'critical',
