@@ -3,6 +3,7 @@
 ## master / unreleased
 
 * [FEATURE] Added "Cortex / Rollout progress" dashboard. #289 #290
+* [FEATURE] Added support for using query-scheduler component, which moves the queue out of query-frontend, and allows scaling up of query-frontend component. #295
 * [ENHANCEMENT] Added `newCompactorStatefulSet()` function to create a custom statefulset for the compactor. #287
 * [ENHANCEMENT] Added option to configure compactor job name used in dashboards and alerts. #287
 * [ENHANCEMENT] Added `CortexCompactorHasNotSuccessfullyRunCompaction` alert. #292 #294
