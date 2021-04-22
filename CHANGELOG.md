@@ -8,10 +8,8 @@
 * [ENHANCEMENT] Added `CortexCompactorHasNotSuccessfullyRunCompaction` alert. #292 #294
 * [ENHANCEMENT] Added ingester instance limits to config. #296
 * [ENHANCEMENT] Added alerts for ingester reaching the instance limits (if limits are configured). #296:
-  * `CortexIngesterReachedSeriesLimitWarning`
-  * `CortexIngesterReachedSeriesLimitCritical`
-  * `CortexIngesterReachedTenantsLimitWarning`
-  * `CortexIngesterReachedTenantsLimitCritical`
+  * `CortexIngesterReachingSeriesLimit`
+  * `CortexIngesterReachingTenantsLimit`
 * [BUGFIX] Fixed `CortexCompactorRunFailed` false positives. #288
 
 ## 1.8.0 / 2021-03-25

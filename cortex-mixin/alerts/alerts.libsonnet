@@ -259,7 +259,7 @@
       name: 'cortex_ingester_instance_alerts',
       rules: [
         {
-          alert: 'CortexIngesterReachedSeriesLimitWarning',
+          alert: 'CortexIngesterReachingSeriesLimit',
           expr: |||
             (
                 (cortex_ingester_memory_series / ignoring(limit) cortex_ingester_instance_limits{limit="max_series"})
@@ -278,7 +278,7 @@
           },
         },
         {
-          alert: 'CortexIngesterReachedSeriesLimitCritical',
+          alert: 'CortexIngesterReachingSeriesLimit',
           expr: |||
             (
                 (cortex_ingester_memory_series / ignoring(limit) cortex_ingester_instance_limits{limit="max_series"})
@@ -297,7 +297,7 @@
           },
         },
         {
-          alert: 'CortexIngesterReachedTenantsLimitWarning',
+          alert: 'CortexIngesterReachingTenantsLimit',
           expr: |||
             (
                 (cortex_ingester_memory_users / ignoring(limit) cortex_ingester_instance_limits{limit="max_tenants"})
@@ -316,7 +316,7 @@
           },
         },
         {
-          alert: 'CortexIngesterReachedTenantsLimitCritical',
+          alert: 'CortexIngesterReachingTenantsLimit',
           expr: |||
             (
                 (cortex_ingester_memory_users / ignoring(limit) cortex_ingester_instance_limits{limit="max_tenants"})
