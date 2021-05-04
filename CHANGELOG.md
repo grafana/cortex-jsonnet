@@ -11,6 +11,7 @@
 * [ENHANCEMENT] Added alerts for ingester reaching the instance limits (if limits are configured). #296:
   * `CortexIngesterReachingSeriesLimit`
   * `CortexIngesterReachingTenantsLimit`
+* [ENHANCEMENT] Improved `CortexRulerFailedRingCheck` to avoid firing in case of very short errors. #297
 * [BUGFIX] Fixed `CortexCompactorRunFailed` false positives. #288
 
 ## 1.8.0 / 2021-03-25
