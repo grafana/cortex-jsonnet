@@ -2,6 +2,7 @@
 
 ## master / unreleased
 
+* [CHANGE] Replace use of removed Cortex CLI flag `-querier.compress-http-responses` for query frontend with `-api.response-compression-enabled`. #299
 * [FEATURE] Added "Cortex / Rollout progress" dashboard. #289 #290
 * [FEATURE] Added support for using query-scheduler component, which moves the queue out of query-frontend, and allows scaling up of query-frontend component. #295
 * [ENHANCEMENT] Added `newCompactorStatefulSet()` function to create a custom statefulset for the compactor. #287
