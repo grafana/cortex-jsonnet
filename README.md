@@ -50,7 +50,7 @@ To generate the YAMLs for deploying Cortex:
     To output YAML manifests to `./manifests`, run:
 
     ```console
-    $ tk export environments/default manifests
+    $ tk export manifests environments/default
     ```
 
 # Monitoring for Cortex
