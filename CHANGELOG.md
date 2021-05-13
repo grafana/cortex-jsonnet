@@ -17,6 +17,7 @@
   * `CortexIngesterReachingTenantsLimit`
 * [ENHANCEMENT] Improved `CortexRulerFailedRingCheck` to avoid firing in case of very short errors. #297
 * [BUGFIX] Fixed `CortexCompactorRunFailed` false positives. #288
+* [BUGFIX] Add missing components (admin-api, compactor, store-gateway) to `CortexGossipMembersMismatch`. #305
 
 ## 1.8.0 / 2021-03-25
 
