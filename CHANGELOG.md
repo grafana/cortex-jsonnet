@@ -6,6 +6,8 @@
 * [CHANGE] The default dashboards config now display panels for the Cortex blocks storage only. If you're running Cortex chunks storage, please change `storage_engine` config to `['chunks']` or `['chunks', 'blocks']` if running both. #302
 * [CHANGE] Enabled index-header lazy loading in store-gateways. #303
 * [CHANGE] Replaced the deprecated CLI flag `-limits.per-user-override-config` (removed in Cortex 1.9) with `-runtime-config.file`. #304
+* [CHANGE] Ruler: changed ruler config to use the new storage config.
+* [CHANGE] Ruler: enabled API response compression.
 * [FEATURE] Added "Cortex / Rollout progress" dashboard. #289 #290
 * [FEATURE] Added support for using query-scheduler component, which moves the queue out of query-frontend, and allows scaling up of query-frontend component. #295
 * [ENHANCEMENT] Added `newCompactorStatefulSet()` function to create a custom statefulset for the compactor. #287
