@@ -8,6 +8,7 @@
 * [CHANGE] Replaced the deprecated CLI flag `-limits.per-user-override-config` (removed in Cortex 1.9) with `-runtime-config.file`. #304
 * [CHANGE] Ruler: changed ruler config to use the new storage config. #306
 * [CHANGE] Ruler: enabled API response compression. #306
+* [CHANGE] Alertmanager: changed alertmanager config to use the new storage config. #307
 * [FEATURE] Added "Cortex / Rollout progress" dashboard. #289 #290
 * [FEATURE] Added support for using query-scheduler component, which moves the queue out of query-frontend, and allows scaling up of query-frontend component. #295
 * [ENHANCEMENT] Added `newCompactorStatefulSet()` function to create a custom statefulset for the compactor. #287
