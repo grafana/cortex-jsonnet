@@ -2,6 +2,8 @@
 
 ## master / unreleased
 
+## 1.9.0 / 2021-05-18
+
 * [CHANGE] Replace use of removed Cortex CLI flag `-querier.compress-http-responses` for query frontend with `-api.response-compression-enabled`. #299
 * [CHANGE] The default dashboards config now display panels for the Cortex blocks storage only. If you're running Cortex chunks storage, please change `storage_engine` config to `['chunks']` or `['chunks', 'blocks']` if running both. #302
 * [CHANGE] Enabled index-header lazy loading in store-gateways. #303
