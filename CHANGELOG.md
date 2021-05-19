@@ -2,6 +2,8 @@
 
 ## master / unreleased
 
+* [CHANGE] `namespace` template variable in dashboards now only selects namespaces for selected clusters. #311
+
 ## 1.9.0 / 2021-05-18
 
 * [CHANGE] Replace use of removed Cortex CLI flag `-querier.compress-http-responses` for query frontend with `-api.response-compression-enabled`. #299
