@@ -3,6 +3,11 @@
 ## master / unreleased
 
 * [CHANGE] `namespace` template variable in dashboards now only selects namespaces for selected clusters. #311
+* [ENHANCEMENT] Extend Alertmanager dashboard: #313
+  * "Tenants" stat panel - shows number of discovered tenant configurations.
+  * "Tenant Configuration Sync" row - information about the configuration sync procedure.
+  * "Sharding Initial State Sync" row - information about the initial state sync procedure when sharding is enabled.
+  * "Sharding State Operations" row - information about various state operations which occur when sharding is enabled (replication, fetch, marge, persist).
 
 ## 1.9.0 / 2021-05-18
 
