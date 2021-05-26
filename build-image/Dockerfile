@@ -1,5 +1,5 @@
 # Build jsonnet
-FROM alpine:3.13 AS jsonnet-builder
+FROM alpine:edge AS jsonnet-builder
 RUN apk add --no-cache git make g++
 RUN git clone https://github.com/google/jsonnet && \
     git  -C jsonnet checkout v0.15.0 && \
@@ -8,7 +8,7 @@ RUN git clone https://github.com/google/jsonnet && \
     cp jsonnet/jsonnetfmt /usr/bin
 
 # Build jb
-FROM alpine:3.13 AS jb-builder
+FROM alpine:edge AS jb-builder
 ARG JSONNET_BUNDLER_VERSION=0.4.0
 ARG JSONNET_BUNDLER_CHECKSUM="433edab5554a88a0371e11e93080408b225d41c31decf321c02b50d2e44993ce  /usr/bin/jb"
 RUN apk add --no-cache curl
@@ -17,7 +17,7 @@ RUN echo "${JSONNET_BUNDLER_CHECKSUM}" | sha256sum -c || (printf "wanted: %s\n  
 RUN chmod +x /usr/bin/jb
 
 # Build tanka
-FROM alpine:3.13 AS tk-builder
+FROM alpine:edge AS tk-builder
 ARG TANKA_VERSION=0.11.1
 ARG TANKA_CHECKSUM="3b253ca7d7bf01189604c10a8f7cead20a553ddc04c813f0f836d80338cfad71  /usr/bin/tk"
 RUN apk add --no-cache curl
@@ -29,7 +29,8 @@ RUN chmod +x /usr/bin/tk
 FROM golang:1.15-alpine AS mixtool-builder
 RUN GO111MODULE=on go get github.com/monitoring-mixins/mixtool/cmd/mixtool@59d44357240d
 
-FROM alpine:3.13
+# TODO Switch to alpine:3.14 once released. Previous versions don't package yq v4.
+FROM alpine:edge
 RUN apk add --no-cache git make libgcc libstdc++ zip yq
 COPY --from=jsonnet-builder /usr/bin/jsonnetfmt /usr/bin
 COPY --from=jsonnet-builder /usr/bin/jsonnet /usr/bin
