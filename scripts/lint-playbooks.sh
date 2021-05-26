@@ -7,6 +7,9 @@ if [ $? -ne 0 ]; then
   echo "Unable to list alerts. Got output:"
   echo "$ALERTS"
   exit 1
+elif [ -z "$ALERTS" ]; then
+  echo "No alerts found. Something went wrong with the listing."
+  echo 1
 fi
 
 # Check if each alert is referenced in the playbooks.
