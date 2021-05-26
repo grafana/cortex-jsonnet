@@ -1,5 +1,5 @@
 # Build jsonnet
-FROM alpine:edge AS jsonnet-builder
+FROM alpine:3.13 AS jsonnet-builder
 RUN apk add --no-cache git make g++
 RUN git clone https://github.com/google/jsonnet && \
     git  -C jsonnet checkout v0.15.0 && \
@@ -8,7 +8,7 @@ RUN git clone https://github.com/google/jsonnet && \
     cp jsonnet/jsonnetfmt /usr/bin
 
 # Build jb
-FROM alpine:edge AS jb-builder
+FROM alpine:3.13 AS jb-builder
 ARG JSONNET_BUNDLER_VERSION=0.4.0
 ARG JSONNET_BUNDLER_CHECKSUM="433edab5554a88a0371e11e93080408b225d41c31decf321c02b50d2e44993ce  /usr/bin/jb"
 RUN apk add --no-cache curl
@@ -17,7 +17,7 @@ RUN echo "${JSONNET_BUNDLER_CHECKSUM}" | sha256sum -c || (printf "wanted: %s\n  
 RUN chmod +x /usr/bin/jb
 
 # Build tanka
-FROM alpine:edge AS tk-builder
+FROM alpine:3.13 AS tk-builder
 ARG TANKA_VERSION=0.11.1
 ARG TANKA_CHECKSUM="3b253ca7d7bf01189604c10a8f7cead20a553ddc04c813f0f836d80338cfad71  /usr/bin/tk"
 RUN apk add --no-cache curl
@@ -29,11 +29,15 @@ RUN chmod +x /usr/bin/tk
 FROM golang:1.15-alpine AS mixtool-builder
 RUN GO111MODULE=on go get github.com/monitoring-mixins/mixtool/cmd/mixtool@59d44357240d
 
-# TODO Switch to alpine:3.14 once released. Previous versions don't package yq v4.
-FROM alpine:edge
-RUN apk add --no-cache git make libgcc libstdc++ zip yq
+FROM alpine:3.13
+RUN apk add --no-cache git make libgcc libstdc++ zip
 COPY --from=jsonnet-builder /usr/bin/jsonnetfmt /usr/bin
 COPY --from=jsonnet-builder /usr/bin/jsonnet /usr/bin
 COPY --from=jb-builder /usr/bin/jb /usr/bin
 COPY --from=tk-builder /usr/bin/tk /usr/bin
 COPY --from=mixtool-builder /go/bin/mixtool /usr/bin
+
+# Install yq.
+# TODO We can install it via apk once alpine 3.14 or above will be released. Previous versions don't package v4.
+RUN wget -O /usr/bin/yq https://github.com/mikefarah/yq/releases/download/v4.9.3/yq_linux_amd64 && \
+    chmod +x /usr/bin/yq
