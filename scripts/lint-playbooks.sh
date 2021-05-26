@@ -1,6 +1,10 @@
 #!/bin/sh
 SCRIPT_DIR=$(realpath $(dirname $0))
 
+# TODO debug
+echo ${SCRIPT_DIR}/../cortex-mixin/out/alerts.yaml
+cat ${SCRIPT_DIR}/../cortex-mixin/out/alerts.yaml
+
 # List all alerts.
 ALERTS=$(yq eval '.groups.[].rules.[].alert' "${SCRIPT_DIR}/../cortex-mixin/out/alerts.yaml" 2> /dev/stdout)
 if [ $? -ne 0 ]; then

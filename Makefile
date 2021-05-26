@@ -28,8 +28,6 @@ build-image:
 publish-build-image:
 	docker push grafana/cortex-jsonnet-build-image:$(shell git rev-parse --short HEAD)
 
-compile-mixin:
-
 build-mixin:
 	@cd cortex-mixin && \
 	rm -rf out && mkdir out && \
