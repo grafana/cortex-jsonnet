@@ -14,8 +14,12 @@ jobs:
       - image: grafana/cortex-jsonnet-build-image:e19ece2
     steps:
       - checkout
-      - run: make lint
-      - run: make lint-playbooks
+      - run:
+          name: "Lint mixin"
+          command: make lint-mixin
+      - run:
+          name: "Lint playbooks"
+          command: make lint-playbooks
 
   build:
     docker:
