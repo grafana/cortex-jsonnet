@@ -15,6 +15,9 @@ lint-mixin:
 	jb install && \
 	mixtool lint mixin.libsonnet
 
+lint-playbooks: build-mixin
+	@./scripts/lint-playbooks.sh
+
 fmt:
 	@find . -name 'vendor' -prune -o -name '*.libsonnet' -print -o -name '*.jsonnet' -print | \
 		xargs -n 1 -- $(JSONNET_FMT) -i
@@ -25,12 +28,14 @@ build-image:
 publish-build-image:
 	docker push grafana/cortex-jsonnet-build-image:$(shell git rev-parse --short HEAD)
 
+compile-mixin:
+
 build-mixin:
 	cd cortex-mixin && \
 	rm -rf out && mkdir out && \
 	jb install && \
 	mixtool generate all --output-alerts out/alerts.yaml --output-rules out/rules.yaml --directory out/dashboards mixin.libsonnet && \
-	zip -r cortex-mixin.zip out
+	zip -q -r cortex-mixin.zip out
 
 test-readme:
 	rm -rf test-readme && \
