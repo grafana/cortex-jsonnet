@@ -27,7 +27,7 @@ RUN chmod +x /usr/bin/tk
 
 # Build mixtool
 FROM golang:1.15-alpine AS mixtool-builder
-RUN GO111MODULE=on go get github.com/monitoring-mixins/mixtool/cmd/mixtool@59d44357240d
+RUN GO111MODULE=on go get github.com/monitoring-mixins/mixtool/cmd/mixtool@ae18e31161ea10545b9c1ac0d23c10122f2c12b5
 
 FROM alpine:3.13
 RUN apk add --no-cache git make libgcc libstdc++ zip
