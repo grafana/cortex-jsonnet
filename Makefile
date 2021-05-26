@@ -35,7 +35,6 @@ build-mixin:
 	mixtool generate all --output-alerts out/alerts.yaml --output-rules out/rules.yaml --directory out/dashboards mixin.libsonnet && \
 	zip -q -r cortex-mixin.zip out
 	# TODO debug
-	cat out/alerts.yaml
 	cat cortex-mixin/out/alerts.yaml
 
 test-readme:
