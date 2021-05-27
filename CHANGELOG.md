@@ -3,6 +3,7 @@
 ## master / unreleased
 
 * [CHANGE] `namespace` template variable in dashboards now only selects namespaces for selected clusters. #311
+* [CHANGE] Alertmanager: mounted overrides configmap to alertmanager too. #315
 * [BUGFIX] Fixed `CortexIngesterHasNotShippedBlocks` alert false positive in case an ingester instance had ingested samples in the past, then no traffic was received for a long period and then it started receiving samples again. #308
 
 ## 1.9.0 / 2021-05-18
