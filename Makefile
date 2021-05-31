@@ -2,18 +2,25 @@
 
 JSONNET_FMT := jsonnetfmt
 
-lint: lint-mixin
+lint: lint-mixin lint-playbooks
+
+lint-mixin: lint-mixin-with-mixtool lint-mixin-with-jsonnetfmt
+
+lint-mixin-with-jsonnetfmt:
 	@RESULT=0; \
 	for f in $$(find . -name '*.libsonnet' -print -o -name '*.jsonnet' -print); do \
 		$(JSONNET_FMT) -- "$$f" | diff -u "$$f" -; \
 		RESULT=$$(($$RESULT + $$?)); \
 	done; \
-	RESULT=$$(($$RESULT + $$?)); \
+	exit $$RESULT
 
-lint-mixin:
+lint-mixin-with-mixtool:
 	cd cortex-mixin && \
 	jb install && \
 	mixtool lint mixin.libsonnet
+
+lint-playbooks: build-mixin
+	@./scripts/lint-playbooks.sh
 
 fmt:
 	@find . -name 'vendor' -prune -o -name '*.libsonnet' -print -o -name '*.jsonnet' -print | \
@@ -26,11 +33,11 @@ publish-build-image:
 	docker push grafana/cortex-jsonnet-build-image:$(shell git rev-parse --short HEAD)
 
 build-mixin:
-	cd cortex-mixin && \
+	@cd cortex-mixin && \
 	rm -rf out && mkdir out && \
 	jb install && \
 	mixtool generate all --output-alerts out/alerts.yaml --output-rules out/rules.yaml --directory out/dashboards mixin.libsonnet && \
-	zip -r cortex-mixin.zip out
+	zip -q -r cortex-mixin.zip out
 
 test-readme:
 	rm -rf test-readme && \

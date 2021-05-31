@@ -11,22 +11,28 @@ workflows:
 jobs:
   lint:
     docker:
-      - image: grafana/cortex-jsonnet-build-image:8ce0de1
+      - image: grafana/cortex-jsonnet-build-image:e19ece2
     steps:
       - checkout
-      - run: make lint
+      - run:
+          name: "Lint mixin"
+          command: make lint-mixin
+      - run:
+          name: "Lint playbooks"
+          command: make lint-playbooks
 
   build:
     docker:
-      - image: grafana/cortex-jsonnet-build-image:8ce0de1
+      - image: grafana/cortex-jsonnet-build-image:e19ece2
     steps:
       - checkout
       - run: make build-mixin
       - store_artifacts:
           path: cortex-mixin/cortex-mixin.zip
+
   test-readme:
     docker:
-      - image: grafana/cortex-jsonnet-build-image:8ce0de1
+      - image: grafana/cortex-jsonnet-build-image:e19ece2
     steps:
       - checkout
       - run: make test-readme
