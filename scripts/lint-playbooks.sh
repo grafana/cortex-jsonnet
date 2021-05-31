@@ -16,8 +16,7 @@ fi
 STATUS=0
 
 for ALERT in $ALERTS; do
-  grep -q "$ALERT" "${SCRIPT_DIR}/../cortex-mixin/docs/playbooks.md"
-  if [ $? -ne 0 ]; then
+  if ! grep -q "${ALERT}$" "${SCRIPT_DIR}/../cortex-mixin/docs/playbooks.md"; then
     echo "Missing playbook for: $ALERT"
     STATUS=1
   fi
