@@ -6,6 +6,8 @@
 * [CHANGE] Alertmanager: mounted overrides configmap to alertmanager too. #315
 * [CHANGE] Memcached: upgraded memcached from `1.5.17` to `1.6.9`. #316
 * [BUGFIX] Fixed `CortexIngesterHasNotShippedBlocks` alert false positive in case an ingester instance had ingested samples in the past, then no traffic was received for a long period and then it started receiving samples again. #308
+* [CHANGE] Dashboards: added overridable `job_labels` and `cluster_labels` to the configuration object as label lists to uniquely identify jobs and clusters in the metric names and group-by lists in dashboards. #319
+* [CHANGE] Dashboards: `alert_aggregation_labels` has been removed from the configuration and overriding this value has been deprecated. Instead the labels are now defined by the `cluster_labels` list, and should be overridden accordingly through that list. #319
 
 ## 1.9.0 / 2021-05-18
 
