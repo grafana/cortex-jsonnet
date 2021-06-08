@@ -6,6 +6,8 @@
 * [CHANGE] Alertmanager: mounted overrides configmap to alertmanager too. #315
 * [CHANGE] Memcached: upgraded memcached from `1.5.17` to `1.6.9`. #316
 * [CHANGE] `CortexIngesterRestarts` alert severity changed from `critical` to `warning`. #321
+* [CHANGE] Store-gateway: increased memory request and limit respectively from 6GB / 6GB to 12GB / 18GB. #322
+* [CHANGE] Store-gateway: increased `-blocks-storage.bucket-store.max-chunk-pool-bytes` from 2GB (default) to 12GB. #322
 * [ENHANCEMENT] cortex-mixin: Make `cluster_namespace_deployment:kube_pod_container_resource_requests_{cpu_cores,memory_bytes}:sum` backwards compatible with `kube-state-metrics` v2.0.0. #317
 * [BUGFIX] Fixed `CortexIngesterHasNotShippedBlocks` alert false positive in case an ingester instance had ingested samples in the past, then no traffic was received for a long period and then it started receiving samples again. #308
 
@@ -29,6 +31,7 @@
   * `CortexIngesterReachingTenantsLimit`
 * [ENHANCEMENT] Improved `CortexRulerFailedRingCheck` to avoid firing in case of very short errors. #297
 * [BUGFIX] Fixed `CortexCompactorRunFailed` false positives. #288
+* [BUGFIX] Add missing components (admin-api, compactor, store-gateway) to `CortexGossipMembersMismatch`. #305
 
 ## 1.8.0 / 2021-03-25
 
