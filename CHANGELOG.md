@@ -5,6 +5,7 @@
 * [CHANGE] `namespace` template variable in dashboards now only selects namespaces for selected clusters. #311
 * [CHANGE] Alertmanager: mounted overrides configmap to alertmanager too. #315
 * [CHANGE] Memcached: upgraded memcached from `1.5.17` to `1.6.9`. #316
+* [CHANGE] `CortexIngesterRestarts` alert severity changed from `critical` to `warning`. #321
 * [CHANGE] Store-gateway: increased memory request and limit respectively from 6GB / 6GB to 12GB / 18GB. #322
 * [CHANGE] Store-gateway: increased `-blocks-storage.bucket-store.max-chunk-pool-bytes` from 2GB (default) to 12GB. #322
 * [ENHANCEMENT] cortex-mixin: Make `cluster_namespace_deployment:kube_pod_container_resource_requests_{cpu_cores,memory_bytes}:sum` backwards compatible with `kube-state-metrics` v2.0.0. #317
