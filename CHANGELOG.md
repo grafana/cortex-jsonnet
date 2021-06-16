@@ -2,7 +2,7 @@
 
 ## master / unreleased
 
-* [ENHANCEMENT] Cortex-mixin: Include `cortex-gw-internal` naming variation. #164
+* [ENHANCEMENT] Cortex-mixin: Include `cortex-gw-internal` naming variation in default `gateway` job names. #328 
 * [CHANGE] `namespace` template variable in dashboards now only selects namespaces for selected clusters. #311
 * [CHANGE] Alertmanager: mounted overrides configmap to alertmanager too. #315
 * [CHANGE] Memcached: upgraded memcached from `1.5.17` to `1.6.9`. #316
