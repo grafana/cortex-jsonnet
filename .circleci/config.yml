@@ -11,7 +11,7 @@ workflows:
 jobs:
   lint:
     docker:
-      - image: grafana/cortex-jsonnet-build-image:e19ece2
+      - image: grafana/cortex-jsonnet-build-image:3527936
     steps:
       - checkout
       - run:
@@ -26,7 +26,7 @@ jobs:
 
   build:
     docker:
-      - image: grafana/cortex-jsonnet-build-image:e19ece2
+      - image: grafana/cortex-jsonnet-build-image:3527936
     steps:
       - checkout
       - run: make build-mixin
@@ -35,7 +35,7 @@ jobs:
 
   test-readme:
     docker:
-      - image: grafana/cortex-jsonnet-build-image:e19ece2
+      - image: grafana/cortex-jsonnet-build-image:3527936
     steps:
       - checkout
       - run: make test-readme
