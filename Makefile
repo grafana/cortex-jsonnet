@@ -2,6 +2,11 @@
 
 JSONNET_FMT := jsonnetfmt
 
+# Support gsed/gfind on OSX (installed via brew), falling back to sed/find. On Linux
+# systems gsed/gfind won't be installed, so will use sed/gfind as expected.
+SED ?= $(shell which gsed 2>/dev/null || which sed)
+FIND ?= $(shell which gfind 2>/dev/null || which find)
+
 lint: lint-mixin lint-playbooks
 
 lint-mixin: lint-mixin-with-mixtool lint-mixin-with-jsonnetfmt
@@ -50,3 +55,10 @@ test-readme:
 	cp -r ../cortex ./vendor/ && \
 	cp vendor/cortex/cortex-manifests.jsonnet.example environments/default/main.jsonnet && \
 	PAGER=cat tk show environments/default
+
+clean-white-noise:
+	@$(FIND) . -type f -regextype posix-extended -regex '.*(md|libsonnet)' -print | \
+	SED_BIN="$(SED)" xargs ./scripts/cleanup-white-noise.sh
+
+check-white-noise: clean-white-noise
+	@git diff --exit-code --quiet || (echo "Please remove trailing whitespaces running 'make clean-white-noise'" && false)
