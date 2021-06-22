@@ -2,6 +2,10 @@
 
 JSONNET_FMT := jsonnetfmt
 
+# Support gsed on OSX (installed via brew), falling back to sed. On Linux
+# systems gsed won't be installed, so will use sed as expected.
+SED ?= $(shell which gsed 2>/dev/null || which sed)
+
 lint: lint-mixin lint-playbooks
 
 lint-mixin: lint-mixin-with-mixtool lint-mixin-with-jsonnetfmt
@@ -50,3 +54,10 @@ test-readme:
 	cp -r ../cortex ./vendor/ && \
 	cp vendor/cortex/cortex-manifests.jsonnet.example environments/default/main.jsonnet && \
 	PAGER=cat tk show environments/default
+
+clean-white-noise:
+	@find -E . -type f -regex '.*(md|libsonnet)' -print | \
+	SED_BIN="$(SED)" xargs ./scripts/cleanup-white-noise.sh
+
+check-white-noise: clean-white-noise
+	@git diff --exit-code --quiet || (echo "Please remove trailing whitespaces running 'make clean-white-noise'" && false)
