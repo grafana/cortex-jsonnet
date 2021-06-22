@@ -2,9 +2,10 @@
 
 JSONNET_FMT := jsonnetfmt
 
-# Support gsed on OSX (installed via brew), falling back to sed. On Linux
-# systems gsed won't be installed, so will use sed as expected.
+# Support gsed/gfind on OSX (installed via brew), falling back to sed/find. On Linux
+# systems gsed/gfind won't be installed, so will use sed/gfind as expected.
 SED ?= $(shell which gsed 2>/dev/null || which sed)
+FIND ?= $(shell which gfind 2>/dev/null || which find)
 
 lint: lint-mixin lint-playbooks
 
@@ -56,7 +57,7 @@ test-readme:
 	PAGER=cat tk show environments/default
 
 clean-white-noise:
-	@find -E . -type f -regex '.*(md|libsonnet)' -print | \
+	@$(FIND) . -type f -regextype posix-extended -regex '.*(md|libsonnet)' -print | \
 	SED_BIN="$(SED)" xargs ./scripts/cleanup-white-noise.sh
 
 check-white-noise: clean-white-noise
