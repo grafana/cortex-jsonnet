@@ -15,6 +15,9 @@ jobs:
     steps:
       - checkout
       - run:
+          name: "Check white noise"
+          command: make check-white-noise
+      - run:
           name: "Lint mixin"
           command: make lint-mixin
       - run:
