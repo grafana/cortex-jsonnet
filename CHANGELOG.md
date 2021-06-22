@@ -17,6 +17,7 @@
 * [CHANGE] Renamed `CortexInconsistentConfig` alert to `CortexInconsistentRuntimeConfig` and increased severity to `critical`. #335
 * [CHANGE] Increased `CortexBadRuntimeConfig` alert severity to `critical` and removed support for `cortex_overrides_last_reload_successful` metric (was removed in Cortex 1.3.0). #335
 * [ENHANCEMENT] cortex-mixin: Make `cluster_namespace_deployment:kube_pod_container_resource_requests_{cpu_cores,memory_bytes}:sum` backwards compatible with `kube-state-metrics` v2.0.0. #317
+* [ENHANCEMENT] Added documentation text panels and descriptions to reads and writes dashboards. #324
 * [BUGFIX] Fixed `CortexIngesterHasNotShippedBlocks` alert false positive in case an ingester instance had ingested samples in the past, then no traffic was received for a long period and then it started receiving samples again. #308
 * [BUGFIX] Alertmanager: fixed `--alertmanager.cluster.peers` CLI flag passed to alertmanager when HA is enabled. #329
 * [BUGFIX] Fixed `CortexInconsistentRuntimeConfig` metric. #335
