@@ -18,6 +18,7 @@
 * [CHANGE] Increased `CortexBadRuntimeConfig` alert severity to `critical` and removed support for `cortex_overrides_last_reload_successful` metric (was removed in Cortex 1.3.0). #335
 * [CHANGE] Grafana 'min step' changed to 15s so dashboard show better detail. #340
 * [CHANGE] Removed `CortexCacheRequestErrors` alert. This alert was not working because the legacy Cortex cache client instrumentation doesn't track errors. #346
+* [CHANGE] Removed `CortexQuerierCapacityFull` alert. #342
 * [ENHANCEMENT] cortex-mixin: Make `cluster_namespace_deployment:kube_pod_container_resource_requests_{cpu_cores,memory_bytes}:sum` backwards compatible with `kube-state-metrics` v2.0.0. #317
 * [ENHANCEMENT] Added documentation text panels and descriptions to reads and writes dashboards. #324
 * [ENHANCEMENT] Dashboards: defined container functions for common resources panels: containerDiskWritesPanel, containerDiskReadsPanel, containerDiskSpaceUtilization. #331
@@ -80,7 +81,7 @@
   - Cortex / Queries: added bucket index load operations and latency (available only when bucket index is enabled)
   - Alerts: added "CortexBucketIndexNotUpdated" (bucket index only) and "CortexTenantHasPartialBlocks"
 * [ENHANCEMENT] The name of the overrides configmap is now customisable via `$._config.overrides_configmap`. #244
-* [ENHANCEMENT] Added flag to control usage of bucket-index, and enable it by default when using blocks. #254
+* [ENHANCEMENT] Added flag to control usage of bucket-index and disable it by default when using blocks. #254
 * [ENHANCEMENT] Added the alert `CortexIngesterHasUnshippedBlocks`. #255
 * [BUGFIX] Honor configured `per_instance_label` in all panels. #239
 * [BUGFIX] `CortexRequestLatency` alert now ignores long-running requests on query-scheduler. #242
