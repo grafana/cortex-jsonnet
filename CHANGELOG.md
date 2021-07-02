@@ -20,6 +20,7 @@
 * [CHANGE] Replace `CortexRulerFailedEvaluations` with two new alerts: `CortexRulerTooManyFailedPushes` and `CortexRulerTooManyFailedQueries`. #347
 * [CHANGE] Removed `CortexCacheRequestErrors` alert. This alert was not working because the legacy Cortex cache client instrumentation doesn't track errors. #346
 * [CHANGE] Removed `CortexQuerierCapacityFull` alert. #342
+* [CHANGE] Changes blocks storage alerts to group metrics by the configured `cluster_labels` (supporting the deprecated `alert_aggregation_labels`). #351
 * [ENHANCEMENT] cortex-mixin: Make `cluster_namespace_deployment:kube_pod_container_resource_requests_{cpu_cores,memory_bytes}:sum` backwards compatible with `kube-state-metrics` v2.0.0. #317
 * [ENHANCEMENT] Added documentation text panels and descriptions to reads and writes dashboards. #324
 * [ENHANCEMENT] Dashboards: defined container functions for common resources panels: containerDiskWritesPanel, containerDiskReadsPanel, containerDiskSpaceUtilization. #331
