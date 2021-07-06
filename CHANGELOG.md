@@ -2,7 +2,6 @@
 
 ## master / unreleased
 
-* [ENHANCEMENT] Cortex-mixin: Include `cortex-gw-internal` naming variation in default `gateway` job names. #328
 * [CHANGE] `namespace` template variable in dashboards now only selects namespaces for selected clusters. #311
 * [CHANGE] Alertmanager: mounted overrides configmap to alertmanager too. #315
 * [CHANGE] Memcached: upgraded memcached from `1.5.17` to `1.6.9`. #316
@@ -22,6 +21,9 @@
 * [CHANGE] Removed `CortexQuerierCapacityFull` alert. #342
 * [CHANGE] Changes blocks storage alerts to group metrics by the configured `cluster_labels` (supporting the deprecated `alert_aggregation_labels`). #351
 * [ENHANCEMENT] cortex-mixin: Make `cluster_namespace_deployment:kube_pod_container_resource_requests_{cpu_cores,memory_bytes}:sum` backwards compatible with `kube-state-metrics` v2.0.0. #317
+* [ENHANCEMENT] Cortex-mixin: Include `cortex-gw-internal` naming variation in default `gateway` job names. #328
+* [ENHANCEMENT] Ruler dashboard: added object storage metrics. #354
+* [ENHANCEMENT] Alertmanager dashboard: added object storage metrics. #354
 * [ENHANCEMENT] Added documentation text panels and descriptions to reads and writes dashboards. #324
 * [ENHANCEMENT] Dashboards: defined container functions for common resources panels: containerDiskWritesPanel, containerDiskReadsPanel, containerDiskSpaceUtilization. #331
 * [ENHANCEMENT] cortex-mixin: Added `alert_excluded_routes` config to exclude specific routes from alerts. #338
