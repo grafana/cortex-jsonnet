@@ -29,6 +29,7 @@
 * [ENHANCEMENT] cortex-mixin: Added `alert_excluded_routes` config to exclude specific routes from alerts. #338
 * [ENHANCEMENT] Added `CortexMemcachedRequestErrors` alert. #346
 * [ENHANCEMENT] Ruler dashboard: added "Per route p99 latency" panel in the "Configuration API" row. #353
+* [ENHANCEMENT] Increased the `for` duration of the `CortexIngesterReachingSeriesLimit` warning alert to 3h. #362
 * [BUGFIX] Fixed `CortexIngesterHasNotShippedBlocks` alert false positive in case an ingester instance had ingested samples in the past, then no traffic was received for a long period and then it started receiving samples again. #308
 * [BUGFIX] Alertmanager: fixed `--alertmanager.cluster.peers` CLI flag passed to alertmanager when HA is enabled. #329
 * [BUGFIX] Fixed `CortexInconsistentRuntimeConfig` metric. #335
