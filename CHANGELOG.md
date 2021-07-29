@@ -36,6 +36,7 @@
 * [BUGFIX] Alertmanager: fixed `--alertmanager.cluster.peers` CLI flag passed to alertmanager when HA is enabled. #329
 * [BUGFIX] Fixed `CortexInconsistentRuntimeConfig` metric. #335
 * [BUGFIX] Fixed scaling dashboard to correctly work when a Cortex service deployment spans across multiple zones (a zone is expected to have the `zone-[a-z]` suffix). #365
+* [BUGFIX] Fixed rollout progress dashboard to correctly work when a Cortex service deployment spans across multiple zones (a zone is expected to have the `zone-[a-z]` suffix). #366
 
 ## 1.9.0 / 2021-05-18
 
