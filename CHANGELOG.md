@@ -21,6 +21,8 @@
 * [CHANGE] Removed `CortexQuerierCapacityFull` alert. #342
 * [CHANGE] Changes blocks storage alerts to group metrics by the configured `cluster_labels` (supporting the deprecated `alert_aggregation_labels`). #351
 * [CHANGE] Increased `CortexIngesterReachingSeriesLimit` critical alert threshold from 80% to 85%. #363
+* [CHANGE] Decreased `-server.grpc-max-concurrent-streams` from 100k to 10k. #369
+* [CHANGE] Decreased blocks storage ingesters graceful termination period from 80m to 20m. #369
 * [ENHANCEMENT] cortex-mixin: Make `cluster_namespace_deployment:kube_pod_container_resource_requests_{cpu_cores,memory_bytes}:sum` backwards compatible with `kube-state-metrics` v2.0.0. #317
 * [ENHANCEMENT] Cortex-mixin: Include `cortex-gw-internal` naming variation in default `gateway` job names. #328
 * [ENHANCEMENT] Ruler dashboard: added object storage metrics. #354
@@ -38,11 +40,13 @@
   * "Tenant Configuration Sync" row - information about the configuration sync procedure.
   * "Sharding Initial State Sync" row - information about the initial state sync procedure when sharding is enabled.
   * "Sharding Runtime State Sync" row - information about various state operations which occur when sharding is enabled (replication, fetch, marge, persist).
+* [ENHANCEMENT] Added 256MB memory ballast to querier. #369
 * [BUGFIX] Fixed `CortexIngesterHasNotShippedBlocks` alert false positive in case an ingester instance had ingested samples in the past, then no traffic was received for a long period and then it started receiving samples again. #308
 * [BUGFIX] Alertmanager: fixed `--alertmanager.cluster.peers` CLI flag passed to alertmanager when HA is enabled. #329
 * [BUGFIX] Fixed `CortexInconsistentRuntimeConfig` metric. #335
 * [BUGFIX] Fixed scaling dashboard to correctly work when a Cortex service deployment spans across multiple zones (a zone is expected to have the `zone-[a-z]` suffix). #365
 * [BUGFIX] Fixed rollout progress dashboard to correctly work when a Cortex service deployment spans across multiple zones (a zone is expected to have the `zone-[a-z]` suffix). #366
+* [BUGFIX] Fixed `-distributor.extend-writes` setting on ruler when `unregister_ingesters_on_shutdown` is disabled. #369
 
 ## 1.9.0 / 2021-05-18
 
