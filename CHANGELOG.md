@@ -41,6 +41,7 @@
   * "Sharding Initial State Sync" row - information about the initial state sync procedure when sharding is enabled.
   * "Sharding Runtime State Sync" row - information about various state operations which occur when sharding is enabled (replication, fetch, marge, persist).
 * [ENHANCEMENT] Added 256MB memory ballast to querier. #369
+* [ENHANCEMENT] Update gsutil command for `not healthy index found` playbook #370
 * [BUGFIX] Fixed `CortexIngesterHasNotShippedBlocks` alert false positive in case an ingester instance had ingested samples in the past, then no traffic was received for a long period and then it started receiving samples again. #308
 * [BUGFIX] Alertmanager: fixed `--alertmanager.cluster.peers` CLI flag passed to alertmanager when HA is enabled. #329
 * [BUGFIX] Fixed `CortexInconsistentRuntimeConfig` metric. #335
