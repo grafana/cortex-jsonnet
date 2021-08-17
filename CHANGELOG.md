@@ -23,6 +23,7 @@
 * [CHANGE] Increased `CortexIngesterReachingSeriesLimit` critical alert threshold from 80% to 85%. #363
 * [CHANGE] Decreased `-server.grpc-max-concurrent-streams` from 100k to 10k. #369
 * [CHANGE] Decreased blocks storage ingesters graceful termination period from 80m to 20m. #369
+* [ENHANCEMENT] Writes dashboard: fix HA-tracker KV panels; add elections panel and ingester state panel. #371
 * [ENHANCEMENT] cortex-mixin: Make `cluster_namespace_deployment:kube_pod_container_resource_requests_{cpu_cores,memory_bytes}:sum` backwards compatible with `kube-state-metrics` v2.0.0. #317
 * [ENHANCEMENT] Cortex-mixin: Include `cortex-gw-internal` naming variation in default `gateway` job names. #328
 * [ENHANCEMENT] Ruler dashboard: added object storage metrics. #354
