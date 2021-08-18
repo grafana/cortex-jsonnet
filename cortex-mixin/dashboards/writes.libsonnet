@@ -104,11 +104,22 @@ local utils = import 'mixin-utils/utils.libsonnet';
       $.row('Key-value store for high-availability (HA) deduplication')
       .addPanel(
         $.panel('Requests / sec') +
-        $.qpsPanel('cortex_kv_request_duration_seconds_count{%s}' % $.jobMatcher($._config.job_names.distributor))
+        $.qpsPanel('cortex_kv_request_duration_seconds_count{%s,kv_name="distributor-hatracker"}' % $.jobMatcher($._config.job_names.distributor))
       )
       .addPanel(
         $.panel('Latency') +
-        utils.latencyRecordingRulePanel('cortex_kv_request_duration_seconds', $.jobSelector($._config.job_names.distributor))
+        utils.latencyRecordingRulePanel('cortex_kv_request_duration_seconds', $.jobSelector($._config.job_names.distributor) + [utils.selector.eq('kv_name', 'distributor-hatracker')])
+      )
+      .addPanel(
+        $.panel('Elected replica changes / min') +
+        $.queryPanel([
+          'max by(exported_cluster, user)(increase(cortex_ha_tracker_elected_replica_changes_total{%s}[1m])) >0' % $.jobMatcher($._config.job_names.distributor),
+        ], [
+          '{{user}}/{{exported_cluster}}',
+        ]) +
+        $.stack + {
+          yaxes: $.yaxes('cpm'),
+        },
       )
     )
     .addRow(
@@ -133,11 +144,19 @@ local utils = import 'mixin-utils/utils.libsonnet';
       $.row('Key-value store for the ingesters ring')
       .addPanel(
         $.panel('Requests / sec') +
-        $.qpsPanel('cortex_kv_request_duration_seconds_count{%s}' % $.jobMatcher($._config.job_names.ingester))
+        $.qpsPanel('cortex_kv_request_duration_seconds_count{%s,kv_name="ingester-lifecycler"}' % $.jobMatcher($._config.job_names.ingester))
       )
       .addPanel(
         $.panel('Latency') +
-        utils.latencyRecordingRulePanel('cortex_kv_request_duration_seconds', $.jobSelector($._config.job_names.ingester))
+        utils.latencyRecordingRulePanel('cortex_kv_request_duration_seconds', $.jobSelector($._config.job_names.ingester)+ [utils.selector.eq('kv_name', 'ingester-lifecycler')])
+      )
+      .addPanel(
+        $.panel('Ingester status') +
+        $.queryPanel([
+          'max by (state)(cortex_ring_members{%s}) >0' % $.jobMatcher($._config.job_names.distributor),
+        ], [
+          '{{state}}',
+        ])
       )
     )
     .addRowIf(
