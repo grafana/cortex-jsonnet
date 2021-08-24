@@ -23,6 +23,7 @@
 * [CHANGE] Increased `CortexIngesterReachingSeriesLimit` critical alert threshold from 80% to 85%. #363
 * [CHANGE] Decreased `-server.grpc-max-concurrent-streams` from 100k to 10k. #369
 * [CHANGE] Decreased blocks storage ingesters graceful termination period from 80m to 20m. #369
+* [CHANGE] Changed default `job_names` for query-frontend, query-scheduler and querier to match custom deployments too. #376
 * [ENHANCEMENT] cortex-mixin: Make `cluster_namespace_deployment:kube_pod_container_resource_requests_{cpu_cores,memory_bytes}:sum` backwards compatible with `kube-state-metrics` v2.0.0. #317
 * [ENHANCEMENT] Cortex-mixin: Include `cortex-gw-internal` naming variation in default `gateway` job names. #328
 * [ENHANCEMENT] Ruler dashboard: added object storage metrics. #354
@@ -48,6 +49,7 @@
 * [BUGFIX] Fixed `CortexInconsistentRuntimeConfig` metric. #335
 * [BUGFIX] Fixed scaling dashboard to correctly work when a Cortex service deployment spans across multiple zones (a zone is expected to have the `zone-[a-z]` suffix). #365
 * [BUGFIX] Fixed rollout progress dashboard to correctly work when a Cortex service deployment spans across multiple zones (a zone is expected to have the `zone-[a-z]` suffix). #366
+* [BUGFIX] Fixed rollout progress dashboard to include query-scheduler too. #376
 * [BUGFIX] Fixed `-distributor.extend-writes` setting on ruler when `unregister_ingesters_on_shutdown` is disabled. #369
 
 ## 1.9.0 / 2021-05-18
