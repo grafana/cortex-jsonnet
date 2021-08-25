@@ -44,6 +44,13 @@
 * [ENHANCEMENT] Added 256MB memory ballast to querier. #369
 * [ENHANCEMENT] Update gsutil command for `not healthy index found` playbook #370
 * [ENHANCEMENT] Update `etcd-operator` to latest version (see https://github.com/grafana/jsonnet-libs/pull/480). #263
+* [ENHANCEMENT] Create playbooks for the following alerts: #378
+  * `CortexAlertmanagerSyncConfigsFailing`
+  * `CortexAlertmanagerRingCheckFailing`
+  * `CortexAlertmanagerPartialStateMergeFailing`
+  * `CortexAlertmanagerReplicationFailing`
+  * `CortexAlertmanagerPersistStateFailing`
+  * `CortexAlertmanagerInitialSyncFailed`
 * [BUGFIX] Fixed `CortexIngesterHasNotShippedBlocks` alert false positive in case an ingester instance had ingested samples in the past, then no traffic was received for a long period and then it started receiving samples again. #308
 * [BUGFIX] Alertmanager: fixed `--alertmanager.cluster.peers` CLI flag passed to alertmanager when HA is enabled. #329
 * [BUGFIX] Fixed `CortexInconsistentRuntimeConfig` metric. #335
