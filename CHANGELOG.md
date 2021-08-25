@@ -51,7 +51,7 @@
   * `CortexAlertmanagerReplicationFailing`
   * `CortexAlertmanagerPersistStateFailing`
   * `CortexAlertmanagerInitialSyncFailed`
-* [ENHANCEMENT] Add support for Azure storage in Alertmanager configuration. #380
+* [ENHANCEMENT] Add support for Azure storage in Alertmanager configuration. #381
 * [BUGFIX] Fixed `CortexIngesterHasNotShippedBlocks` alert false positive in case an ingester instance had ingested samples in the past, then no traffic was received for a long period and then it started receiving samples again. #308
 * [BUGFIX] Alertmanager: fixed `--alertmanager.cluster.peers` CLI flag passed to alertmanager when HA is enabled. #329
 * [BUGFIX] Fixed `CortexInconsistentRuntimeConfig` metric. #335
