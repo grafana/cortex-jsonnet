@@ -58,6 +58,7 @@
 * [BUGFIX] Fixed rollout progress dashboard to correctly work when a Cortex service deployment spans across multiple zones (a zone is expected to have the `zone-[a-z]` suffix). #366
 * [BUGFIX] Fixed rollout progress dashboard to include query-scheduler too. #376
 * [BUGFIX] Fixed `-distributor.extend-writes` setting on ruler when `unregister_ingesters_on_shutdown` is disabled. #369
+* [BUGFIX] Upstream recording rule `node_namespace_pod_container:container_cpu_usage_seconds_total:sum_irate` renamed. #379
 
 ## 1.9.0 / 2021-05-18
 
