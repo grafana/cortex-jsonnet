@@ -44,7 +44,7 @@
 * [ENHANCEMENT] Added 256MB memory ballast to querier. #369
 * [ENHANCEMENT] Update gsutil command for `not healthy index found` playbook #370
 * [ENHANCEMENT] Update `etcd-operator` to latest version (see https://github.com/grafana/jsonnet-libs/pull/480). #263
-* [ENHANCEMENT] Create playbooks for the following alerts: #378
+* [ENHANCEMENT] Added Alertmanager alerts and playbooks covering configuration syncs and sharding operation: #377 #378
   * `CortexAlertmanagerSyncConfigsFailing`
   * `CortexAlertmanagerRingCheckFailing`
   * `CortexAlertmanagerPartialStateMergeFailing`
