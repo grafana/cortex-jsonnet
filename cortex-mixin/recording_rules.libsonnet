@@ -13,54 +13,54 @@ local utils = import 'mixin-utils/utils.libsonnet';
       {
         name: 'cortex_api_1',
         rules:
-          utils.histogramRules('cortex_request_duration_seconds', ['cluster', 'job']),
+          utils.histogramRules('cortex_request_duration_seconds', $._config.cluster_labels),
       },
       {
         name: 'cortex_api_2',
         rules:
-          utils.histogramRules('cortex_request_duration_seconds', ['cluster', 'job', 'route']),
+          utils.histogramRules('cortex_request_duration_seconds', $._config.job_labels),
       },
       {
         name: 'cortex_api_3',
         rules:
-          utils.histogramRules('cortex_request_duration_seconds', ['cluster', 'namespace', 'job', 'route']),
+          utils.histogramRules('cortex_request_duration_seconds', $._config.job_labels + ['route']),
       },
       {
         name: 'cortex_querier_api',
         rules:
-          utils.histogramRules('cortex_querier_request_duration_seconds', ['cluster', 'job']) +
-          utils.histogramRules('cortex_querier_request_duration_seconds', ['cluster', 'job', 'route']) +
-          utils.histogramRules('cortex_querier_request_duration_seconds', ['cluster', 'namespace', 'job', 'route']),
+          utils.histogramRules('cortex_querier_request_duration_seconds', $._config.job_labels) +
+          utils.histogramRules('cortex_querier_request_duration_seconds', $._config.job_labels + ['route']) +
+          utils.histogramRules('cortex_querier_request_duration_seconds', $._config.cluster_labels + ['route']),
       },
       {
         name: 'cortex_cache',
         rules:
-          utils.histogramRules('cortex_memcache_request_duration_seconds', ['cluster', 'job', 'method']) +
-          utils.histogramRules('cortex_cache_request_duration_seconds', ['cluster', 'job']) +
-          utils.histogramRules('cortex_cache_request_duration_seconds', ['cluster', 'job', 'method']),
+          utils.histogramRules('cortex_memcache_request_duration_seconds', $._config.job_labels + ['method']) +
+          utils.histogramRules('cortex_cache_request_duration_seconds', $._config.job_labels) +
+          utils.histogramRules('cortex_cache_request_duration_seconds', $._config.job_labels + ['method']),
       },
       {
         name: 'cortex_storage',
         rules:
-          utils.histogramRules('cortex_bigtable_request_duration_seconds', ['cluster', 'job', 'operation']) +
-          utils.histogramRules('cortex_cassandra_request_duration_seconds', ['cluster', 'job', 'operation']) +
-          utils.histogramRules('cortex_dynamo_request_duration_seconds', ['cluster', 'job', 'operation']) +
-          utils.histogramRules('cortex_chunk_store_index_lookups_per_query', ['cluster', 'job']) +
-          utils.histogramRules('cortex_chunk_store_series_pre_intersection_per_query', ['cluster', 'job']) +
-          utils.histogramRules('cortex_chunk_store_series_post_intersection_per_query', ['cluster', 'job']) +
-          utils.histogramRules('cortex_chunk_store_chunks_per_query', ['cluster', 'job']) +
-          utils.histogramRules('cortex_database_request_duration_seconds', ['cluster', 'job', 'method']) +
-          utils.histogramRules('cortex_gcs_request_duration_seconds', ['cluster', 'job', 'operation']) +
-          utils.histogramRules('cortex_kv_request_duration_seconds', ['cluster', 'job']),
+          utils.histogramRules('cortex_bigtable_request_duration_seconds', $._config.job_labels + ['operation']) +
+          utils.histogramRules('cortex_cassandra_request_duration_seconds', $._config.job_labels + ['operation']) +
+          utils.histogramRules('cortex_dynamo_request_duration_seconds', $._config.job_labels + ['operation']) +
+          utils.histogramRules('cortex_chunk_store_index_lookups_per_query', $._config.job_labels) +
+          utils.histogramRules('cortex_chunk_store_series_pre_intersection_per_query', $._config.job_labels) +
+          utils.histogramRules('cortex_chunk_store_series_post_intersection_per_query', $._config.job_labels) +
+          utils.histogramRules('cortex_chunk_store_chunks_per_query', $._config.job_labels) +
+          utils.histogramRules('cortex_database_request_duration_seconds', $._config.job_labels + ['method']) +
+          utils.histogramRules('cortex_gcs_request_duration_seconds', $._config.job_labels + ['operation']) +
+          utils.histogramRules('cortex_kv_request_duration_seconds', $._config.job_labels),
       },
       {
         name: 'cortex_queries',
         rules:
-          utils.histogramRules('cortex_query_frontend_retries', ['cluster', 'job']) +
-          utils.histogramRules('cortex_query_frontend_queue_duration_seconds', ['cluster', 'job']) +
-          utils.histogramRules('cortex_ingester_queried_series', ['cluster', 'job']) +
-          utils.histogramRules('cortex_ingester_queried_chunks', ['cluster', 'job']) +
-          utils.histogramRules('cortex_ingester_queried_samples', ['cluster', 'job']),
+          utils.histogramRules('cortex_query_frontend_retries', $._config.job_labels) +
+          utils.histogramRules('cortex_query_frontend_queue_duration_seconds', $._config.job_labels) +
+          utils.histogramRules('cortex_ingester_queried_series', $._config.job_labels) +
+          utils.histogramRules('cortex_ingester_queried_chunks', $._config.job_labels) +
+          utils.histogramRules('cortex_ingester_queried_samples', $._config.job_labels),
       },
       {
         name: 'cortex_received_samples',
