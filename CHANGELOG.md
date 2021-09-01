@@ -25,6 +25,7 @@
 * [CHANGE] Decreased `-server.grpc-max-concurrent-streams` from 100k to 10k. #369
 * [CHANGE] Decreased blocks storage ingesters graceful termination period from 80m to 20m. #369
 * [CHANGE] Changed default `job_names` for query-frontend, query-scheduler and querier to match custom deployments too. #376
+* [CHANGE] Changed the default limit for `max_global_series_per_user` from 150K to 100K series. This is because we don't overcount on rollouts anymore. #384
 * [ENHANCEMENT] cortex-mixin: Make `cluster_namespace_deployment:kube_pod_container_resource_requests_{cpu_cores,memory_bytes}:sum` backwards compatible with `kube-state-metrics` v2.0.0. #317
 * [ENHANCEMENT] Cortex-mixin: Include `cortex-gw-internal` naming variation in default `gateway` job names. #328
 * [ENHANCEMENT] Ruler dashboard: added object storage metrics. #354
