@@ -62,6 +62,7 @@
 * [ENHANCEMENT] Add support for Azure storage in Alertmanager configuration. #381
 * [ENHANCEMENT] Add support for running Alertmanager in sharding mode. #394
 * [ENHANCEMENT] Allow to customize PromQL engine settings via `queryEngineConfig`. #399
+* [ENHANCEMENT] Add recording rules to improve responsiveness of Alertmanager dashboard. #387
 * [BUGFIX] Fixed `CortexIngesterHasNotShippedBlocks` alert false positive in case an ingester instance had ingested samples in the past, then no traffic was received for a long period and then it started receiving samples again. #308
 * [BUGFIX] Alertmanager: fixed `--alertmanager.cluster.peers` CLI flag passed to alertmanager when HA is enabled. #329
 * [BUGFIX] Fixed `CortexInconsistentRuntimeConfig` metric. #335
