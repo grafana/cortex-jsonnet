@@ -27,6 +27,10 @@
 * [CHANGE] Changed default `job_names` for query-frontend, query-scheduler and querier to match custom deployments too. #376
 * [CHANGE] Increase the rules per group and rule groups limits on different tiers. #396
 * [CHANGE] Removed `max_samples_per_query` limit, since it only works with chunks and only when using `-distributor.shard-by-all-labels=false`. #397
+* [CHANGE] Removed chunks storage query sharding config support. The following config options have been removed: #398
+  * `_config` > `queryFrontend` > `shard_factor`
+  * `_config` > `queryFrontend` > `sharded_queries_enabled`
+  * `_config` > `queryFrontend` > `query_split_factor`
 * [ENHANCEMENT] Add overrides config to compactor. This allows setting retention configs per user. #386
 * [ENHANCEMENT] cortex-mixin: Make `cluster_namespace_deployment:kube_pod_container_resource_requests_{cpu_cores,memory_bytes}:sum` backwards compatible with `kube-state-metrics` v2.0.0. #317
 * [ENHANCEMENT] Cortex-mixin: Include `cortex-gw-internal` naming variation in default `gateway` job names. #328
