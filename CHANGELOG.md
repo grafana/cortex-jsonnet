@@ -73,6 +73,7 @@
 * [BUGFIX] Fixed `-distributor.extend-writes` setting on ruler when `unregister_ingesters_on_shutdown` is disabled. #369
 * [BUGFIX] Upstream recording rule `node_namespace_pod_container:container_cpu_usage_seconds_total:sum_irate` renamed. #379
 * [BUGFIX] Treat `compactor_blocks_retention_period` type as string rather than int.#395
+* [BUGFIX] Fixed writes/reads/alertmanager resources dashboards to use `$._config.job_names.gateway`. #403
 
 ## 1.9.0 / 2021-05-18
 
