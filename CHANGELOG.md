@@ -32,6 +32,7 @@
   * `_config` > `queryFrontend` > `sharded_queries_enabled`
   * `_config` > `queryFrontend` > `query_split_factor`
 * [CHANGE] Split `cortex_api` recording rule group into three groups. This is a workaround for large clusters where this group can become slow to evaluate. #401
+* [CHANGE] Increased `CortexIngesterReachingSeriesLimit` warning threshold from 70% to 80% and critical threshold from 85% to 90%. #404
 * [ENHANCEMENT] Add overrides config to compactor. This allows setting retention configs per user. #386
 * [ENHANCEMENT] cortex-mixin: Make `cluster_namespace_deployment:kube_pod_container_resource_requests_{cpu_cores,memory_bytes}:sum` backwards compatible with `kube-state-metrics` v2.0.0. #317
 * [ENHANCEMENT] Cortex-mixin: Include `cortex-gw-internal` naming variation in default `gateway` job names. #328
