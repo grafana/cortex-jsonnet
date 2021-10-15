@@ -108,6 +108,9 @@ How to **fix**:
 1. Ensure shuffle-sharding is enabled in the Cortex cluster
 1. Assuming shuffle-sharding is enabled, scaling up ingesters will lower the number of tenants per ingester. However, the effect of this change will be visible only after `-blocks-storage.tsdb.close-idle-tsdb-timeout` period so you may have to temporarily increase the limit
 
+### CortexDistributorReachingInflightPushRequestLimits
+  _TODO: this playbook has not been written yet._
+
 ### CortexRequestLatency
 
 This alert fires when a specific Cortex route is experiencing an high latency.
