@@ -14,7 +14,9 @@
             severity: 'critical',
           },
           annotations: {
-            message: 'Cortex Compactor {{ $labels.instance }} in %(alert_aggregation_variables)s has not successfully cleaned up blocks in the last 6 hours.' % $._config,
+            message: |||
+              Cortex Compactor {{ $labels.instance }} in %(alert_aggregation_variables)s has not successfully cleaned up blocks in the last 6 hours.
+            ||| % $._config,
           },
         },
         {
@@ -30,7 +32,9 @@
             severity: 'critical',
           },
           annotations: {
-            message: 'Cortex Compactor {{ $labels.instance }} in %(alert_aggregation_variables)s has not run compaction in the last 24 hours.' % $._config,
+            message: |||
+              Cortex Compactor {{ $labels.instance }} in %(alert_aggregation_variables)s has not run compaction in the last 24 hours.
+            ||| % $._config,
           },
         },
         {
@@ -44,7 +48,9 @@
             severity: 'critical',
           },
           annotations: {
-            message: 'Cortex Compactor {{ $labels.instance }} in %(alert_aggregation_variables)s has not run compaction in the last 24 hours.' % $._config,
+            message: |||
+              Cortex Compactor {{ $labels.instance }} in %(alert_aggregation_variables)s has not run compaction in the last 24 hours.
+            ||| % $._config,
           },
         },
         {
@@ -57,7 +63,9 @@
             severity: 'critical',
           },
           annotations: {
-            message: 'Cortex Compactor {{ $labels.instance }} in %(alert_aggregation_variables)s failed to run 2 consecutive compactions.' % $._config,
+            message: |||
+              Cortex Compactor {{ $labels.instance }} in %(alert_aggregation_variables)s failed to run 2 consecutive compactions.
+            ||| % $._config,
           },
         },
         {
@@ -73,7 +81,9 @@
             severity: 'critical',
           },
           annotations: {
-            message: 'Cortex Compactor {{ $labels.instance }} in %(alert_aggregation_variables)s has not uploaded any block in the last 24 hours.' % $._config,
+            message: |||
+              Cortex Compactor {{ $labels.instance }} in %(alert_aggregation_variables)s has not uploaded any block in the last 24 hours.
+            ||| % $._config,
           },
         },
         {
@@ -87,7 +97,9 @@
             severity: 'critical',
           },
           annotations: {
-            message: 'Cortex Compactor {{ $labels.instance }} in %(alert_aggregation_variables)s has not uploaded any block in the last 24 hours.' % $._config,
+            message: |||
+              Cortex Compactor {{ $labels.instance }} in %(alert_aggregation_variables)s has not uploaded any block in the last 24 hours.
+            ||| % $._config,
           },
         },
       ],
