@@ -362,7 +362,7 @@
                 (cortex_distributor_inflight_push_requests / ignoring(limit) cortex_distributor_instance_limits{limit="max_inflight_push_requests"})
                 and ignoring (limit)
                 (cortex_distributor_instance_limits{limit="max_inflight_push_requests"} > 0)
-            ) > 0.9
+            ) > 0.8
           |||,
           'for': '5m',
           labels: {
@@ -370,7 +370,7 @@
           },
           annotations: {
             message: |||
-              Distributor {{ $labels.job }}/{{ $labels.instance }} has reached {{ $value | humanizePercentage }} of its series limit.
+              Distributor {{ $labels.job }}/{{ $labels.instance }} has reached {{ $value | humanizePercentage }} of its inflight push request limit.
             |||,
           },
         },
