@@ -77,7 +77,7 @@
 * [BUGFIX] Upstream recording rule `node_namespace_pod_container:container_cpu_usage_seconds_total:sum_irate` renamed. #379
 * [BUGFIX] Treat `compactor_blocks_retention_period` type as string rather than int.#395
 * [BUGFIX] Fixed writes/reads/alertmanager resources dashboards to use `$._config.job_names.gateway`. #403
-* [BUGFIX] Span the annotation.message field for `CortexIngesterUnhealthy` alert in one line. #412
+* [BUGFIX] Span the annotation.message in alerts as YAML multiline strings. #412
 
 ## 1.9.0 / 2021-05-18
 
