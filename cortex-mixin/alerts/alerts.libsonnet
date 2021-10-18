@@ -18,7 +18,9 @@
             severity: 'critical',
           },
           annotations: {
-            message: 'Cortex cluster %(alert_aggregation_variables)s has {{ printf "%%f" $value }} unhealthy ingester(s).' % $._config,
+            message: |||
+              Cortex cluster %(alert_aggregation_variables)s has {{ printf "%%f" $value }} unhealthy ingester(s).
+            ||| % $._config,
           },
         },
         {
