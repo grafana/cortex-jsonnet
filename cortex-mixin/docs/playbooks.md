@@ -109,7 +109,35 @@ How to **fix**:
 1. Assuming shuffle-sharding is enabled, scaling up ingesters will lower the number of tenants per ingester. However, the effect of this change will be visible only after `-blocks-storage.tsdb.close-idle-tsdb-timeout` period so you may have to temporarily increase the limit
 
 ### CortexDistributorReachingInflightPushRequestLimits
-  _TODO: this playbook has not been written yet._
+
+This alert fires when the `cortex_distributor_inflight_push_requests` per distributor instance limit is enabled and the actual number of inflight push requests is approaching the set limit. Once the limit is reached, push requests to the distributor will fail (5xx) for new requests, while existing inflight push requests will continue to succeed.
+
+In case of **emergency**:
+- If the actual number of inflight push requests is very close to or already at the set limit, then you can increase the limit via runtime config to gain some time
+- Increasing the limit will increase the distributor' memory utilization. Please monitor the distributors' memory utilization via the `Cortex / Writes Resources` dashboard
+
+How the limit is **configured**:
+- The limit can be configured either on CLI (`-distributor.instance-limits.max-inflight-push-requests`) or in the runtime config:
+  ```
+  distributor_instance_limits:
+    max_inflight_push_requests: <int>
+  ```
+- The mixin configures the limit in the runtime config and can be fine-tuned via:
+  ```
+  _config+:: {
+    distributor_instance_limits+:: {
+      max_inflight_push_requests: <int>
+    }
+  }
+  ```
+- When configured in the runtime config, changes are applied live without requiring an distributor restart
+- The configured limit can be queried via `cortex_distributor_instance_limits{limit="max_inflight_push_requests"})`
+
+How to **fix**:
+1. **Temporarily increase the limit**<br />
+   If the actual number of inflight push requests is very close to or already hit the limit.
+2. **Scale up distributors**<br />
+   Scaling up distributors will lower the number of inflight push requests per distributor.
 
 ### CortexRequestLatency
 
