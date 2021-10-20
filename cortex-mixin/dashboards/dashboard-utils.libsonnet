@@ -8,7 +8,7 @@ local utils = import 'mixin-utils/utils.libsonnet';
   // - default tags,
   // - some links that propagate the selectred cluster.
   dashboard(title)::
-    super.dashboard(title) + {
+    super.dashboard(title=title, datasource=$._config.dashboard_datasource) + {
       addRowIf(condition, row)::
         if condition
         then self.addRow(row)
