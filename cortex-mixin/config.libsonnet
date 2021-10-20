@@ -37,7 +37,7 @@
       store_gateway: '(store-gateway|cortex$)',
       gateway: '(gateway|cortex-gw|cortex-gw-internal)',
       compactor: 'compactor.*',  // Match also custom compactor deployments.
-      alertmanager: '(alertmanager.*|cortex$)',
+      alertmanager: 'alertmanager',
     },
 
     // Grouping labels, to uniquely identify and group by {jobs, clusters}
