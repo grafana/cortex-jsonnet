@@ -356,7 +356,7 @@
       name: 'cortex_distributor_inflight_push_request_alert',
       rules: [
         {
-          alert: 'CortexDistributorReachingInflightPushRequestLimits',
+          alert: 'CortexDistributorReachingInflightPushRequestLimit',
           expr: |||
             (
                 (cortex_distributor_inflight_push_requests / ignoring(limit) cortex_distributor_instance_limits{limit="max_inflight_push_requests"})
