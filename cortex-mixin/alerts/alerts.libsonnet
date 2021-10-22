@@ -350,11 +350,6 @@
             |||,
           },
         },
-      ],
-    },
-    {
-      name: 'cortex_distributor_inflight_push_request_alert',
-      rules: [
         {
           alert: 'CortexDistributorReachingInflightPushRequestLimit',
           expr: |||
