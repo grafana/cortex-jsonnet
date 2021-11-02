@@ -2,6 +2,12 @@
 
 ## master / unreleased
 
+* [CHANGE] Store gateway: set `-blocks-storage.bucket-store.index-cache.memcached.max-get-multi-concurrency`,
+  `-blocks-storage.bucket-store.chunks-cache.memcached.max-get-multi-concurrency`,
+  `-blocks-storage.bucket-store.metadata-cache.memcached.max-get-multi-concurrency`,
+  `-blocks-storage.bucket-store.index-cache.memcached.max-idle-connections`,
+  `-blocks-storage.bucket-store.chunks-cache.memcached.max-idle-connections`,
+  `-blocks-storage.bucket-store.metadata-cache.memcached.max-idle-connections` to 100 #414
 * [CHANGE] Update grafana-builder dependency: use $__rate_interval in qpsPanel and latencyPanel. #372
 * [CHANGE] `namespace` template variable in dashboards now only selects namespaces for selected clusters. #311
 * [CHANGE] Alertmanager: mounted overrides configmap to alertmanager too. #315
