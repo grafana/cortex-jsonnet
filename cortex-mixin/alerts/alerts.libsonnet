@@ -18,7 +18,9 @@
             severity: 'critical',
           },
           annotations: {
-            message: 'Cortex cluster %(alert_aggregation_variables)s has {{ printf "%%f" $value }} unhealthy ingester(s).' % $._config,
+            message: |||
+              Cortex cluster %(alert_aggregation_variables)s has {{ printf "%%f" $value }} unhealthy ingester(s).
+            ||| % $._config,
           },
         },
         {
@@ -199,7 +201,9 @@
             severity: 'warning',
           },
           annotations: {
-            message: '{{ $labels.job }}/{{ $labels.instance }} has restarted {{ printf "%.2f" $value }} times in the last 30 mins.',
+            message: |||
+              {{ $labels.job }}/{{ $labels.instance }} has restarted {{ printf "%.2f" $value }} times in the last 30 mins.
+            |||,
           },
         },
         {
@@ -212,7 +216,9 @@
             severity: 'critical',
           },
           annotations: {
-            message: '{{ $labels.job }}/{{ $labels.instance }} transfer failed.',
+            message: |||
+              {{ $labels.job }}/{{ $labels.instance }} transfer failed.
+            |||,
           },
         },
         {
@@ -266,7 +272,9 @@
             severity: 'critical',
           },
           annotations: {
-            message: '{{ $labels.job }}/{{ $labels.instance }} has a number of mmap-ed areas close to the limit.',
+            message: |||
+              {{ $labels.job }}/{{ $labels.instance }} has a number of mmap-ed areas close to the limit.
+            |||,
           },
         },
       ],
@@ -707,7 +715,9 @@
             severity: 'warning',
           },
           annotations: {
-            message: 'Cortex instance {{ $labels.instance }} in %(alert_aggregation_variables)s sees incorrect number of gossip members.' % $._config,
+            message: |||
+              Cortex instance {{ $labels.instance }} in %(alert_aggregation_variables)s sees incorrect number of gossip members.
+            ||| % $._config,
           },
         },
       ],
