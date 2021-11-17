@@ -79,6 +79,11 @@
 * [ENHANCEMENT] Use alertmanager jobname for alertmanager dashboard panels #411
 * [ENHANCEMENT] Added `CortexDistributorReachingInflightPushRequestLimit` alert. #408
 * [ENHANCEMENT] Define Azure object storage ruler args. #416
+* [ENHANCEMENT] Added the following config options to allow to schedule multiple replicas of the same service on the same node: #418
+  * `cortex_distributor_allow_multiple_replicas_on_same_node`
+  * `cortex_ruler_allow_multiple_replicas_on_same_node`
+  * `cortex_querier_allow_multiple_replicas_on_same_node`
+  * `cortex_query_frontend_allow_multiple_replicas_on_same_node`
 * [BUGFIX] Fixed `CortexIngesterHasNotShippedBlocks` alert false positive in case an ingester instance had ingested samples in the past, then no traffic was received for a long period and then it started receiving samples again. #308
 * [BUGFIX] Alertmanager: fixed `--alertmanager.cluster.peers` CLI flag passed to alertmanager when HA is enabled. #329
 * [BUGFIX] Fixed `CortexInconsistentRuntimeConfig` metric. #335
