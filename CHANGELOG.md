@@ -99,6 +99,7 @@
 * [BUGFIX] Treat `compactor_blocks_retention_period` type as string rather than int.#395
 * [BUGFIX] Fixed writes/reads/alertmanager resources dashboards to use `$._config.job_names.gateway`. #403
 * [BUGFIX] Span the annotation.message in alerts as YAML multiline strings. #412
+* [BUGFIX] Pass `-ruler-storage.s3.endpoint` to ruler when using S3. #421
 
 ## 1.9.0 / 2021-05-18
 
