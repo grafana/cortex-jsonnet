@@ -41,7 +41,7 @@
 * [CHANGE] Increased `CortexIngesterReachingSeriesLimit` warning threshold from 70% to 80% and critical threshold from 85% to 90%. #404
 * [CHANGE] Rename ruler_s3_bucket_name and ruler_gcs_bucket_name to ruler_storage_bucket_name: #415
 * [CHANGE] Fine-tuned rolling update policy for distributor, querier, query-frontend, query-scheduler. #420
-* [CHANGE] Increased memcached-metadata max connections from 4k to 16k. #420
+* [CHANGE] Increased memcached metadata/chunks/index-queries max connections from 4k to 16k. #420
 * [CHANGE] Disabled step alignment in query-frontend to be compliant with PromQL. #420
 * [CHANGE] Do not limit compactor CPU and request a number of cores equal to the configured concurrency. #420
 * [ENHANCEMENT] Add overrides config to compactor. This allows setting retention configs per user. #386
