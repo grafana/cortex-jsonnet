@@ -1,5 +1,6 @@
 {
   _config+: {
+    ringServiceAccountName: 'dskit-ring',
     namespace: error 'must define namespace',
     cluster: error 'must define cluster',
     replication_factor: 3,
