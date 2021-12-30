@@ -9,6 +9,9 @@
   `-blocks-storage.bucket-store.chunks-cache.memcached.max-idle-connections`,
   `-blocks-storage.bucket-store.metadata-cache.memcached.max-idle-connections` to 100 #414
 * [CHANGE] Update grafana-builder dependency: use $__rate_interval in qpsPanel and latencyPanel. #372
+
+## 1.10.0 / 2021-12-30
+
 * [CHANGE] `namespace` template variable in dashboards now only selects namespaces for selected clusters. #311
 * [CHANGE] Alertmanager: mounted overrides configmap to alertmanager too. #315
 * [CHANGE] Memcached: upgraded memcached from `1.5.17` to `1.6.9`. #316
