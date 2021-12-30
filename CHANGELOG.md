@@ -2,6 +2,8 @@
 
 ## master / unreleased
 
+## 1.11.0 / 2021-12-30
+
 * [CHANGE] Store gateway: set `-blocks-storage.bucket-store.index-cache.memcached.max-get-multi-concurrency`,
   `-blocks-storage.bucket-store.chunks-cache.memcached.max-get-multi-concurrency`,
   `-blocks-storage.bucket-store.metadata-cache.memcached.max-get-multi-concurrency`,
@@ -9,6 +11,56 @@
   `-blocks-storage.bucket-store.chunks-cache.memcached.max-idle-connections`,
   `-blocks-storage.bucket-store.metadata-cache.memcached.max-idle-connections` to 100 #414
 * [CHANGE] Update grafana-builder dependency: use $__rate_interval in qpsPanel and latencyPanel. #372
+* [CHANGE] Decreased `-server.grpc-max-concurrent-streams` from 100k to 10k. #369
+* [CHANGE] Decreased blocks storage ingesters graceful termination period from 80m to 20m. #369
+* [CHANGE] Changed default `job_names` for query-frontend, query-scheduler and querier to match custom deployments too. #376
+* [CHANGE] Increase the rules per group and rule groups limits on different tiers. #396
+* [CHANGE] Removed `max_samples_per_query` limit, since it only works with chunks and only when using `-distributor.shard-by-all-labels=false`. #397
+* [CHANGE] Removed chunks storage query sharding config support. The following config options have been removed: #398
+  * `_config` > `queryFrontend` > `shard_factor`
+  * `_config` > `queryFrontend` > `sharded_queries_enabled`
+  * `_config` > `queryFrontend` > `query_split_factor`
+* [CHANGE] Split `cortex_api` recording rule group into three groups. This is a workaround for large clusters where this group can become slow to evaluate. #401
+* [CHANGE] Increased `CortexIngesterReachingSeriesLimit` warning threshold from 70% to 80% and critical threshold from 85% to 90%. #404
+* [CHANGE] Rename ruler_s3_bucket_name and ruler_gcs_bucket_name to ruler_storage_bucket_name: #415
+* [CHANGE] Fine-tuned rolling update policy for distributor, querier, query-frontend, query-scheduler. #420
+* [CHANGE] Increased memcached metadata/chunks/index-queries max connections from 4k to 16k. #420
+* [CHANGE] Disabled step alignment in query-frontend to be compliant with PromQL. #420
+* [CHANGE] Do not limit compactor CPU and request a number of cores equal to the configured concurrency. #420
+* [ENHANCEMENT] Add overrides config to compactor. This allows setting retention configs per user. #386
+* [ENHANCEMENT] Added 256MB memory ballast to querier. #369
+* [ENHANCEMENT] Update gsutil command for `not healthy index found` playbook #370
+* [ENHANCEMENT] Update `etcd-operator` to latest version (see https://github.com/grafana/jsonnet-libs/pull/480). #263
+* [ENHANCEMENT] Added Alertmanager alerts and playbooks covering configuration syncs and sharding operation: #377 #378
+  * `CortexAlertmanagerSyncConfigsFailing`
+  * `CortexAlertmanagerRingCheckFailing`
+  * `CortexAlertmanagerPartialStateMergeFailing`
+  * `CortexAlertmanagerReplicationFailing`
+  * `CortexAlertmanagerPersistStateFailing`
+  * `CortexAlertmanagerInitialSyncFailed`
+* [ENHANCEMENT] Add support for Azure storage in Alertmanager configuration. #381
+* [ENHANCEMENT] Add support for running Alertmanager in sharding mode. #394
+* [ENHANCEMENT] Allow to customize PromQL engine settings via `queryEngineConfig`. #399
+* [ENHANCEMENT] Add recording rules to improve responsiveness of Alertmanager dashboard. #387
+* [ENHANCEMENT] Add `CortexRolloutStuck` alert. #405
+* [ENHANCEMENT] Added `CortexKVStoreFailure` alert. #406
+* [ENHANCEMENT] Use configured `ruler` jobname for ruler dashboard panels. #409
+* [ENHANCEMENT] Add ability to override `datasource` for generated dashboards. #407
+* [ENHANCEMENT] Use alertmanager jobname for alertmanager dashboard panels #411
+* [ENHANCEMENT] Added `CortexDistributorReachingInflightPushRequestLimit` alert. #408
+* [ENHANCEMENT] Define Azure object storage ruler args. #416
+* [ENHANCEMENT] Added the following config options to allow to schedule multiple replicas of the same service on the same node: #418
+  * `cortex_distributor_allow_multiple_replicas_on_same_node`
+  * `cortex_ruler_allow_multiple_replicas_on_same_node`
+  * `cortex_querier_allow_multiple_replicas_on_same_node`
+  * `cortex_query_frontend_allow_multiple_replicas_on_same_node`
+* [BUGFIX] Fixed rollout progress dashboard to include query-scheduler too. #376
+* [BUGFIX] Fixed `-distributor.extend-writes` setting on ruler when `unregister_ingesters_on_shutdown` is disabled. #369
+* [BUGFIX] Upstream recording rule `node_namespace_pod_container:container_cpu_usage_seconds_total:sum_irate` renamed. #379
+* [BUGFIX] Treat `compactor_blocks_retention_period` type as string rather than int.#395
+* [BUGFIX] Fixed writes/reads/alertmanager resources dashboards to use `$._config.job_names.gateway`. #403
+* [BUGFIX] Span the annotation.message in alerts as YAML multiline strings. #412
+* [BUGFIX] Pass `-ruler-storage.s3.endpoint` to ruler when using S3. #421
 
 ## 1.10.0 / 2021-12-30
 
