@@ -2,6 +2,8 @@
 
 ## master / unreleased
 
+## 1.11.0 / 2021-12-30
+
 * [CHANGE] Store gateway: set `-blocks-storage.bucket-store.index-cache.memcached.max-get-multi-concurrency`,
   `-blocks-storage.bucket-store.chunks-cache.memcached.max-get-multi-concurrency`,
   `-blocks-storage.bucket-store.metadata-cache.memcached.max-get-multi-concurrency`,
@@ -9,25 +11,6 @@
   `-blocks-storage.bucket-store.chunks-cache.memcached.max-idle-connections`,
   `-blocks-storage.bucket-store.metadata-cache.memcached.max-idle-connections` to 100 #414
 * [CHANGE] Update grafana-builder dependency: use $__rate_interval in qpsPanel and latencyPanel. #372
-* [CHANGE] `namespace` template variable in dashboards now only selects namespaces for selected clusters. #311
-* [CHANGE] Alertmanager: mounted overrides configmap to alertmanager too. #315
-* [CHANGE] Memcached: upgraded memcached from `1.5.17` to `1.6.9`. #316
-* [CHANGE] `CortexIngesterRestarts` alert severity changed from `critical` to `warning`. #321
-* [CHANGE] Store-gateway: increased memory request and limit respectively from 6GB / 6GB to 12GB / 18GB. #322
-* [CHANGE] Store-gateway: increased `-blocks-storage.bucket-store.max-chunk-pool-bytes` from 2GB (default) to 12GB. #322
-* [CHANGE] Dashboards: added overridable `job_labels` and `cluster_labels` to the configuration object as label lists to uniquely identify jobs and clusters in the metric names and group-by lists in dashboards. #319
-* [CHANGE] Dashboards: `alert_aggregation_labels` has been removed from the configuration and overriding this value has been deprecated. Instead the labels are now defined by the `cluster_labels` list, and should be overridden accordingly through that list. #319
-* [CHANGE] Ingester/Ruler: set `-server.grpc-max-send-msg-size-bytes` and `-server.grpc-max-send-msg-size-bytes` to sensible default values (10MB). #326
-* [CHANGE] Renamed `CortexCompactorHasNotUploadedBlocksSinceStart` to `CortexCompactorHasNotUploadedBlocks`. #334
-* [CHANGE] Renamed `CortexCompactorRunFailed` to `CortexCompactorHasNotSuccessfullyRunCompaction`. #334
-* [CHANGE] Renamed `CortexInconsistentConfig` alert to `CortexInconsistentRuntimeConfig` and increased severity to `critical`. #335
-* [CHANGE] Increased `CortexBadRuntimeConfig` alert severity to `critical` and removed support for `cortex_overrides_last_reload_successful` metric (was removed in Cortex 1.3.0). #335
-* [CHANGE] Grafana 'min step' changed to 15s so dashboard show better detail. #340
-* [CHANGE] Replace `CortexRulerFailedEvaluations` with two new alerts: `CortexRulerTooManyFailedPushes` and `CortexRulerTooManyFailedQueries`. #347
-* [CHANGE] Removed `CortexCacheRequestErrors` alert. This alert was not working because the legacy Cortex cache client instrumentation doesn't track errors. #346
-* [CHANGE] Removed `CortexQuerierCapacityFull` alert. #342
-* [CHANGE] Changes blocks storage alerts to group metrics by the configured `cluster_labels` (supporting the deprecated `alert_aggregation_labels`). #351
-* [CHANGE] Increased `CortexIngesterReachingSeriesLimit` critical alert threshold from 80% to 85%. #363
 * [CHANGE] Decreased `-server.grpc-max-concurrent-streams` from 100k to 10k. #369
 * [CHANGE] Decreased blocks storage ingesters graceful termination period from 80m to 20m. #369
 * [CHANGE] Changed default `job_names` for query-frontend, query-scheduler and querier to match custom deployments too. #376
@@ -45,23 +28,6 @@
 * [CHANGE] Disabled step alignment in query-frontend to be compliant with PromQL. #420
 * [CHANGE] Do not limit compactor CPU and request a number of cores equal to the configured concurrency. #420
 * [ENHANCEMENT] Add overrides config to compactor. This allows setting retention configs per user. #386
-* [ENHANCEMENT] cortex-mixin: Make `cluster_namespace_deployment:kube_pod_container_resource_requests_{cpu_cores,memory_bytes}:sum` backwards compatible with `kube-state-metrics` v2.0.0. #317
-* [ENHANCEMENT] Cortex-mixin: Include `cortex-gw-internal` naming variation in default `gateway` job names. #328
-* [ENHANCEMENT] Ruler dashboard: added object storage metrics. #354
-* [ENHANCEMENT] Alertmanager dashboard: added object storage metrics. #354
-* [ENHANCEMENT] Added documentation text panels and descriptions to reads and writes dashboards. #324
-* [ENHANCEMENT] Dashboards: defined container functions for common resources panels: containerDiskWritesPanel, containerDiskReadsPanel, containerDiskSpaceUtilization. #331
-* [ENHANCEMENT] cortex-mixin: Added `alert_excluded_routes` config to exclude specific routes from alerts. #338
-* [ENHANCEMENT] Added `CortexMemcachedRequestErrors` alert. #346
-* [ENHANCEMENT] Ruler dashboard: added "Per route p99 latency" panel in the "Configuration API" row. #353
-* [ENHANCEMENT] Increased the `for` duration of the `CortexIngesterReachingSeriesLimit` warning alert to 3h. #362
-* [ENHANCEMENT] Added a new tier (`medium_small_user`) so we have another tier between 100K and 1Mil active series. #364
-* [ENHANCEMENT] Extend Alertmanager dashboard: #313
-  * "Tenants" stat panel - shows number of discovered tenant configurations.
-  * "Replication" row - information about the replication of tenants/alerts/silences over instances.
-  * "Tenant Configuration Sync" row - information about the configuration sync procedure.
-  * "Sharding Initial State Sync" row - information about the initial state sync procedure when sharding is enabled.
-  * "Sharding Runtime State Sync" row - information about various state operations which occur when sharding is enabled (replication, fetch, marge, persist).
 * [ENHANCEMENT] Added 256MB memory ballast to querier. #369
 * [ENHANCEMENT] Update gsutil command for `not healthy index found` playbook #370
 * [ENHANCEMENT] Update `etcd-operator` to latest version (see https://github.com/grafana/jsonnet-libs/pull/480). #263
@@ -88,11 +54,6 @@
   * `cortex_ruler_allow_multiple_replicas_on_same_node`
   * `cortex_querier_allow_multiple_replicas_on_same_node`
   * `cortex_query_frontend_allow_multiple_replicas_on_same_node`
-* [BUGFIX] Fixed `CortexIngesterHasNotShippedBlocks` alert false positive in case an ingester instance had ingested samples in the past, then no traffic was received for a long period and then it started receiving samples again. #308
-* [BUGFIX] Alertmanager: fixed `--alertmanager.cluster.peers` CLI flag passed to alertmanager when HA is enabled. #329
-* [BUGFIX] Fixed `CortexInconsistentRuntimeConfig` metric. #335
-* [BUGFIX] Fixed scaling dashboard to correctly work when a Cortex service deployment spans across multiple zones (a zone is expected to have the `zone-[a-z]` suffix). #365
-* [BUGFIX] Fixed rollout progress dashboard to correctly work when a Cortex service deployment spans across multiple zones (a zone is expected to have the `zone-[a-z]` suffix). #366
 * [BUGFIX] Fixed rollout progress dashboard to include query-scheduler too. #376
 * [BUGFIX] Fixed `-distributor.extend-writes` setting on ruler when `unregister_ingesters_on_shutdown` is disabled. #369
 * [BUGFIX] Upstream recording rule `node_namespace_pod_container:container_cpu_usage_seconds_total:sum_irate` renamed. #379
@@ -100,6 +61,50 @@
 * [BUGFIX] Fixed writes/reads/alertmanager resources dashboards to use `$._config.job_names.gateway`. #403
 * [BUGFIX] Span the annotation.message in alerts as YAML multiline strings. #412
 * [BUGFIX] Pass `-ruler-storage.s3.endpoint` to ruler when using S3. #421
+
+## 1.10.0 / 2021-12-30
+
+* [CHANGE] `namespace` template variable in dashboards now only selects namespaces for selected clusters. #311
+* [CHANGE] Alertmanager: mounted overrides configmap to alertmanager too. #315
+* [CHANGE] Memcached: upgraded memcached from `1.5.17` to `1.6.9`. #316
+* [CHANGE] `CortexIngesterRestarts` alert severity changed from `critical` to `warning`. #321
+* [CHANGE] Store-gateway: increased memory request and limit respectively from 6GB / 6GB to 12GB / 18GB. #322
+* [CHANGE] Store-gateway: increased `-blocks-storage.bucket-store.max-chunk-pool-bytes` from 2GB (default) to 12GB. #322
+* [CHANGE] Dashboards: added overridable `job_labels` and `cluster_labels` to the configuration object as label lists to uniquely identify jobs and clusters in the metric names and group-by lists in dashboards. #319
+* [CHANGE] Dashboards: `alert_aggregation_labels` has been removed from the configuration and overriding this value has been deprecated. Instead the labels are now defined by the `cluster_labels` list, and should be overridden accordingly through that list. #319
+* [CHANGE] Ingester/Ruler: set `-server.grpc-max-send-msg-size-bytes` and `-server.grpc-max-send-msg-size-bytes` to sensible default values (10MB). #326
+* [CHANGE] Renamed `CortexCompactorHasNotUploadedBlocksSinceStart` to `CortexCompactorHasNotUploadedBlocks`. #334
+* [CHANGE] Renamed `CortexCompactorRunFailed` to `CortexCompactorHasNotSuccessfullyRunCompaction`. #334
+* [CHANGE] Renamed `CortexInconsistentConfig` alert to `CortexInconsistentRuntimeConfig` and increased severity to `critical`. #335
+* [CHANGE] Increased `CortexBadRuntimeConfig` alert severity to `critical` and removed support for `cortex_overrides_last_reload_successful` metric (was removed in Cortex 1.3.0). #335
+* [CHANGE] Grafana 'min step' changed to 15s so dashboard show better detail. #340
+* [CHANGE] Replace `CortexRulerFailedEvaluations` with two new alerts: `CortexRulerTooManyFailedPushes` and `CortexRulerTooManyFailedQueries`. #347
+* [CHANGE] Removed `CortexCacheRequestErrors` alert. This alert was not working because the legacy Cortex cache client instrumentation doesn't track errors. #346
+* [CHANGE] Removed `CortexQuerierCapacityFull` alert. #342
+* [CHANGE] Changes blocks storage alerts to group metrics by the configured `cluster_labels` (supporting the deprecated `alert_aggregation_labels`). #351
+* [CHANGE] Increased `CortexIngesterReachingSeriesLimit` critical alert threshold from 80% to 85%. #363
+* [ENHANCEMENT] cortex-mixin: Make `cluster_namespace_deployment:kube_pod_container_resource_requests_{cpu_cores,memory_bytes}:sum` backwards compatible with `kube-state-metrics` v2.0.0. #317
+* [ENHANCEMENT] Cortex-mixin: Include `cortex-gw-internal` naming variation in default `gateway` job names. #328
+* [ENHANCEMENT] Ruler dashboard: added object storage metrics. #354
+* [ENHANCEMENT] Alertmanager dashboard: added object storage metrics. #354
+* [ENHANCEMENT] Added documentation text panels and descriptions to reads and writes dashboards. #324
+* [ENHANCEMENT] Dashboards: defined container functions for common resources panels: containerDiskWritesPanel, containerDiskReadsPanel, containerDiskSpaceUtilization. #331
+* [ENHANCEMENT] cortex-mixin: Added `alert_excluded_routes` config to exclude specific routes from alerts. #338
+* [ENHANCEMENT] Added `CortexMemcachedRequestErrors` alert. #346
+* [ENHANCEMENT] Ruler dashboard: added "Per route p99 latency" panel in the "Configuration API" row. #353
+* [ENHANCEMENT] Increased the `for` duration of the `CortexIngesterReachingSeriesLimit` warning alert to 3h. #362
+* [ENHANCEMENT] Added a new tier (`medium_small_user`) so we have another tier between 100K and 1Mil active series. #364
+* [ENHANCEMENT] Extend Alertmanager dashboard: #313
+  * "Tenants" stat panel - shows number of discovered tenant configurations.
+  * "Replication" row - information about the replication of tenants/alerts/silences over instances.
+  * "Tenant Configuration Sync" row - information about the configuration sync procedure.
+  * "Sharding Initial State Sync" row - information about the initial state sync procedure when sharding is enabled.
+  * "Sharding Runtime State Sync" row - information about various state operations which occur when sharding is enabled (replication, fetch, marge, persist).
+* [BUGFIX] Fixed `CortexIngesterHasNotShippedBlocks` alert false positive in case an ingester instance had ingested samples in the past, then no traffic was received for a long period and then it started receiving samples again. #308
+* [BUGFIX] Alertmanager: fixed `--alertmanager.cluster.peers` CLI flag passed to alertmanager when HA is enabled. #329
+* [BUGFIX] Fixed `CortexInconsistentRuntimeConfig` metric. #335
+* [BUGFIX] Fixed scaling dashboard to correctly work when a Cortex service deployment spans across multiple zones (a zone is expected to have the `zone-[a-z]` suffix). #365
+* [BUGFIX] Fixed rollout progress dashboard to correctly work when a Cortex service deployment spans across multiple zones (a zone is expected to have the `zone-[a-z]` suffix). #366
 
 ## 1.9.0 / 2021-05-18
 
