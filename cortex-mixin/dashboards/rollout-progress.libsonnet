@@ -7,7 +7,7 @@ local utils = import 'mixin-utils/utils.libsonnet';
     writes_job_matcher: $.jobMatcher($._config.job_names.distributor),
     reads_job_matcher: $.jobMatcher($._config.job_names.querier),
     gateway_write_routes_regex: 'api_(v1|prom)_push',
-    gateway_read_routes_regex: '(prometheus|api_prom)_api_v1_.+',
+    gateway_read_routes_regex: '(%s|api_prom)_api_v1_.+' % $._config.prometheus_http_prefix,
     all_services_regex: std.join('|', ['cortex-gw', '.*distributor.*', '.*ingester.*', '.*query-frontend.*', '.*query-scheduler.*', '.*querier.*', '.*compactor.*', '.*store-gateway.*', '.*ruler.*', '.*alertmanager.*', '.*memcached.*']),
   },
 
