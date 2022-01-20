@@ -85,7 +85,7 @@ local utils = import 'mixin-utils/utils.libsonnet';
           { color: 'green', value: 1 },
         ], unit='percentunit', min=0, max=1) + {
           id: 1,
-          gridPos: { h: 8, w: 10, x: 0, y: 0 },
+          gridPos: { h: 10, w: 10, x: 0, y: 0 },
         },
 
         //
@@ -93,50 +93,50 @@ local utils = import 'mixin-utils/utils.libsonnet';
         //
         $.panel('Writes - 2xx') +
         $.newStatPanel(|||
-          sum(rate(cortex_request_duration_seconds_count{%(gateway_job_matcher)s, route=~"%(gateway_write_routes_regex)s",status_code=~"2.+"}[$__rate_interval])) /
-          sum(rate(cortex_request_duration_seconds_count{%(gateway_job_matcher)s, route=~"%(gateway_write_routes_regex)s"}[$__rate_interval]))
+          sum(rate(cortex_request_duration_seconds_count{%(writes_job_matcher)s, route=~"%(gateway_write_routes_regex)s",status_code=~"2.+"}[$__rate_interval])) /
+          sum(rate(cortex_request_duration_seconds_count{%(writes_job_matcher)s, route=~"%(gateway_write_routes_regex)s"}[$__rate_interval])) or on() vector(0)
         ||| % config, thresholds=[
           { color: 'green', value: null },
         ]) + {
           id: 2,
-          gridPos: { h: 4, w: 2, x: 10, y: 0 },
+          gridPos: { h: 5, w: 2, x: 10, y: 10 },
         },
 
         $.panel('Writes - 4xx') +
         $.newStatPanel(|||
-          sum(rate(cortex_request_duration_seconds_count{%(gateway_job_matcher)s, route=~"%(gateway_write_routes_regex)s",status_code=~"4.+"}[$__rate_interval])) /
-          sum(rate(cortex_request_duration_seconds_count{%(gateway_job_matcher)s, route=~"%(gateway_write_routes_regex)s"}[$__rate_interval]))
+          sum(rate(cortex_request_duration_seconds_count{%(writes_job_matcher)s, route=~"%(gateway_write_routes_regex)s",status_code=~"4.+"}[$__rate_interval])) /
+          sum(rate(cortex_request_duration_seconds_count{%(writes_job_matcher)s, route=~"%(gateway_write_routes_regex)s"}[$__rate_interval])) or on() vector(0)
         ||| % config, thresholds=[
           { color: 'green', value: null },
           { color: 'orange', value: 0.2 },
           { color: 'red', value: 0.5 },
         ]) + {
           id: 3,
-          gridPos: { h: 4, w: 2, x: 12, y: 0 },
+          gridPos: { h: 5, w: 2, x: 12, y: 10 },
         },
 
         $.panel('Writes - 5xx') +
         $.newStatPanel(|||
-          sum(rate(cortex_request_duration_seconds_count{%(gateway_job_matcher)s, route=~"%(gateway_write_routes_regex)s",status_code=~"5.+"}[$__rate_interval])) /
-          sum(rate(cortex_request_duration_seconds_count{%(gateway_job_matcher)s, route=~"%(gateway_write_routes_regex)s"}[$__rate_interval]))
+          sum(rate(cortex_request_duration_seconds_count{%(writes_job_matcher)s, route=~"%(gateway_write_routes_regex)s",status_code=~"5.+"}[$__rate_interval])) /
+          sum(rate(cortex_request_duration_seconds_count{%(writes_job_matcher)s, route=~"%(gateway_write_routes_regex)s"}[$__rate_interval])) or on() vector(0)
         ||| % config, thresholds=[
           { color: 'green', value: null },
           { color: 'red', value: 0.01 },
         ]) + {
           id: 4,
-          gridPos: { h: 4, w: 2, x: 14, y: 0 },
+          gridPos: { h: 5, w: 2, x: 14, y: 10 },
         },
 
         $.panel('Writes 99th Latency') +
         $.newStatPanel(|||
-          histogram_quantile(0.99, sum by (le) (cluster_job_route:cortex_request_duration_seconds_bucket:sum_rate{%(gateway_job_matcher)s, route=~"%(gateway_write_routes_regex)s"}))
+          histogram_quantile(0.99, sum by (le) (cluster_job_route:cortex_request_duration_seconds_bucket:sum_rate{%(writes_job_matcher)s, route=~"%(gateway_write_routes_regex)s"}))
         ||| % config, unit='s', thresholds=[
           { color: 'green', value: null },
           { color: 'orange', value: 0.2 },
           { color: 'red', value: 0.5 },
         ]) + {
           id: 5,
-          gridPos: { h: 4, w: 8, x: 16, y: 0 },
+          gridPos: { h: 5, w: 8, x: 16, y: 10 },
         },
 
         //
@@ -144,50 +144,50 @@ local utils = import 'mixin-utils/utils.libsonnet';
         //
         $.panel('Reads - 2xx') +
         $.newStatPanel(|||
-          sum(rate(cortex_request_duration_seconds_count{%(gateway_job_matcher)s, route=~"%(gateway_read_routes_regex)s",status_code=~"2.+"}[$__rate_interval])) /
-          sum(rate(cortex_request_duration_seconds_count{%(gateway_job_matcher)s, route=~"%(gateway_read_routes_regex)s"}[$__rate_interval]))
+          sum(rate(cortex_request_duration_seconds_count{%(reads_job_matcher)s, route=~"%(gateway_read_routes_regex)s",status_code=~"2.+"}[$__rate_interval])) /
+          sum(rate(cortex_request_duration_seconds_count{%(reads_job_matcher)s, route=~"%(gateway_read_routes_regex)s"}[$__rate_interval])) or on() vector(0)
         ||| % config, thresholds=[
           { color: 'green', value: null },
         ]) + {
           id: 6,
-          gridPos: { h: 4, w: 2, x: 10, y: 4 },
+          gridPos: { h: 5, w: 2, x: 10, y: 15 },
         },
 
         $.panel('Reads - 4xx') +
         $.newStatPanel(|||
-          sum(rate(cortex_request_duration_seconds_count{%(gateway_job_matcher)s, route=~"%(gateway_read_routes_regex)s",status_code=~"4.+"}[$__rate_interval])) /
-          sum(rate(cortex_request_duration_seconds_count{%(gateway_job_matcher)s, route=~"%(gateway_read_routes_regex)s"}[$__rate_interval]))
+          sum(rate(cortex_request_duration_seconds_count{%(reads_job_matcher)s, route=~"%(gateway_read_routes_regex)s",status_code=~"4.+"}[$__rate_interval])) /
+          sum(rate(cortex_request_duration_seconds_count{%(reads_job_matcher)s, route=~"%(gateway_read_routes_regex)s"}[$__rate_interval])) or on() vector(0)
         ||| % config, thresholds=[
           { color: 'green', value: null },
           { color: 'orange', value: 0.01 },
           { color: 'red', value: 0.05 },
         ]) + {
           id: 7,
-          gridPos: { h: 4, w: 2, x: 12, y: 4 },
+          gridPos: { h: 5, w: 2, x: 12, y: 15 },
         },
 
         $.panel('Reads - 5xx') +
         $.newStatPanel(|||
-          sum(rate(cortex_request_duration_seconds_count{%(gateway_job_matcher)s, route=~"%(gateway_read_routes_regex)s",status_code=~"5.+"}[$__rate_interval])) /
-          sum(rate(cortex_request_duration_seconds_count{%(gateway_job_matcher)s, route=~"%(gateway_read_routes_regex)s"}[$__rate_interval]))
+          sum(rate(cortex_request_duration_seconds_count{%(reads_job_matcher)s, route=~"%(gateway_read_routes_regex)s",status_code=~"5.+"}[$__rate_interval])) /
+          sum(rate(cortex_request_duration_seconds_count{%(reads_job_matcher)s, route=~"%(gateway_read_routes_regex)s"}[$__rate_interval])) or on() vector(0)
         ||| % config, thresholds=[
           { color: 'green', value: null },
           { color: 'red', value: 0.01 },
         ]) + {
           id: 8,
-          gridPos: { h: 4, w: 2, x: 14, y: 4 },
+          gridPos: { h: 5, w: 2, x: 14, y: 15 },
         },
 
         $.panel('Reads 99th Latency') +
         $.newStatPanel(|||
-          histogram_quantile(0.99, sum by (le) (cluster_job_route:cortex_request_duration_seconds_bucket:sum_rate{%(gateway_job_matcher)s, route=~"%(gateway_read_routes_regex)s"}))
+          histogram_quantile(0.99, sum by (le) (cluster_job_route:cortex_request_duration_seconds_bucket:sum_rate{%(reads_job_matcher)s, route=~"%(gateway_read_routes_regex)s"}))
         ||| % config, unit='s', thresholds=[
           { color: 'green', value: null },
           { color: 'orange', value: 1 },
           { color: 'red', value: 2.5 },
         ]) + {
           id: 9,
-          gridPos: { h: 4, w: 8, x: 16, y: 4 },
+          gridPos: { h: 5, w: 8, x: 16, y: 15 },
         },
 
         //
@@ -220,7 +220,7 @@ local utils = import 'mixin-utils/utils.libsonnet';
             },
           },
           id: 10,
-          gridPos: { h: 8, w: 10, x: 0, y: 8 },
+          gridPos: { h: 10, w: 6, x: 10, y: 0 },
         },
 
         //
@@ -266,7 +266,7 @@ local utils = import 'mixin-utils/utils.libsonnet';
             {
               // Hide time.
               id: 'organize',
-              options: { excludeByName: { Time: true } },
+              options: { excludeByName: { Time: true }, indexByName: { Time: 0, container: 1 } },
             },
             {
               // Sort by container.
@@ -276,7 +276,7 @@ local utils = import 'mixin-utils/utils.libsonnet';
           ],
 
           id: 11,
-          gridPos: { h: 8, w: 6, x: 10, y: 8 },
+          gridPos: { h: 10, w: 10, x: 0, y: 10 },
         },
 
         //
@@ -285,15 +285,15 @@ local utils = import 'mixin-utils/utils.libsonnet';
         $.panel('Latency vs 24h ago') +
         $.queryPanel([|||
           1 - (
-            avg_over_time(histogram_quantile(0.99, sum by (le) (cluster_job_route:cortex_request_duration_seconds_bucket:sum_rate{%(gateway_job_matcher)s, route=~"%(gateway_write_routes_regex)s"} offset 24h))[1h:])
+            avg_over_time(histogram_quantile(0.99, sum by (le) (cluster_job_route:cortex_request_duration_seconds_bucket:sum_rate{%(writes_job_matcher)s, route=~"%(gateway_write_routes_regex)s"} offset 24h))[1h:])
             /
-            avg_over_time(histogram_quantile(0.99, sum by (le) (cluster_job_route:cortex_request_duration_seconds_bucket:sum_rate{%(gateway_job_matcher)s, route=~"%(gateway_write_routes_regex)s"}))[1h:])
+            avg_over_time(histogram_quantile(0.99, sum by (le) (cluster_job_route:cortex_request_duration_seconds_bucket:sum_rate{%(writes_job_matcher)s, route=~"%(gateway_write_routes_regex)s"}))[1h:])
           )
         ||| % config, |||
           1 - (
-            avg_over_time(histogram_quantile(0.99, sum by (le) (cluster_job_route:cortex_request_duration_seconds_bucket:sum_rate{%(gateway_job_matcher)s, route=~"%(gateway_read_routes_regex)s"} offset 24h))[1h:])
+            avg_over_time(histogram_quantile(0.99, sum by (le) (cluster_job_route:cortex_request_duration_seconds_bucket:sum_rate{%(reads_job_matcher)s, route=~"%(gateway_read_routes_regex)s"} offset 24h))[1h:])
             /
-            avg_over_time(histogram_quantile(0.99, sum by (le) (cluster_job_route:cortex_request_duration_seconds_bucket:sum_rate{%(gateway_job_matcher)s, route=~"%(gateway_read_routes_regex)s"}))[1h:])
+            avg_over_time(histogram_quantile(0.99, sum by (le) (cluster_job_route:cortex_request_duration_seconds_bucket:sum_rate{%(reads_job_matcher)s, route=~"%(gateway_read_routes_regex)s"}))[1h:])
           )
         ||| % config], ['writes', 'reads']) + {
           yaxes: $.yaxes({
@@ -302,7 +302,7 @@ local utils = import 'mixin-utils/utils.libsonnet';
           }),
 
           id: 12,
-          gridPos: { h: 8, w: 8, x: 16, y: 8 },
+          gridPos: { h: 10, w: 8, x: 16, y: 0 },
         },
       ],
 
