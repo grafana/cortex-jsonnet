@@ -4,7 +4,8 @@ local utils = import 'mixin-utils/utils.libsonnet';
   'cortex-reads-resources.json':
     ($.dashboard('Cortex / Reads Resources') + { uid: '2fd2cda9eea8d8af9fbc0a5960425120' })
     .addClusterSelectorTemplates(false)
-    .addRow(
+    .addRowIf(
+      $._config.cortex_gw_enabled,
       $.row('Gateway')
       .addPanel(
         $.containerCPUUsagePanel('CPU', $._config.job_names.gateway),
@@ -28,7 +29,8 @@ local utils = import 'mixin-utils/utils.libsonnet';
         $.goHeapInUsePanel('Memory (go heap inuse)', $._config.job_names.query_frontend),
       )
     )
-    .addRow(
+    .addRowIf(
+      $._config.query_scheduler_enabled,
       $.row('Query Scheduler')
       .addPanel(
         $.containerCPUUsagePanel('CPU', 'query-scheduler'),
@@ -64,7 +66,8 @@ local utils = import 'mixin-utils/utils.libsonnet';
         $.goHeapInUsePanel('Memory (go heap inuse)', $._config.job_names.ingester),
       )
     )
-    .addRow(
+    .addRowIf(
+      $._config.ruler_enabled,
       $.row('Ruler')
       .addPanel(
         $.panel('Rules') +
@@ -77,7 +80,8 @@ local utils = import 'mixin-utils/utils.libsonnet';
         $.containerCPUUsagePanel('CPU', 'ruler'),
       )
     )
-    .addRow(
+    .addRowIf(
+      $._config.ruler_enabled,
       $.row('')
       .addPanel(
         $.containerMemoryWorkingSetPanel('Memory (workingset)', 'ruler'),
@@ -109,7 +113,7 @@ local utils = import 'mixin-utils/utils.libsonnet';
         $.containerDiskReadsPanel('Disk Reads', 'store-gateway'),
       )
       .addPanel(
-        $.containerDiskSpaceUtilization('Disk Space Utilization', 'store-gateway'),
+        $.containerDiskSpaceUtilization('Disk Space Utilization', $._config.instance_names.store_gateway),
       )
     ) + {
       templating+: {

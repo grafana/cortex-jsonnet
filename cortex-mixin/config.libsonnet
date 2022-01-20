@@ -7,6 +7,11 @@
     // May contain 'chunks', 'blocks' or both.
     // Enables chunks- or blocks- specific panels and dashboards.
     storage_engine: ['blocks'],
+    
+    // Disable unused panels depending whether a component was installed or not
+    cortex_gw_enabled: false,
+    query_scheduler_enabled: false,
+    ruler_enabled: false,
 
     // For chunks backend, switch for chunk index type.
     // May contain 'bigtable', 'dynamodb' or 'cassandra'.
@@ -47,15 +52,17 @@
     cortex_p99_latency_threshold_seconds: 2.5,
 
     // Whether resources dashboards are enabled (based on cAdvisor metrics).
-    resources_dashboards_enabled: false,
+    resources_dashboards_enabled: true,
 
     // The label used to differentiate between different application instances (i.e. 'pod' in a kubernetes install).
     per_instance_label: 'pod',
 
     // Name selectors for different application instances, using the "per_instance_label".
     instance_names: {
-      compactor: 'compactor.*',
-      alertmanager: 'alertmanager.*',
+      alertmanager: '.*alertmanager.*',
+      compactor: '.*compactor.*',
+      ingester: '.*ingester.*',
+      store_gateway: '.*store-gateway.*',
     },
 
     // The label used to differentiate between different nodes (i.e. servers).

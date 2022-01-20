@@ -4,9 +4,11 @@ local utils = import 'mixin-utils/utils.libsonnet';
   local config = {
     namespace_matcher: $.namespaceMatcher(),
     gateway_job_matcher: $.jobMatcher($._config.job_names.gateway),
+    writes_job_matcher: $.jobMatcher($._config.job_names.distributor),
+    reads_job_matcher: $.jobMatcher($._config.job_names.querier),
     gateway_write_routes_regex: 'api_(v1|prom)_push',
     gateway_read_routes_regex: '(prometheus|api_prom)_api_v1_.+',
-    all_services_regex: std.join('|', ['cortex-gw', 'distributor', 'ingester.*', 'query-frontend.*', 'query-scheduler.*', 'querier.*', 'compactor', 'store-gateway', 'ruler', 'alertmanager']),
+    all_services_regex: std.join('|', ['cortex-gw', '.*distributor.*', '.*ingester.*', '.*query-frontend.*', '.*query-scheduler.*', '.*querier.*', '.*compactor.*', '.*store-gateway.*', '.*ruler.*', '.*alertmanager.*', '.*memcached.*']),
   },
 
   'cortex-rollout-progress.json':
@@ -235,7 +237,7 @@ local utils = import 'mixin-utils/utils.libsonnet';
                 count by(container, version) (
                   label_replace(
                     kube_pod_container_info{%(namespace_matcher)s,container=~"%(all_services_regex)s"},
-                    "version", "$1", "image", ".*:(.+)-.*"
+                    "version", "$1", "image", ".*:(.+)"
                   )
                 )
               ||| % config,

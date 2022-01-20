@@ -61,10 +61,11 @@ local utils = import 'mixin-utils/utils.libsonnet';
       )
       .addPanel(
         $.panel('Requests / sec') +
-        $.statPanel('sum(rate(cortex_request_duration_seconds_count{%s, route=~"api_(v1|prom)_push"}[5m]))' % $.jobMatcher($._config.job_names.gateway), format='reqps')
+        $.statPanel('sum(rate(cortex_request_duration_seconds_count{%s, route=~"api_(v1|prom)_push"}[5m]))' % $.jobMatcher($._config.job_names.distributor), format='reqps')
       )
     )
-    .addRow(
+    .addRowIf(
+      $._config.cortex_gw_enabled,
       $.row('Gateway')
       .addPanel(
         $.panel('Requests / sec') +

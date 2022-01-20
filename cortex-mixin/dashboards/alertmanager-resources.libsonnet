@@ -4,7 +4,8 @@ local utils = import 'mixin-utils/utils.libsonnet';
   'alertmanager-resources.json':
     ($.dashboard('Cortex / Alertmanager Resources') + { uid: '68b66aed90ccab448009089544a8d6c6' })
     .addClusterSelectorTemplates(false)
-    .addRow(
+    .addRowIf(
+      $._config.cortex_gw_enabled,
       $.row('Gateway')
       .addPanel(
         $.containerCPUUsagePanel('CPU', $._config.job_names.gateway),
@@ -61,7 +62,7 @@ local utils = import 'mixin-utils/utils.libsonnet';
     .addRow(
       $.row('')
       .addPanel(
-        $.containerDiskSpaceUtilization('Disk Space Utilization', 'alertmanager'),
+        $.containerDiskSpaceUtilization('Disk Space Utilization', $._config.instance_names.alertmanager),
       )
     ),
 }

@@ -34,7 +34,7 @@ local utils = import 'mixin-utils/utils.libsonnet';
         $.containerDiskReadsPanel('Disk Reads', 'compactor'),
       )
       .addPanel(
-        $.containerDiskSpaceUtilization('Disk Space Utilization', 'compactor'),
+        $.containerDiskSpaceUtilization('Disk Space Utilization', $._config.instance_names.compactor),
       )
     ) + {
       templating+: {

@@ -21,7 +21,8 @@ local utils = import 'mixin-utils/utils.libsonnet';
         $.queryPanel('cortex_query_frontend_queue_length{%s}' % $.jobMatcher($._config.job_names.query_frontend), '{{cluster}} / {{namespace}} / {{%s}}' % $._config.per_instance_label),
       )
     )
-    .addRow(
+    .addRowIf(
+      $._config.query_scheduler_enabled,
       $.row('Query Scheduler')
       .addPanel(
         $.panel('Queue Duration') +
