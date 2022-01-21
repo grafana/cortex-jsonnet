@@ -55,7 +55,7 @@ local utils = import 'mixin-utils/utils.libsonnet';
               cortex_prometheus_rule_evaluations_total{
                 %(ruler)s
               }[$__rate_interval]
-            )
+            ) or on() vector(0)
           )
         ||| % {
           queryFrontend: $.jobMatcher($._config.job_names.query_frontend),
