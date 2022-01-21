@@ -9,6 +9,9 @@ local utils = import 'mixin-utils/utils.libsonnet';
   // - some links that propagate the selectred cluster.
   dashboard(title)::
     super.dashboard(title=title, datasource=$._config.dashboard_datasource) + {
+      refresh: '30s',
+      timezone: 'browser',
+
       addRowIf(condition, row)::
         if condition
         then self.addRow(row)
@@ -73,7 +76,7 @@ local utils = import 'mixin-utils/utils.libsonnet';
   namespaceMatcher()::
     if $._config.singleBinary
     then 'job=~"$job"'
-    else 'cluster=~"$cluster", namespace=~"$namespace"',
+    else 'namespace=~"$namespace"',
 
   jobSelector(job)::
     if $._config.singleBinary

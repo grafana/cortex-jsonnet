@@ -7,10 +7,10 @@
     // May contain 'chunks', 'blocks' or both.
     // Enables chunks- or blocks- specific panels and dashboards.
     storage_engine: ['blocks'],
-    
+
     // HTTP URL prefix under which the Prometheus api is available.
     prometheus_http_prefix: 'cortex',
-    
+
     // Disable unused panels depending whether a component was installed or not
     cortex_gw_enabled: false,
     query_scheduler_enabled: false,

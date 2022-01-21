@@ -4,7 +4,7 @@ local utils = import 'mixin-utils/utils.libsonnet';
   local config = {
     gateway_read_routes_regex: '(%s|api_prom)_api_v1_.+' % $._config.prometheus_http_prefix,
   },
-  
+
   'cortex-reads.json':
     ($.dashboard('Cortex / Reads') + { uid: '8d6ba60eccc4b6eedfa329b24b1bd339' })
     .addClusterSelectorTemplates()

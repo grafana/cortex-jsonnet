@@ -1,7 +1,6 @@
 local utils = import 'mixin-utils/utils.libsonnet';
 
 (import 'dashboard-utils.libsonnet') {
-
   'cortex-scaling.json':
     ($.dashboard('Cortex / Scaling') + { uid: '88c041017b96856c9176e07cf557bdcf' })
     .addClusterSelectorTemplates()
@@ -42,18 +41,20 @@ local utils = import 'mixin-utils/utils.libsonnet';
         $.tablePanel([
           |||
             sort_desc(
-              cluster_namespace_deployment_reason:required_replicas:count{cluster=~"$cluster", namespace=~"$namespace"}
+              cluster_namespace_deployment_reason:required_replicas:count{%(namespace_matcher)s}
                 > ignoring(reason) group_left
-              cluster_namespace_deployment:actual_replicas:count{cluster=~"$cluster", namespace=~"$namespace"}
+              cluster_namespace_deployment:actual_replicas:count{%(namespace_matcher)s}
             )
-          |||,
+          ||| % {
+            namespace_matcher: $.namespaceMatcher(),
+          },
         ], {
           __name__: { alias: 'Cluster', type: 'hidden' },
           cluster: { alias: 'Cluster' },
           namespace: { alias: 'Namespace' },
           deployment: { alias: 'Service' },
           reason: { alias: 'Reason' },
-          Value: { alias: 'Required Replicas', decimals: 0 },
+          'Value #A': { alias: 'Required Replicas', decimals: 0 },
         })
       )
     ),
