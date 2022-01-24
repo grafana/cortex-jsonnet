@@ -9,12 +9,12 @@
     storage_engine: ['blocks'],
 
     // HTTP URL prefix under which the Prometheus api is available.
-    prometheus_http_prefix: 'cortex',
+    prometheus_http_prefix: 'prometheus',
 
     // Disable unused panels depending whether a component was installed or not
-    cortex_gw_enabled: false,
-    query_scheduler_enabled: false,
-    ruler_enabled: false,
+    cortex_gw_enabled: true,
+    query_scheduler_enabled: true,
+    ruler_enabled: true,
 
     // For chunks backend, switch for chunk index type.
     // May contain 'bigtable', 'dynamodb' or 'cassandra'.
@@ -55,7 +55,7 @@
     cortex_p99_latency_threshold_seconds: 2.5,
 
     // Whether resources dashboards are enabled (based on cAdvisor metrics).
-    resources_dashboards_enabled: true,
+    resources_dashboards_enabled: false,
 
     // The label used to differentiate between different application instances (i.e. 'pod' in a kubernetes install).
     per_instance_label: 'pod',
