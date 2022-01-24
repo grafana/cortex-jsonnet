@@ -2,6 +2,8 @@
 
 ## master / unreleased
 
+* [ENHANCEMENT] Update cortex-mixin to support Cortex deployment from the Helm chart. #361
+
 ## 1.11.0 / 2021-12-30
 
 * [CHANGE] Store gateway: set `-blocks-storage.bucket-store.index-cache.memcached.max-get-multi-concurrency`,
