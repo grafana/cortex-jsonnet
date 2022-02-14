@@ -19,11 +19,11 @@ local utils = import 'mixin-utils/utils.libsonnet';
       $.row('')
       .addPanel(
         $.panel('Blocks Latency') +
-        utils.latencyRecordingRulePanel('cortex_request_duration_seconds', [utils.selector.re('cluster', '$cluster'), utils.selector.re('job', '($blocks_namespace)/ingester'), utils.selector.eq('route', '/cortex.Ingester/Push')])
+        $.latencyRecordingRulePanel('cortex_request_duration_seconds', [utils.selector.re('cluster', '$cluster'), utils.selector.re('job', '($blocks_namespace)/ingester'), utils.selector.eq('route', '/cortex.Ingester/Push')])
       )
       .addPanel(
         $.panel('Chunks Latency') +
-        utils.latencyRecordingRulePanel('cortex_request_duration_seconds', [utils.selector.re('cluster', '$cluster'), utils.selector.re('job', '($chunks_namespace)/ingester'), utils.selector.eq('route', '/cortex.Ingester/Push')])
+        $.latencyRecordingRulePanel('cortex_request_duration_seconds', [utils.selector.re('cluster', '$cluster'), utils.selector.re('job', '($chunks_namespace)/ingester'), utils.selector.eq('route', '/cortex.Ingester/Push')])
       )
     )
     .addRow(

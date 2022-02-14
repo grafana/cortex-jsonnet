@@ -120,6 +120,9 @@ local utils = import 'mixin-utils/utils.libsonnet';
       ],
     },
 
+  latencyRecordingRulePanel(metric, selectors, extra_selectors=$._config.latency_recording_rule_extra_selectors, multiplier='1e3', sum_by=$._config.latency_recording_rule_sum_by)::
+    $.latencyRecordingRulePanel(metric, selectors, extra_selectors, multiplier, sum_by),
+
   successFailurePanel(title, successMetric, failureMetric)::
     $.panel(title) +
     $.queryPanel([successMetric, failureMetric], ['successful', 'failed']) +

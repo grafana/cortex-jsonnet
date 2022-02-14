@@ -72,5 +72,12 @@
 
     // Name of the datasource for which the dashboards should attach to
     dashboard_datasource: 'default',
+
+    // List of selectors which will be added to the query selector in latency recording rules, but not to the beginnig of the recording rule name.
+    // The can be useful when Prometheus adding external labels before sending metrics to Cortex.
+    latency_recording_rule_extra_selectors: [],
+    // Additional labels to use in the sum by clause in latency recording rules, will also be used in the legend
+    // The can be useful when Prometheus adding external labels before sending metrics to Cortex.
+    latency_recording_rule_sum_by: [],
   },
 }
