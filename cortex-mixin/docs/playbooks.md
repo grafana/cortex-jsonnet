@@ -3,7 +3,7 @@
 This document contains playbooks, or at least a checklist of what to look for, for alerts in the cortex-mixin and logs from Cortex. This document assumes that you are running a Cortex cluster:
 
 1. Using this mixin config
-2. Using GCS as object store (but similar procedures apply to other backends)
+2. Using GCS (Google), S3 (AWS) or Blobs (Azure). Similar procedures apply to other backends.
 
 ## Alerts
 
@@ -412,6 +412,32 @@ Where:
 - `BUCKET` is the gcs bucket name the compactor is using. The cell's bucket name is specified as the `blocks_storage_bucket_name` in the cell configuration
 - `TENANT` is the tenant id reported in the example error message above as `REDACTED-TENANT`
 - `BLOCK` is the last part of the file path reported as `REDACTED-BLOCK` in the example error message above
+
+To rename a block stored on S3 you can use the `aws` CLI command:
+```
+aws s3 mv gs://BUCKET/TENANT/BLOCK gs://BUCKET/TENANT/corrupted-BLOCK
+```
+Where:
+- `BUCKET` is the s3 bucket name the compactor is using.
+- `TENANT` is the tenant id reported in the example error message above as `REDACTED-TENANT`
+- `BLOCK` is the last part of the file path reported as `REDACTED-BLOCK` in the example error message above
+
+
+To rename a block stored on Azure you can use the `azcopy` and `az` CLI command:
+```
+azcopy copy "https://$STORAGE-ACCOUNT.blob.core.windows.net/$CONTAINER/$TENANT/$BLOCK?$SASTOKEN" "https://$STORAGE-ACCOUNT.blob.core.windows.net/$CONTAINER/$TENANT/corrupted-$BLOCK?$SASTOKEN" --recursive
+azcopy remove "https://$STORAGE-ACCOUNT.blob.core.windows.net/$CONTAINER/$TENANT/$BLOCK?$SASTOKEN" --recursive
+```
+Where:
+- `STORAGE-ACCOUNT` is the storage account the compactor is using.
+- `CONTAINER` is what is specified as `-blocks-storage.azure.container-name`
+- `TENANT` is the tenant id reported in the example error message above as REDACTED-TENANT
+- `BLOCK` is the last part of the file path reported as REDACTED-BLOCK in the example error message above
+- `SAS-TOKEN` this is a token that can be created with the following command:
+
+```
+az storage container generate-sas --account-name $STORAGE-ACCOUNT --expiry $(date -v +1d +%Y-%m-%d) --name $CONTAINER --permissions dlrw
+```
 
 ### CortexBucketIndexNotUpdated
 
