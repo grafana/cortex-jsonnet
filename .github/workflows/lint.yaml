@@ -1,0 +1,42 @@
+name: CI
+
+on:
+  pull_request:
+
+jobs:
+  lint:
+    runs-on: ubuntu-18.04
+    container: grafana/cortex-jsonnet-build-image:3527936
+    steps:
+      - uses: actions/checkout@v2
+        name: Checkout
+        with:
+          fetch-depth: 0
+      
+      - name: "Lint mixin"
+        run: make lint-mixin
+      
+      - name: "Lint playbooks"
+        run: make lint-playbooks
+  build:
+    runs-on: ubuntu-18.04
+    container: grafana/cortex-jsonnet-build-image:3527936
+    steps:
+      - uses: actions/checkout@v2
+        name: Checkout
+        with:
+          fetch-depth: 0
+      
+      - name: "Build mixin"
+        run: make build-mixin
+  readme:
+    runs-on: ubuntu-18.04
+    container: grafana/cortex-jsonnet-build-image:3527936
+    steps:
+      - uses: actions/checkout@v2
+        name: Checkout
+        with:
+          fetch-depth: 0
+      
+      - name: "Test readme"
+        run: make test-readme    
