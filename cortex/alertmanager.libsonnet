@@ -50,7 +50,7 @@
     gossip_single_replica: {
       ports: [],
       args: {},
-      flags: ['--alertmanager.cluster.listen-address=""'],
+      flags: ['--alertmanager.cluster.listen-address='],
       service: $.util.serviceFor($.alertmanager_statefulset),
     },
   }[haType],
