@@ -1,3 +1,10 @@
+# Deprecated
+
+This project has been deprecated:
+
+- If you're using Grafana Mimir, please use [Grafana Mimir jsonnet](https://github.com/grafana/mimir/tree/main/operations/mimir) instead
+- If you're using Cortex, please use [Cortex jsonnet](https://github.com/cortexproject/cortex-jsonnet) instead
+
 # Jsonnet for Cortex on Kubernetes
 
 This repo has the jsonnet for deploying Cortex and the related monitoring in Kubernetes.
