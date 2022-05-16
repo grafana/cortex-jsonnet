@@ -1,3 +1,7 @@
+# Deprecated
+
+This project has been deprecated and moved to [Grafana Mimir jsonnet](https://github.com/grafana/mimir/tree/main/operations/mimir).
+
 # Jsonnet for Cortex on Kubernetes
 
 This repo has the jsonnet for deploying Cortex and the related monitoring in Kubernetes.
