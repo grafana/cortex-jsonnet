@@ -122,17 +122,17 @@ local utils = import 'mixin-utils/utils.libsonnet';
       $.row('Ingester')
       .addPanel(
         $.panel('Series per Query') +
-        utils.latencyRecordingRulePanel('cortex_ingester_queried_series', $.jobSelector($._config.job_names.ingester), multiplier=1) +
+        $.latencyRecordingRulePanel('cortex_ingester_queried_series', $.jobSelector($._config.job_names.ingester), multiplier=1) +
         { yaxes: $.yaxes('short') },
       )
       .addPanel(
         $.panel('Chunks per Query') +
-        utils.latencyRecordingRulePanel('cortex_ingester_queried_chunks', $.jobSelector($._config.job_names.ingester), multiplier=1) +
+        $.latencyRecordingRulePanel('cortex_ingester_queried_chunks', $.jobSelector($._config.job_names.ingester), multiplier=1) +
         { yaxes: $.yaxes('short') },
       )
       .addPanel(
         $.panel('Samples per Query') +
-        utils.latencyRecordingRulePanel('cortex_ingester_queried_samples', $.jobSelector($._config.job_names.ingester), multiplier=1) +
+        $.latencyRecordingRulePanel('cortex_ingester_queried_samples', $.jobSelector($._config.job_names.ingester), multiplier=1) +
         { yaxes: $.yaxes('short') },
       )
     )
@@ -141,22 +141,22 @@ local utils = import 'mixin-utils/utils.libsonnet';
       $.row('Querier - Chunks storage - Store')
       .addPanel(
         $.panel('Index Lookups per Query') +
-        utils.latencyRecordingRulePanel('cortex_chunk_store_index_lookups_per_query', $.jobSelector($._config.job_names.querier), multiplier=1) +
+        $.latencyRecordingRulePanel('cortex_chunk_store_index_lookups_per_query', $.jobSelector($._config.job_names.querier), multiplier=1) +
         { yaxes: $.yaxes('short') },
       )
       .addPanel(
         $.panel('Series (pre-intersection) per Query') +
-        utils.latencyRecordingRulePanel('cortex_chunk_store_series_pre_intersection_per_query', $.jobSelector($._config.job_names.querier), multiplier=1) +
+        $.latencyRecordingRulePanel('cortex_chunk_store_series_pre_intersection_per_query', $.jobSelector($._config.job_names.querier), multiplier=1) +
         { yaxes: $.yaxes('short') },
       )
       .addPanel(
         $.panel('Series (post-intersection) per Query') +
-        utils.latencyRecordingRulePanel('cortex_chunk_store_series_post_intersection_per_query', $.jobSelector($._config.job_names.querier), multiplier=1) +
+        $.latencyRecordingRulePanel('cortex_chunk_store_series_post_intersection_per_query', $.jobSelector($._config.job_names.querier), multiplier=1) +
         { yaxes: $.yaxes('short') },
       )
       .addPanel(
         $.panel('Chunks per Query') +
-        utils.latencyRecordingRulePanel('cortex_chunk_store_chunks_per_query', $.jobSelector($._config.job_names.querier), multiplier=1) +
+        $.latencyRecordingRulePanel('cortex_chunk_store_chunks_per_query', $.jobSelector($._config.job_names.querier), multiplier=1) +
         { yaxes: $.yaxes('short') },
       )
     )

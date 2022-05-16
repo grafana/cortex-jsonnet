@@ -2,6 +2,8 @@
 
 ## master / unreleased
 
+* [ENHANCEMENT] Add extra_selectors and sum_by for latency recording rule panel. #429
+
 ## 1.11.0 / 2021-12-30
 
 * [CHANGE] Store gateway: set `-blocks-storage.bucket-store.index-cache.memcached.max-get-multi-concurrency`,
