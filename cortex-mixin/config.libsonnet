@@ -8,6 +8,14 @@
     // Enables chunks- or blocks- specific panels and dashboards.
     storage_engine: ['blocks'],
 
+    // HTTP URL prefix under which the Prometheus api is available.
+    prometheus_http_prefix: 'prometheus',
+
+    // Disable unused panels depending whether a component was installed or not
+    cortex_gw_enabled: true,
+    query_scheduler_enabled: true,
+    ruler_enabled: true,
+
     // For chunks backend, switch for chunk index type.
     // May contain 'bigtable', 'dynamodb' or 'cassandra'.
     chunk_index_backend: ['bigtable', 'dynamodb', 'cassandra'],
@@ -54,8 +62,10 @@
 
     // Name selectors for different application instances, using the "per_instance_label".
     instance_names: {
-      compactor: 'compactor.*',
-      alertmanager: 'alertmanager.*',
+      alertmanager: '.*alertmanager.*',
+      compactor: '.*compactor.*',
+      ingester: '.*ingester.*',
+      store_gateway: '.*store-gateway.*',
     },
 
     // The label used to differentiate between different nodes (i.e. servers).

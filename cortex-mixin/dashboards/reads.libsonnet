@@ -1,6 +1,10 @@
 local utils = import 'mixin-utils/utils.libsonnet';
 
 (import 'dashboard-utils.libsonnet') {
+  local config = {
+    gateway_read_routes_regex: '(%s|api_prom)_api_v1_.+' % $._config.prometheus_http_prefix,
+  },
+
   'cortex-reads.json':
     ($.dashboard('Cortex / Reads') + { uid: '8d6ba60eccc4b6eedfa329b24b1bd339' })
     .addClusterSelectorTemplates()
@@ -42,7 +46,7 @@ local utils = import 'mixin-utils/utils.libsonnet';
             rate(
               cortex_request_duration_seconds_count{
                 %(queryFrontend)s,
-                route=~"(prometheus|api_prom)_api_v1_query"
+                route=~"%(query_routes_regex)s"
               }[$__rate_interval]
             )
           ) +
@@ -51,10 +55,11 @@ local utils = import 'mixin-utils/utils.libsonnet';
               cortex_prometheus_rule_evaluations_total{
                 %(ruler)s
               }[$__rate_interval]
-            )
+            ) or on() vector(0)
           )
         ||| % {
           queryFrontend: $.jobMatcher($._config.job_names.query_frontend),
+          query_routes_regex: '(%s|api_prom)_api_v1_query' % $._config.prometheus_http_prefix,
           ruler: $.jobMatcher($._config.job_names.ruler),
         }, format='reqps') +
         $.panelDescription(
@@ -73,12 +78,13 @@ local utils = import 'mixin-utils/utils.libsonnet';
             rate(
               cortex_request_duration_seconds_count{
                 %(queryFrontend)s,
-                route=~"(prometheus|api_prom)_api_v1_query_range"
+                route=~"%(query_range_routes_regex)s"
               }[$__rate_interval]
             )
           )
         ||| % {
           queryFrontend: $.jobMatcher($._config.job_names.query_frontend),
+          query_range_routes_regex: '(%s|api_prom)_api_v1_query_range' % $._config.prometheus_http_prefix,
         }, format='reqps') +
         $.panelDescription(
           'Range queries per second',
@@ -89,20 +95,21 @@ local utils = import 'mixin-utils/utils.libsonnet';
         ),
       )
     )
-    .addRow(
+    .addRowIf(
+      $._config.cortex_gw_enabled,
       $.row('Gateway')
       .addPanel(
         $.panel('Requests / sec') +
-        $.qpsPanel('cortex_request_duration_seconds_count{%s, route=~"(prometheus|api_prom)_api_v1_.+"}' % $.jobMatcher($._config.job_names.gateway))
+        $.qpsPanel('cortex_request_duration_seconds_count{%s, route=~"%s"}' % [$.jobMatcher($._config.job_names.gateway), config.gateway_read_routes_regex])
       )
       .addPanel(
         $.panel('Latency') +
-        utils.latencyRecordingRulePanel('cortex_request_duration_seconds', $.jobSelector($._config.job_names.gateway) + [utils.selector.re('route', '(prometheus|api_prom)_api_v1_.+')])
+        utils.latencyRecordingRulePanel('cortex_request_duration_seconds', $.jobSelector($._config.job_names.gateway) + [utils.selector.re('route', config.gateway_read_routes_regex)])
       )
       .addPanel(
         $.panel('Per %s p99 Latency' % $._config.per_instance_label) +
         $.hiddenLegendQueryPanel(
-          'histogram_quantile(0.99, sum by(le, %s) (rate(cortex_request_duration_seconds_bucket{%s, route=~"(prometheus|api_prom)_api_v1_.+"}[$__rate_interval])))' % [$._config.per_instance_label, $.jobMatcher($._config.job_names.gateway)], ''
+          'histogram_quantile(0.99, sum by(le, %s) (rate(cortex_request_duration_seconds_bucket{%s, route=~"%s"}[$__rate_interval])))' % [$._config.per_instance_label, $.jobMatcher($._config.job_names.gateway), config.gateway_read_routes_regex], ''
         ) +
         { yaxes: $.yaxes('s') }
       )
@@ -111,21 +118,22 @@ local utils = import 'mixin-utils/utils.libsonnet';
       $.row('Query Frontend')
       .addPanel(
         $.panel('Requests / sec') +
-        $.qpsPanel('cortex_request_duration_seconds_count{%s, route=~"(prometheus|api_prom)_api_v1_.+"}' % $.jobMatcher($._config.job_names.query_frontend))
+        $.qpsPanel('cortex_request_duration_seconds_count{%s, route=~"%s"}' % [$.jobMatcher($._config.job_names.query_frontend), config.gateway_read_routes_regex])
       )
       .addPanel(
         $.panel('Latency') +
-        utils.latencyRecordingRulePanel('cortex_request_duration_seconds', $.jobSelector($._config.job_names.query_frontend) + [utils.selector.re('route', '(prometheus|api_prom)_api_v1_.+')])
+        utils.latencyRecordingRulePanel('cortex_request_duration_seconds', $.jobSelector($._config.job_names.query_frontend) + [utils.selector.re('route', config.gateway_read_routes_regex)])
       )
       .addPanel(
         $.panel('Per %s p99 Latency' % $._config.per_instance_label) +
         $.hiddenLegendQueryPanel(
-          'histogram_quantile(0.99, sum by(le, %s) (rate(cortex_request_duration_seconds_bucket{%s, route=~"(prometheus|api_prom)_api_v1_.+"}[$__rate_interval])))' % [$._config.per_instance_label, $.jobMatcher($._config.job_names.query_frontend)], ''
+          'histogram_quantile(0.99, sum by(le, %s) (rate(cortex_request_duration_seconds_bucket{%s, route=~"%s"}[$__rate_interval])))' % [$._config.per_instance_label, $.jobMatcher($._config.job_names.query_frontend), config.gateway_read_routes_regex], ''
         ) +
         { yaxes: $.yaxes('s') }
       )
     )
-    .addRow(
+    .addRowIf(
+      $._config.query_scheduler_enabled,
       $.row('Query Scheduler')
       .addPanel(
         $.textPanel(
@@ -165,16 +173,16 @@ local utils = import 'mixin-utils/utils.libsonnet';
       $.row('Querier')
       .addPanel(
         $.panel('Requests / sec') +
-        $.qpsPanel('cortex_querier_request_duration_seconds_count{%s, route=~"(prometheus|api_prom)_api_v1_.+"}' % $.jobMatcher($._config.job_names.querier))
+        $.qpsPanel('cortex_querier_request_duration_seconds_count{%s, route=~"%s"}' % [$.jobMatcher($._config.job_names.querier), config.gateway_read_routes_regex])
       )
       .addPanel(
         $.panel('Latency') +
-        utils.latencyRecordingRulePanel('cortex_querier_request_duration_seconds', $.jobSelector($._config.job_names.querier) + [utils.selector.re('route', '(prometheus|api_prom)_api_v1_.+')])
+        utils.latencyRecordingRulePanel('cortex_querier_request_duration_seconds', $.jobSelector($._config.job_names.querier) + [utils.selector.re('route', config.gateway_read_routes_regex)])
       )
       .addPanel(
         $.panel('Per %s p99 Latency' % $._config.per_instance_label) +
         $.hiddenLegendQueryPanel(
-          'histogram_quantile(0.99, sum by(le, %s) (rate(cortex_querier_request_duration_seconds_bucket{%s, route=~"(prometheus|api_prom)_api_v1_.+"}[$__rate_interval])))' % [$._config.per_instance_label, $.jobMatcher($._config.job_names.querier)], ''
+          'histogram_quantile(0.99, sum by(le, %s) (rate(cortex_querier_request_duration_seconds_bucket{%s, route=~"%s"}[$__rate_interval])))' % [$._config.per_instance_label, $.jobMatcher($._config.job_names.querier), config.gateway_read_routes_regex], ''
         ) +
         { yaxes: $.yaxes('s') }
       )

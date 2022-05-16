@@ -9,6 +9,9 @@ local utils = import 'mixin-utils/utils.libsonnet';
   // - some links that propagate the selectred cluster.
   dashboard(title)::
     super.dashboard(title=title, datasource=$._config.dashboard_datasource) + {
+      refresh: '30s',
+      timezone: 'browser',
+
       addRowIf(condition, row)::
         if condition
         then self.addRow(row)
@@ -73,7 +76,7 @@ local utils = import 'mixin-utils/utils.libsonnet';
   namespaceMatcher()::
     if $._config.singleBinary
     then 'job=~"$job"'
-    else 'cluster=~"$cluster", namespace=~"$namespace"',
+    else 'namespace=~"$namespace"',
 
   jobSelector(job)::
     if $._config.singleBinary
@@ -204,15 +207,13 @@ local utils = import 'mixin-utils/utils.libsonnet';
       |||
         sum by(%s, %s, device) (
           rate(
-            node_disk_written_bytes_total[$__rate_interval]
+            %s[$__rate_interval]
           )
         )
-        +
-        %s
       ||| % [
         $._config.per_node_label,
         $._config.per_instance_label,
-        $.filterNodeDiskContainer(containerName),
+        $.nodeDiskContainerBytesTotal(containerName, 'writes'),
       ],
       '{{%s}} - {{device}}' % $._config.per_instance_label
     ) +
@@ -225,13 +226,13 @@ local utils = import 'mixin-utils/utils.libsonnet';
       |||
         sum by(%s, %s, device) (
           rate(
-            node_disk_read_bytes_total[$__rate_interval]
+            %s[$__rate_interval]
           )
-        ) + %s
+        )
       ||| % [
         $._config.per_node_label,
         $._config.per_instance_label,
-        $.filterNodeDiskContainer(containerName),
+        $.nodeDiskContainerBytesTotal(containerName, 'reads'),
       ],
       '{{%s}} - {{device}}' % $._config.per_instance_label
     ) +
@@ -261,9 +262,7 @@ local utils = import 'mixin-utils/utils.libsonnet';
     { yaxes: $.yaxes('percentunit') },
 
   containerLabelMatcher(containerName)::
-    if containerName == 'ingester'
-    then 'label_name=~"ingester.*"'
-    else 'label_name="%s"' % containerName,
+    'persistentvolumeclaim=~"%s"' % containerName,
 
   goHeapInUsePanel(title, jobName)::
     $.panel(title) +
@@ -467,32 +466,15 @@ local utils = import 'mixin-utils/utils.libsonnet';
       { yaxes: $.yaxes('percentunit') }
     ),
 
-  filterNodeDiskContainer(containerName)::
+  nodeDiskContainerBytesTotal(containerName, op)::
     |||
-      ignoring(%s) group_right() (
-        label_replace(
-          count by(
-            %s,
-            %s,
-            device
-          )
-          (
-            container_fs_writes_bytes_total{
-              %s,
-              container="%s",
-              device!~".*sda.*"
-            }
-          ),
-          "device",
-          "$1",
-          "device",
-          "/dev/(.*)"
-        ) * 0
-      )
+      container_fs_%s_bytes_total{
+        %s,
+        container="%s",
+        device!~".*sda.*|.*nvme0.*"
+      }
     ||| % [
-      $._config.per_instance_label,
-      $._config.per_node_label,
-      $._config.per_instance_label,
+      op,
       $.namespaceMatcher(),
       containerName,
     ],

@@ -4,7 +4,8 @@ local utils = import 'mixin-utils/utils.libsonnet';
   'cortex-writes-resources.json':
     ($.dashboard('Cortex / Writes Resources') + { uid: 'c0464f0d8bd026f776c9006b0591bb0b' })
     .addClusterSelectorTemplates(false)
-    .addRow(
+    .addRowIf(
+      $._config.cortex_gw_enabled,
       $.row('Gateway')
       .addPanel(
         $.containerCPUUsagePanel('CPU', $._config.job_names.gateway),
@@ -62,7 +63,7 @@ local utils = import 'mixin-utils/utils.libsonnet';
         $.containerDiskReadsPanel('Disk Reads', 'ingester')
       )
       .addPanel(
-        $.containerDiskSpaceUtilization('Disk Space Utilization', 'ingester'),
+        $.containerDiskSpaceUtilization('Disk Space Utilization', $._config.instance_names.ingester),
       )
     )
     + {
