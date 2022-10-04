@@ -1,0 +1,28 @@
+local cortex = import 'cortex/cortex.libsonnet';
+
+cortex {
+  _config+:: {
+    namespace: 'default',
+
+    blocks_storage_backend: 'azure',
+    blocks_storage_bucket_name: 'example-bucket',
+    blocks_storage_azure_account_key: 'replace-with-valid-key',
+    blocks_storage_azure_account_name: 'example-account',
+    
+    // Cortex Ruler config. 
+    ruler_enabled: true,
+    ruler_client_type: 'azure',
+    ruler_storage_bucket_name: 'ruler-example-bucket',
+    ruler_storage_azure_account_name: 'example-account',
+    ruler_storage_azure_account_key: 'replace-with-valid-key',
+
+    // Cortex Alertmanager config
+    alertmanager_enabled: true,
+    alertmanager_client_type: 'azure',
+    alertmanager_azure_container_name: 'alertmanager-example-bucket',
+    alertmanager_azure_account_key: 'replace-with-valid-key',
+    alertmanager_azure_account_name: 'example-account',
+    external_url: 'https://cortex.example.com', //Alertmanager UI
+    cluster: 'cluster',
+  },
+}

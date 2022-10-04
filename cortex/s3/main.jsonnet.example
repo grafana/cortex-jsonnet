@@ -1,0 +1,24 @@
+local cortex = import 'cortex/cortex.libsonnet';
+
+cortex {
+  _config+:: {
+    namespace: 'default',
+
+    blocks_storage_backend: 's3',
+    blocks_storage_bucket_name: 'blocks-example-bucket',
+
+    aws_region: 'replace-with-valid-region', // For example 'us-east-2',
+
+    // Cortex Ruler config
+    ruler_enabled: true,
+    ruler_client_type: 's3',
+    ruler_storage_bucket_name: 'ruler-example-bucket',
+
+    // Cortex Alertmanager config
+    alertmanager_enabled: true,
+    alertmanager_client_type: 's3',
+    alertmanager_s3_bucket_name: 'alertmanager-example-bucket',
+    external_url: 'https://cortex.example.com', //Alertmanager UI
+    cluster: 'cluster',
+  },
+}

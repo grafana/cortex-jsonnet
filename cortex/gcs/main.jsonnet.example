@@ -1,0 +1,22 @@
+local cortex = import 'cortex/cortex.libsonnet';
+
+cortex {
+  _config+:: {
+    namespace: 'default',
+
+    blocks_storage_backend: 'gcs',
+    blocks_storage_bucket_name: 'example-bucket',
+
+    // Cortex Ruler config. 
+    ruler_enabled: true,
+    ruler_client_type: 'gcs',
+    ruler_storage_bucket_name: 'ruler-example-bucket',
+
+    // Cortex Alertmanager config
+    alertmanager_enabled: true,
+    alertmanager_client_type: 'gcs',
+    alertmanager_gcs_bucket_name: 'alertmanager-example-bucket',
+    external_url: 'https://cortex.example.com', //Alertmanager UI
+    cluster: 'cluster',
+  },
+}

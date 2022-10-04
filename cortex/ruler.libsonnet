@@ -4,14 +4,15 @@
   ruler_args::
     $._config.grpcConfig +
     $._config.ringConfig +
-    $._config.storeConfig +
-    $._config.storageConfig +
     $._config.blocksStorageConfig +
     $._config.queryConfig +
     $._config.queryEngineConfig +
     $._config.distributorConfig +
     $._config.rulerClientConfig +
     $._config.rulerLimitsConfig +
+    $._config.queryBlocksStorageConfig +
+    $.blocks_metadata_caching_config +
+    $.bucket_index_config +
     {
       target: 'ruler',
       // Alertmanager configs
@@ -26,9 +27,6 @@
       // Limits
       'server.grpc-max-send-msg-size-bytes': 10 * 1024 * 1024,
       'server.grpc-max-recv-msg-size-bytes': 10 * 1024 * 1024,
-
-      // Storage
-      'querier.second-store-engine': $._config.querier_second_storage_engine,
 
       // Do not extend the replication set on unhealthy (or LEAVING) ingester when "unregister on shutdown"
       // is set to false.
@@ -55,8 +53,7 @@
       deployment.mixin.spec.strategy.rollingUpdate.withMaxUnavailable(1) +
       deployment.mixin.spec.template.spec.withTerminationGracePeriodSeconds(600) +
       (if $._config.cortex_ruler_allow_multiple_replicas_on_same_node then {} else $.util.antiAffinity) +
-      $.util.configVolumeMount($._config.overrides_configmap, '/etc/cortex') +
-      $.storage_config_mixin
+      $.util.configVolumeMount($._config.overrides_configmap, '/etc/cortex')
     else {},
 
   local service = $.core.v1.service,

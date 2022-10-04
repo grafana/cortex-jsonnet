@@ -6,7 +6,7 @@ on:
 jobs:
   lint:
     runs-on: ubuntu-18.04
-    container: grafana/cortex-jsonnet-build-image:3527936
+    container: quay.io/cortexproject/cortex-jsonnet-build-image:c924d52
     steps:
       - uses: actions/checkout@v2
         name: Checkout
@@ -20,7 +20,7 @@ jobs:
         run: make lint-playbooks
   build:
     runs-on: ubuntu-18.04
-    container: grafana/cortex-jsonnet-build-image:3527936
+    container: quay.io/cortexproject/cortex-jsonnet-build-image:c924d52
     steps:
       - uses: actions/checkout@v2
         name: Checkout
@@ -31,7 +31,7 @@ jobs:
         run: make build-mixin
   readme:
     runs-on: ubuntu-18.04
-    container: grafana/cortex-jsonnet-build-image:3527936
+    container: quay.io/cortexproject/cortex-jsonnet-build-image:c924d52
     steps:
       - uses: actions/checkout@v2
         name: Checkout

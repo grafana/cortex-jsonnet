@@ -29,10 +29,18 @@ To generate the YAMLs for deploying Cortex:
     $ jb install github.com/cortexproject/cortex-jsonnet/cortex@main
     ```
 
-1. Use the example cortex-manifests.jsonnet.example:
+1. Use any of the examples to get a main.jsonnet and adjust as needed
 
     ```console
-    $ cp vendor/cortex/cortex-manifests.jsonnet.example environments/default/main.jsonnet
+    $ cp vendor/cortex/azure/main.jsonnet.example environments/default/main.jsonnet
+    ```
+
+    ```console
+    $ cp vendor/cortex/gcs/main.jsonnet.example environments/default/main.jsonnet
+    ```
+
+    ```console
+    $ cp vendor/cortex/s3/main.jsonnet.example environments/default/main.jsonnet
     ```
 
 1. Check what is in the example:

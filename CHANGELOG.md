@@ -3,7 +3,9 @@
 ## master / unreleased
 
 * [CHANGE] Updated readme to use this repo with tanka
+* [CHANGE] Removed chunks support
 * [CHANGE] Use integrated cortex overrides exporter
+* [ENHANCEMENT] Added main.jsonnet examples for azure, gcs and s3
 * [ENHANCEMENT] How to rename buckets in AWS and Azure for `not healthy index found` playbook. #5
 * [BUGFIX] Updated blocks_storage_s3_endpoint in config.libsonnet to include the correct aws region
 

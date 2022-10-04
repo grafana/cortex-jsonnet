@@ -3,6 +3,7 @@
 (import 'images.libsonnet') +
 (import 'common.libsonnet') +
 (import 'config.libsonnet') +
+(import 'tsdb-config.libsonnet') +
 (import 'consul.libsonnet') +
 
 // Cortex services
@@ -10,10 +11,11 @@
 (import 'ingester.libsonnet') +
 (import 'querier.libsonnet') +
 (import 'query-frontend.libsonnet') +
-(import 'table-manager.libsonnet') +
 (import 'ruler.libsonnet') +
 (import 'alertmanager.libsonnet') +
 (import 'query-scheduler.libsonnet') +
+(import 'compactor.libsonnet') +
+(import 'store-gateway.libsonnet') +
 
 // Supporting services
 (import 'etcd.libsonnet') +

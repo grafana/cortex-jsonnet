@@ -32,10 +32,10 @@ fmt:
 		xargs -n 1 -- $(JSONNET_FMT) -i
 
 build-image:
-	docker build -t grafana/cortex-jsonnet-build-image:$(shell git rev-parse --short HEAD) build-image
+	docker build -t quay.io/cortexproject/cortex-jsonnet-build-image:$(shell git rev-parse --short HEAD) build-image
 
 publish-build-image:
-	docker push grafana/cortex-jsonnet-build-image:$(shell git rev-parse --short HEAD)
+	docker push quay.io/cortexproject/cortex-jsonnet-build-image:$(shell git rev-parse --short HEAD)
 
 build-mixin:
 	@cd cortex-mixin && \
@@ -44,16 +44,16 @@ build-mixin:
 	mixtool generate all --output-alerts out/alerts.yaml --output-rules out/rules.yaml --directory out/dashboards mixin.libsonnet && \
 	zip -q -r cortex-mixin.zip out
 
-test-readme:
-	rm -rf test-readme && \
-	mkdir test-readme && cd test-readme && \
-	tk init --k8s=false && \
-	jb install github.com/jsonnet-libs/k8s-alpha/1.18 && \
-	printf '(import "github.com/jsonnet-libs/k8s-alpha/1.18/main.libsonnet")\n+(import "github.com/jsonnet-libs/k8s-alpha/1.18/extensions/kausal-shim.libsonnet")' > lib/k.libsonnet && \
-	jb install github.com/grafana/cortex-jsonnet/cortex@main && \
+test-readme: test-readme/azure test-readme/gcs test-readme/s3
+
+test-readme/%:
+	rm -rf $@ && \
+	mkdir -p $@ && cd $@ && \
+	tk init --k8s=1.21 && \
+	jb install github.com/cortexproject/cortex-jsonnet/cortex@main && \
 	rm -fr ./vendor/cortex && \
-	cp -r ../cortex ./vendor/ && \
-	cp vendor/cortex/cortex-manifests.jsonnet.example environments/default/main.jsonnet && \
+	cp -r ../../cortex ./vendor/ && \
+	cp vendor/cortex/$(notdir $@)/main.jsonnet.example environments/default/main.jsonnet && \
 	PAGER=cat tk show environments/default
 
 clean-white-noise:

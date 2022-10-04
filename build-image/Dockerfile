@@ -18,8 +18,8 @@ RUN chmod +x /usr/bin/jb
 
 # Build tanka
 FROM alpine:3.13 AS tk-builder
-ARG TANKA_VERSION=0.11.1
-ARG TANKA_CHECKSUM="3b253ca7d7bf01189604c10a8f7cead20a553ddc04c813f0f836d80338cfad71  /usr/bin/tk"
+ARG TANKA_VERSION=0.21.0
+ARG TANKA_CHECKSUM="cd60a005f84fd99763f26d07d4cb626e7585a62800aae97234d8187129eed1ec  /usr/bin/tk"
 RUN apk add --no-cache curl
 RUN curl -fSL -o "/usr/bin/tk" "https://github.com/grafana/tanka/releases/download/v${TANKA_VERSION}/tk-linux-amd64"
 RUN echo "${TANKA_CHECKSUM}" | sha256sum -c || (printf "wanted: %s\n   got: %s\n" "${TANKA_CHECKSUM}" "$(sha256sum /usr/bin/tk)"; exit 1)

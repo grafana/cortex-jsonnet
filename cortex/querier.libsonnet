@@ -4,12 +4,13 @@
   querier_args::
     $._config.grpcConfig +
     $._config.ringConfig +
-    $._config.storeConfig +
-    $._config.storageConfig +
     $._config.blocksStorageConfig +
     $._config.queryConfig +
     $._config.queryEngineConfig +
     $._config.distributorConfig +
+    $._config.queryBlocksStorageConfig +
+    $.blocks_metadata_caching_config +
+    $.bucket_index_config +
     {
       target: 'querier',
 
@@ -24,8 +25,6 @@
       'querier.worker-parallelism': $._config.querier.concurrency / $._config.queryFrontend.replicas,
       'querier.frontend-address': 'query-frontend-discovery.%(namespace)s.svc.cluster.local:9095' % $._config,
       'querier.frontend-client.grpc-max-send-msg-size': 100 << 20,
-
-      'querier.second-store-engine': $._config.querier_second_storage_engine,
 
       // We request high memory but the Go heap is typically very low (< 100MB) and this causes
       // the GC to trigger continuously. Setting a ballast of 256MB reduces GC.
@@ -59,8 +58,7 @@
     (if $._config.cortex_querier_allow_multiple_replicas_on_same_node then {} else $.util.antiAffinity) +
     $.util.configVolumeMount($._config.overrides_configmap, '/etc/cortex') +
     deployment.mixin.spec.strategy.rollingUpdate.withMaxSurge(5) +
-    deployment.mixin.spec.strategy.rollingUpdate.withMaxUnavailable(1) +
-    $.storage_config_mixin,
+    deployment.mixin.spec.strategy.rollingUpdate.withMaxUnavailable(1),
 
   querier_deployment:
     self.newQuerierDeployment('querier', $.querier_container),
