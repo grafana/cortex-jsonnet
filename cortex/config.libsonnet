@@ -20,8 +20,6 @@
     cortex_querier_allow_multiple_replicas_on_same_node: false,
     cortex_query_frontend_allow_multiple_replicas_on_same_node: false,
 
-    max_chunk_idle: '15m',
-
     test_exporter_enabled: false,
     test_exporter_start_time: error 'must specify test exporter start time',
     test_exporter_user_id: error 'must specify test exporter used id',

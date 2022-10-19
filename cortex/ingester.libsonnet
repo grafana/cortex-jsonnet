@@ -26,15 +26,9 @@
       'ingester.num-tokens': 512,
       'ingester.join-after': '0s',
       'ingester.heartbeat-period': '15s',
-      'ingester.max-stale-chunk-idle': '5m',
       'ingester.unregister-on-shutdown': $._config.unregister_ingesters_on_shutdown,
 
-      // Chunk building/flushing config.
-      'ingester.retain-period': '15m',
-      'ingester.max-chunk-age': '6h',
-
       // Limits config.
-      'ingester.max-chunk-idle': $._config.max_chunk_idle,
       'runtime-config.file': '/etc/cortex/overrides.yaml',
       'server.grpc-max-concurrent-streams': 10000,
       'server.grpc-max-send-msg-size-bytes': 10 * 1024 * 1024,
