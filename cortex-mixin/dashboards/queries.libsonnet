@@ -46,12 +46,18 @@ local utils = import 'mixin-utils/utils.libsonnet';
       )
       .addPanel(
         $.panel('Results Cache Hit %') +
-        $.queryPanel('sum(rate(cortex_cache_hits{name=~"frontend.+", %s}[1m])) / sum(rate(cortex_cache_fetched_keys{name=~"frontend.+", %s}[1m]))' % [$.jobMatcher($._config.job_names.query_frontend), $.jobMatcher($._config.job_names.query_frontend)], 'Hit Rate') +
+        $.queryPanel(|||
+          sum(rate(cortex_cache_hits{name=~"frontend.+", %(q)s}[1m])) / sum(rate(cortex_cache_fetched_keys{name=~"frontend.+", %(q)s}[1m])) or
+          sum(rate(cortex_cache_hits_total{name=~"frontend.+", %(q)s}[1m])) / sum(rate(cortex_cache_fetched_keys_total{name=~"frontend.+", %(q)s}[1m]))
+        ||| % { q: $.jobMatcher($._config.job_names.query_frontend) }, 'Hit Rate') +
         { yaxes: $.yaxes({ format: 'percentunit', max: 1 }) },
       )
       .addPanel(
         $.panel('Results Cache misses') +
-        $.queryPanel('sum(rate(cortex_cache_fetched_keys{name=~"frontend.+", %s}[1m])) - sum(rate(cortex_cache_hits{name=~"frontend.+", %s}[1m]))' % [$.jobMatcher($._config.job_names.query_frontend), $.jobMatcher($._config.job_names.query_frontend)], 'Miss Rate'),
+        $.queryPanel(|||
+          sum(rate(cortex_cache_fetched_keys{name=~"frontend.+", %(q)s}[1m])) - sum(rate(cortex_cache_hits{name=~"frontend.+", %(q)s}[1m])) or
+          sum(rate(cortex_cache_fetched_keys_total{name=~"frontend.+", %(q)s}[1m])) - sum(rate(cortex_cache_hits_total{name=~"frontend.+", %(q)s}[1m]))
+        ||| % { q: $.jobMatcher($._config.job_names.query_frontend) }, 'Miss Rate'),
       )
     )
     .addRow(
@@ -94,7 +100,10 @@ local utils = import 'mixin-utils/utils.libsonnet';
       )
       .addPanel(
         $.panel('Chunk cache misses') +
-        $.queryPanel('sum(rate(cortex_cache_fetched_keys{%s,name="chunksmemcache"}[1m])) - sum(rate(cortex_cache_hits{%s,name="chunksmemcache"}[1m]))' % [$.jobMatcher($._config.job_names.querier), $.jobMatcher($._config.job_names.querier)], 'Hit rate'),
+        $.queryPanel(|||
+          sum(rate(cortex_cache_fetched_keys{%(q)s,name="chunksmemcache"}[1m])) - sum(rate(cortex_cache_hits{%(q)s,name="chunksmemcache"}[1m])) or
+          sum(rate(cortex_cache_fetched_keys_total{%(q)s,name="chunksmemcache"}[1m])) - sum(rate(cortex_cache_hits_total{%(q)s,name="chunksmemcache"}[1m]))
+        ||| % { q: $.jobMatcher($._config.job_names.query_frontend) }, 'Hit rate'),
       )
       .addPanel(
         $.panel('Chunk cache corruptions') +
