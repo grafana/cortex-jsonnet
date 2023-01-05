@@ -5,6 +5,7 @@
 * [CHANGE] Updated readme to use this repo with tanka
 * [CHANGE] Removed chunks support
 * [CHANGE] Use integrated cortex overrides exporter
+* [CHANGE] Use default remote timeout in distributors
 * [ENHANCEMENT] Added main.jsonnet examples for azure, gcs and s3
 * [ENHANCEMENT] How to rename buckets in AWS and Azure for `not healthy index found` playbook. #5
 * [ENHANCEMENT] Support new metrics cortex_cache_fetched_keys_total and cortex_cache_fetched_keys_total
