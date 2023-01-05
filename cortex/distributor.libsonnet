@@ -13,7 +13,6 @@
       'validation.reject-old-samples': true,
       'validation.reject-old-samples.max-age': '12h',
       'runtime-config.file': '/etc/cortex/overrides.yaml',
-      'distributor.remote-timeout': '20s',
 
       'distributor.ha-tracker.enable': true,
       'distributor.ha-tracker.enable-for-all-users': true,
